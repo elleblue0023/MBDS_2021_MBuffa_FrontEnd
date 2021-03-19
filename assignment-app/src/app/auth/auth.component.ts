@@ -52,7 +52,8 @@ export class AuthComponent implements OnInit {
             let snackBarData = {
               snackBar: this._snackBar,
               message: error.userMessage,
-              action: "OK"
+              action: "OK",
+              status: "warning"
             }
             this.designUtilService.openSnackBar(snackBarData)
             this.loginForm.reset();

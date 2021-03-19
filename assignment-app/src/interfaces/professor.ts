@@ -5,5 +5,5 @@ export interface Professor {
     email: string;
     password: string;
     isConnected: boolean;
-    occupation : [{course: string, class: string}];
+    occupation : [{course: string, promotion: string}];
 }

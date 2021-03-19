@@ -1,4 +1,102 @@
 /* You can add global styles to this file, and also import other style files */
+@import "assets/css/bootstrap-utilities.min.css";
+@import "assets/css/bootstrap-grid.min.css";
+
+@font-face {
+    font-family: 'ArialRounded';
+    src: url('/assets/fonts/ArialRounded/ArialRounded.ttf'); /* IE9 Compat Modes */
+    src: url('/assets/fonts/ArialRounded/ArialRounded.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/assets/fonts/ArialRounded/ArialRounded.woff') format('woff'), /* Modern Browsers */
+    url('/assets/fonts/ArialRounded/ArialRounded.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('/assets/fonts/ArialRounded/ArialRounded.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: 'Hiragino';
+    src: url('/assets/fonts/Hiragino/Hiragino.ttf'); /* IE9 Compat Modes */
+    src: url('/assets/fonts/Hiragino/Hiragino.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/assets/fonts/Hiragino/Hiragino.woff') format('woff'), /* Modern Browsers */
+    url('/assets/fonts/Hiragino/Hiragino.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('/assets/fonts/Hiragino/Hiragino.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+*{
+    font-family: 'Hiragino', "Helvetica Neue", sans-serif; 
+}
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0;}
+
+.container {
+    padding: 5%;
+}
+
+.card-header .mat-card-title {
+    font-family: 'ArialRounded' !important;
+    text-align: center;
+}
+
+.mat-display-1 {
+    font-family: 'ArialRounded' !important;
+}
+.login-card {
+    margin: auto;
+    width: 500px;
+}
+
+.input-full-width {
+    width: 100%;
+}
+
+.input-half-width {
+    padding-left: 5%;
+    width: 80%;
+}
+
+.input-half {
+    width: 30%;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card-container {
+    width: 120px;
+}
+  
+
+.radio-margin {
+    margin: 0 10px;
+}
+
+
+/* SNACKBAR STYLE */
+.success-snackbar {
+    background-color: #9BBC4E;
+}
+.warning-snackbar {
+    background-color: #FD6524;
+}
+.info-snackbar {
+    background-color: #1F94BE;
+}
+
+.success-snackbar,
+.warning-snackbar,
+.info-snackbar {
+    color: #fff !important;
+    .mat-simple-snackbar .mat-simple-snackbar-action .mat-button {
+        color: #fff !important;
+    }
+    &:not(.lower) {
+        text-transform: uppercase !important;
+    }
+}
+
+.add-member-card {
+    margin: auto;
+    width: 900px;
+}
+

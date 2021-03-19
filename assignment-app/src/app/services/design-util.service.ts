@@ -38,6 +38,15 @@ export class DesignUtilService {
         );
         break;
     }
-    
+  }
+
+  openSnackBarFillForms(_snackBar: MatSnackBar) {
+    _snackBar.open(
+      "Veuillez remplir les champs obligatoires !",
+      "OK", {
+        panelClass: ['warning-snackbar'],
+        duration: 3500,
+      }
+    );
   }
 }
