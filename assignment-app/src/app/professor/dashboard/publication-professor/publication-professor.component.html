@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <mat-list>
+                <mat-list-item *ngFor="let n of [0,1,2,3,4]"> 
+                    <button mat-stroked-button class="normal-button" color="accent">
+                        <mat-icon aria-label="add">add</mat-icon>
+                        {{n}}
+                    </button> 
+                </mat-list-item>
+            </mat-list>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field class="input-half-width">
+                <mat-label> 
+                    <mat-icon aria-hidden="false">message</mat-icon>
+                    Votre message
+                </mat-label>
+                <textarea matInput placeholder="..."></textarea>
+                <!-- <mat-error *ngIf="addProfessorForm.controls['lastname'].hasError('required')">
+                    Champ obligatoire !
+                </mat-error> -->
+            </mat-form-field>
+
+            <div class="flex-container">
+                <!-- Occupation --->
+                <mat-form-field class="input-half">
+                    <mat-label>
+                        <mat-icon aria-hidden="false">cases</mat-icon>
+                        Cours
+                    </mat-label>
+                    <mat-select name="cours">
+                    <mat-option *ngFor="let item of coursesList" [value]="item.name">
+                        {{item.name}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="input-half">
+                    <mat-label>
+                        <mat-icon aria-hidden="false">class</mat-icon>
+                        Promotions
+                    </mat-label>
+                    <mat-select name="promotion">
+                    <mat-option *ngFor="let item of promotionsList" [value]="item.name">
+                        {{item.name}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field class="input-half-width">
+                <mat-label> 
+                    <mat-icon aria-hidden="false">calendar</mat-icon>
+                    Deadline du projet  
+                </mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            
+
+            <div class="row">
+                <button mat-flat-button class="rounded-button" color="primary">
+                    <mat-icon aria-label="add">add</mat-icon>
+                    Publier une ouvelle publication
+                </button> 
+            </div>
+        </div>
+    </div>
+</div>

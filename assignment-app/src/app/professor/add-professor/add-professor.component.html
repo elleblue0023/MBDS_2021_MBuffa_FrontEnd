@@ -1,7 +1,7 @@
 <div class="container">
     <div class="add-member-card">
 
-        <h1 class="mat-display-1">Nouveau professeur</h1>
+        <h1 class="mat-display-1 text-center">Nouveau professeur</h1>
         
         <!-- Lastname --->
         <mat-form-field class="input-half-width">
@@ -129,16 +129,27 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-offset-4 col-md-">
+        <div class="row m-4">
+            <div class="col-md-6">
+            </div>
+        
+            <div class="col-md-3 text-center">
+                <a routerLink="/" mat-flat-button color="warn" class="rounded-button">
+                    Se connecter
+                </a> 
+            </div>
+
+            <div class="col-md-3 text-center">
                 <button 
-                    mat-raised-button 
+                    mat-flat-button 
                     color="primary"
+                    class="rounded-button"
                     (click) = "onAddProfessor()"
                 >
                     S'inscrire
                 </button>
             </div>
+            
         </div>
     </div>
 </div>

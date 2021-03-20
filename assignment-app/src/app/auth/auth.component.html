@@ -42,14 +42,19 @@
                 </mat-radio-group>
             </section>
 
-            <mat-card-actions class="text-end">
-                <button mat-stroked-button color="warn">
-                    <mat-icon aria-hidden="false" aria-label="home icon">check</mat-icon> Se connecter
-                </button>
-
-                <a routerLink="/professor/create-account" mat-stroked-button color="warn">
-                    <mat-icon aria-hidden="false" aria-label="home icon">sticky_note_2</mat-icon>S'inscrire
-                </a>         
+            <mat-card-actions class="text-end m-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button mat-flat-button color="warn" class="rounded-button">
+                            <mat-icon aria-hidden="false" aria-label="home icon">check</mat-icon> Se connecter
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <a routerLink="/professor/create-account" mat-flat-button color="primary" class="rounded-button">
+                            S'inscrire
+                        </a> 
+                    </div>
+                </div>   
             </mat-card-actions>
         </form>
     </mat-card>
