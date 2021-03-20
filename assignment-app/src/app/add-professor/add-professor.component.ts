@@ -4,11 +4,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Course } from 'src/interfaces/course';
 import { Promotion } from 'src/interfaces/promotion';
-import { ErrorTracker } from '../../models/error-tracker';
-import { Professor } from '../../models/professor';
-import { DesignUtilService } from '../../services/design-util.service';
-import { ProfessorService } from '../../services/professor.service';
-import { UtilsService } from '../../services/utils.service';
+import { ErrorTracker } from '../models/error-tracker';
+import { Professor } from '../models/professor';
+import { DesignUtilService } from '../services/design-util.service';
+import { ProfessorService } from '../services/professor.service';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   selector: 'app-add-professor',

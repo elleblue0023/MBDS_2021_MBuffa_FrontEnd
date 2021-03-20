@@ -27,8 +27,7 @@ html, body { height: 100%; }
 body { margin: 0;}
 
 .container {
-    padding: 3%;
-    width: 100%;
+    padding: 5%;
 }
 
 .card-header .mat-card-title {
@@ -99,38 +98,5 @@ body { margin: 0;}
 .add-member-card {
     margin: auto;
     width: 900px;
-    border: .5px solid #3F3F3F;
-    padding: 5%;
-    border-radius: 2%;
 }
 
-.rounded-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 30px;
-    cursor: pointer;
-    padding: 10px;
-    color: #f1f1f1;
-    text-align: center;
-    line-height: 80px;
-    border-radius: 50px !important;
-    width: 100%;
-}
-.normal-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 30px;
-    cursor: pointer;
-    padding: 10px;
-    color: #f1f1f1;
-    text-align: center;
-    line-height: 80px;
-    width: 100%;
-}
-
-.button-toggle-label {
-    display: inline-block;
-    margin: 16px;
-  }
