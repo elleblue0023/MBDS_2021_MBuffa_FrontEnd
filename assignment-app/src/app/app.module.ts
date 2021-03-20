@@ -4,8 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthComponent } from './auth/auth.component';
-import { AddProfessorComponent } from './add-professor/add-professor.component';
+
 
 /** Import des modules angular */
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +19,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -30,6 +33,14 @@ import { AddHeaderInterceptor } from '../interceptor/add-header.interceptor';
 /** Services */
 import { ErrorService } from './services/error.service';
 
+
+import { AuthComponent } from './auth/auth.component';
+import { AddProfessorComponent } from './professor/add-professor/add-professor.component';
+import { PublicationProfessorComponent } from './professor/dashboard/publication-professor/publication-professor.component';
+import { AboutDashboardComponent } from './professor/dashboard/about-dashboard/about-dashboard.component';
+import { DashboardProfessorComponent } from './professor/dashboard/dashboard-professor/dashboard-professor.component';
+
+
 const routes:Routes = [
   {
     path:'',
@@ -37,13 +48,19 @@ const routes:Routes = [
   }, {
     path: 'professor/create-account',
     component: AddProfessorComponent
+  }, {
+    path: 'professor/dashboard',
+    component: DashboardProfessorComponent
   }
 ]
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    AddProfessorComponent
+    AddProfessorComponent,
+    PublicationProfessorComponent,
+    DashboardProfessorComponent,
+    AboutDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +77,10 @@ const routes:Routes = [
     MatSelectModule,
     MatDividerModule,
     MatListModule,
+    MatButtonToggleModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
     BrowserAnimationsModule,
     HttpClientModule,
