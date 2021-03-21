@@ -1,0 +1,56 @@
+<div class="container">
+    <mat-card class="login-card">
+        <mat-card-header class="card-header">
+            <mat-card-title>Se connecter</mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="loginForm" 
+            class="form" 
+            (ngSubmit)="onLogin()"
+        >
+            <mat-card-content>
+                <mat-form-field class="input-full-width">
+                    <mat-label>Email</mat-label>
+                    <input  
+                        matInput
+                        [formControl] = "loginForm.controls['email']" 
+                        type="email" 
+                        name="email"
+                    >
+                    <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+                        Champ obligatoire, entrez un email valide !
+                      </mat-error>
+
+                </mat-form-field>
+                <mat-form-field class="input-full-width">
+                    <mat-label>Mot de passe</mat-label>
+                    <input  
+                        matInput
+                        [formControl] = "loginForm.controls['password']" 
+                        type="password" 
+                        name="password"
+                    >
+                    <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+                        Champ obligatoire !
+                      </mat-error>
+                </mat-form-field>
+            </mat-card-content>
+            
+            <section class="example-section">
+                <mat-radio-group [formControl] = "loginForm.controls['statut']"  name="statut">
+                    <mat-radio-button class="radio-margin" value="professor">Professeur</mat-radio-button>
+                    <mat-radio-button class="radio-margin" value="student">Etudiant</mat-radio-button>
+                </mat-radio-group>
+            </section>
+
+            <mat-card-actions class="text-end">
+                <button mat-stroked-button color="warn">
+                    <mat-icon aria-hidden="false" aria-label="home icon">check</mat-icon> Se connecter
+                </button>
+
+                <a routerLink="/professor/create-account" mat-stroked-button color="warn">
+                    <mat-icon aria-hidden="false" aria-label="home icon">sticky_note_2</mat-icon>S'inscrire
+                </a>         
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</div>

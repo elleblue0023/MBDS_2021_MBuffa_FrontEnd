@@ -1,7 +1,7 @@
 import { Student } from "./student";
 
 export interface Assignment {
-    _id: string;
+    _id?: any;
     student: Student; 
 	promotionName: string;
 	courseName: string;

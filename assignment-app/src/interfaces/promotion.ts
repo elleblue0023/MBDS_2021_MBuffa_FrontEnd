@@ -1,4 +1,4 @@
 export interface Promotion {
-    _id: string;
+    _id?: any;
     name: string;
 }
