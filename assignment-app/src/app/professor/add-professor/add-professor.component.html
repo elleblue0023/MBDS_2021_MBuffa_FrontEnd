@@ -1,7 +1,11 @@
 <div class="container">
-    <div class="add-member-card">
+    <div class="add-card">
 
         <h1 class="mat-display-1 text-center">Nouveau professeur</h1>
+        
+
+        <form [formGroup]="addProfessorForm" (ngSubmit)="onAddProfessor()">
+            
         
         <!-- Lastname --->
         <mat-form-field class="input-half-width">
@@ -71,8 +75,6 @@
                 </mat-error>
         </mat-form-field>
 
-
-
         <div class="flex-container">
             <!-- Occupation --->
             <mat-form-field class="input-half">
@@ -141,16 +143,16 @@
 
             <div class="col-md-3 text-center">
                 <button 
+                    type="submit"
                     mat-flat-button 
                     color="primary"
                     class="rounded-button"
-                    (click) = "onAddProfessor()"
                 >
                     S'inscrire
                 </button>
             </div>
-            
         </div>
+    </form>
     </div>
 </div>
 

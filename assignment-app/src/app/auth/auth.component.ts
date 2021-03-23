@@ -46,9 +46,14 @@ export class AuthComponent implements OnInit {
           (loggedData) => {
             if (loggedData.token) {
               console.log("Professor logged in");
+              localStorage.setItem("token", loggedData.token);
+              this.router.navigateByUrl(`/professor/dashboard`);
             }
           },
           (error: ErrorTracker) => {
+            if (error.errorNumber == 400) {
+              error.userMessage = "Email ou mot de passe incorrect ! "
+            }
             let snackBarData = {
               snackBar: this._snackBar,
               message: error.userMessage,

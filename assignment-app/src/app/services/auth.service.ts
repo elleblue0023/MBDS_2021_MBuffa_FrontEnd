@@ -15,11 +15,10 @@ export class AuthService {
   ) { }
 
   loginProfessor(paramsLogin: any) {
-    const userMessage = "Veuillez revérifier vos identifiants et réessayez plus tard !";
     const headersContent = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
     return this.http.post<any>(`${this.uri}/professor/login`, paramsLogin, {headers: headersContent})
       .pipe(
-        catchError(err => this.errorService.handleHttpError(err, userMessage))
+        catchError(err => this.errorService.handleHttpError(err))
       )
   }
 }

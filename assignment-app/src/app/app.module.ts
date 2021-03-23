@@ -23,11 +23,14 @@ import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatBadgeModule } from "@angular/material/badge";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AddHeaderInterceptor } from '../interceptor/add-header.interceptor';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 /** Services */
@@ -81,9 +84,13 @@ const routes:Routes = [
     MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatBadgeModule,
+    MatExpansionModule,
 
     BrowserAnimationsModule,
     HttpClientModule,
+
+    CKEditorModule,
 
     RouterModule.forRoot(routes)
 

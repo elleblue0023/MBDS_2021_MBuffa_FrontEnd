@@ -1,4 +1,5 @@
 export class Professor {
+    _id: any;
     lastname!: string;
     surname!: string;
     email!: string;

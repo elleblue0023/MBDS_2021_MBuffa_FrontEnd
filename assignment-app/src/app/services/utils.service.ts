@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Course } from 'src/interfaces/course';
-import { Promotion } from 'src/interfaces/promotion';
+import { ICourse } from 'src/interfaces/course';
+import { IPromotion } from 'src/interfaces/promotion';
 import { ErrorTracker } from '../models/error-tracker';
 import { ErrorService } from './error.service';
+import { formatDate } from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
@@ -19,18 +20,22 @@ export class UtilsService {
   ) { }
 
   getAllCourse() {
-    const userMessage = "Une erreur s'est produite lors de la récupération de la liste des cours";
-    return this.http.get<Course[]>(`${this.uri}/courses`)
+    return this.http.get<ICourse[]>(`${this.uri}/courses`)
       .pipe(
-        catchError(err => this.errorService.handleHttpError(err, err.message))
+        catchError(err => this.errorService.handleHttpError(err))
       )
   }
 
   getAllPromotion() {
-    const userMessage = "Une erreur s'est produite lors de la récupération de la liste des promotions";
-    return this.http.get<Promotion[]>(`${this.uri}/promotions`)
+    return this.http.get<IPromotion[]>(`${this.uri}/promotions`)
       .pipe(
-        catchError(err => this.errorService.handleHttpError(err, userMessage))
+        catchError(err => this.errorService.handleHttpError(err))
       )
+  }
+
+  formatDate(dateToFormat: string) {
+    const format = 'yyyy-MM-dd';
+    const locale = 'en-US';
+    return formatDate(dateToFormat, format, locale);
   }
 }

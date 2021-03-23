@@ -31,6 +31,7 @@ body { margin: 0;}
     width: 100%;
 }
 
+
 .card-header .mat-card-title {
     font-family: 'ArialRounded' !important;
     text-align: center;
@@ -96,7 +97,7 @@ body { margin: 0;}
     }
 }
 
-.add-member-card {
+.add-card {
     margin: auto;
     width: 900px;
     border: .5px solid #3F3F3F;
@@ -117,6 +118,8 @@ body { margin: 0;}
     border-radius: 50px !important;
     width: 100%;
 }
+
+
 .normal-button {
     display: flex;
     align-items: center;
@@ -133,4 +136,34 @@ body { margin: 0;}
 .button-toggle-label {
     display: inline-block;
     margin: 16px;
-  }
+}
+
+.professor-publication {
+    padding: inherit !important;
+}
+
+.occupation-professor-publication {
+    background-color: #3F3F3F;
+    color: white;
+    padding: .5%;
+    font-family: 'ArialRounded' !important;
+    text-align: center;
+}
+
+.card-professor-publication {
+    padding: .5%;
+}
+
+.subtitle-professor-publication {
+    color: #FD6524;
+    font-family: 'ArialRounded' !important;
+    font-weight: bold !important;
+}
+
+.content-professor-publication {
+    border: .5px solid #3F3F3F;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding: 2px 15px;
+}
+

@@ -1,4 +1,4 @@
-export interface Promotion {
+export interface IPromotion {
     _id?: any;
     name: string;
 }

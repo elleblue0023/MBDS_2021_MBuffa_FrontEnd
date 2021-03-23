@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Course } from 'src/interfaces/course';
-import { Promotion } from 'src/interfaces/promotion';
+import { ICourse } from 'src/interfaces/course';
+import { IPromotion } from 'src/interfaces/promotion';
 import { ErrorTracker } from '../../models/error-tracker';
 import { Professor } from '../../models/professor';
 import { DesignUtilService } from '../../services/design-util.service';
@@ -19,8 +19,8 @@ export class AddProfessorComponent implements OnInit {
 
   addProfessorForm: FormGroup;
 
-  coursesList: Course[] = [];
-  promotionsList: Promotion[] = [];
+  coursesList: ICourse[] = [];
+  promotionsList: IPromotion[] = [];
 
   occupationList: any[] = [];
   

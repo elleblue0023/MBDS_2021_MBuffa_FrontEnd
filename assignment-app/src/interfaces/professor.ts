@@ -1,4 +1,4 @@
-export interface Professor {
+export interface IProfessor {
     _id: any;
     lastname: string;
     surname: string;

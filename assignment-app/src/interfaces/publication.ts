@@ -1,8 +1,7 @@
-import { Professor } from "./professor";
-
-export interface Publication {
+import { IProfessor } from "./professor";
+export interface IPublication {
     _id: any;
-    professor: Professor;
+    professor: IProfessor;
     message: string;
     class: string;
     course: string;
