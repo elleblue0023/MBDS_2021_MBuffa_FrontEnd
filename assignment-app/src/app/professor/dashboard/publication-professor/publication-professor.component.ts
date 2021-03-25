@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ErrorTracker } from 'src/app/models/error-tracker';
@@ -8,6 +9,7 @@ import { DesignUtilService } from 'src/app/services/design-util.service';
 import { ProfessorService } from 'src/app/services/professor.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { IPublication } from 'src/interfaces/publication';
+import { DialogPublicationProfessorComponent } from './dialog-publication-professor/dialog-publication-professor.component';
 
 
 @Component({
@@ -25,14 +27,20 @@ export class PublicationProfessorComponent implements OnInit {
   addPublicationForm: FormGroup;
 
   message: string = "";
+  currentDate: Date = new Date();
 
+  editedMessage: string = "";
+
+  ACTION = "edit";
+  COMPONENT = "publication-professor";
 
   constructor(
     private router: Router,
     private designUtilService: DesignUtilService,
     private professorService: ProfessorService,
     private _snackBar: MatSnackBar,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private _dialog: MatDialog
   ) {
     this.addPublicationForm = new FormGroup({
       message: new FormControl('', Validators.required),
@@ -79,6 +87,9 @@ export class PublicationProfessorComponent implements OnInit {
     )
   }
 
+  isValidDeadline(date: Date) {
+    return date.setHours(0,0,0,0) > new Date().setHours(0,0,0,0)
+  };
 
   ngOnInit(): void {
     this.getCurrentProfessor();
@@ -118,6 +129,30 @@ export class PublicationProfessorComponent implements OnInit {
         }
       )
     }
+  }
+
+  openDialogEditPublication(id: any) {
+    this.professorService.getCurrentPublication(id).subscribe(
+      (currentDataPublication) => {        
+        const dialogData = {
+          _dialog: this._dialog,
+          action: this.ACTION,
+          component: this.COMPONENT,
+          data: currentDataPublication
+        }
+        this.professorService.openDialog(dialogData);
+      },
+      (error: ErrorTracker) => {
+        let snackBarData = {
+          snackBar: this._snackBar,
+          message: error.userMessage,
+          action: "OK",
+          status: "warning"
+        }
+        this.designUtilService.openSnackBar(snackBarData)
+      }
+    )
+
   }
 
 }

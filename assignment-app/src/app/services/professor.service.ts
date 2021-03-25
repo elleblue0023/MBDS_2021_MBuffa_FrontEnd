@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, retry } from 'rxjs/operators';
 import { IProfessor } from 'src/interfaces/professor';
 import { IPublication } from 'src/interfaces/publication';
+import { DialogPublicationProfessorComponent } from '../professor/dashboard/publication-professor/dialog-publication-professor/dialog-publication-professor.component';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -17,6 +18,19 @@ export class ProfessorService {
     private errorService: ErrorService
   ) { }
 
+
+  openDialog(inputDialogData: any) {    
+    const dialogRef = inputDialogData._dialog.open(DialogPublicationProfessorComponent, {
+      width: '100%',
+      padding: '5px',
+      data: inputDialogData
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    });
+  }
+  
   saveProfessor(paramsProfessor: any) {
     return this.http.post<any>(`${this.uri}/professors`, paramsProfessor, { headers: this.headerContent })
       .pipe(
@@ -43,5 +57,12 @@ export class ProfessorService {
     .pipe(
       catchError(err => this.errorService.handleHttpError(err))
     )
+  }
+
+  getCurrentPublication(id: any) {
+    return this.http.get<IPublication>(`${this.uri}/professor/current-publication/${id}`)
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      )
   }
 }

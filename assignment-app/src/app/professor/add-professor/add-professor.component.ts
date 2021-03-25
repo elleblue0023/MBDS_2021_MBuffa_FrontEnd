@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -13,7 +13,8 @@ import { UtilsService } from '../../services/utils.service';
 @Component({
   selector: 'app-add-professor',
   templateUrl: './add-professor.component.html',
-  styleUrls: ['./add-professor.component.scss']
+  styleUrls: ['./add-professor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AddProfessorComponent implements OnInit {
 

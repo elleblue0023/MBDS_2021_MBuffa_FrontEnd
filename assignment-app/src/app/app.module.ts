@@ -19,12 +19,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-import { MatButtonToggleModule } from "@angular/material/button-toggle";
-import { MatTabsModule } from "@angular/material/tabs";
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatBadgeModule } from "@angular/material/badge";
-import { MatExpansionModule } from "@angular/material/expansion";
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -42,6 +44,7 @@ import { AddProfessorComponent } from './professor/add-professor/add-professor.c
 import { PublicationProfessorComponent } from './professor/dashboard/publication-professor/publication-professor.component';
 import { AboutDashboardComponent } from './professor/dashboard/about-dashboard/about-dashboard.component';
 import { DashboardProfessorComponent } from './professor/dashboard/dashboard-professor/dashboard-professor.component';
+import { DialogPublicationProfessorComponent } from './professor/dashboard/publication-professor/dialog-publication-professor/dialog-publication-professor.component';
 
 
 const routes:Routes = [
@@ -63,7 +66,8 @@ const routes:Routes = [
     AddProfessorComponent,
     PublicationProfessorComponent,
     DashboardProfessorComponent,
-    AboutDashboardComponent
+    AboutDashboardComponent,
+    DialogPublicationProfessorComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +90,8 @@ const routes:Routes = [
     MatNativeDateModule,
     MatBadgeModule,
     MatExpansionModule,
+    MatToolbarModule,
+    MatDialogModule,
 
     BrowserAnimationsModule,
     HttpClientModule,

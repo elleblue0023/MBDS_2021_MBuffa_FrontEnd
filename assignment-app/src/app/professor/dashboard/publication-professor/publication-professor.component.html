@@ -4,7 +4,7 @@
 
             <mat-form-field class="col-md-12 p-3">
                 <mat-label> 
-                    <mat-icon aria-hidden="false">message</mat-icon>
+                    <mat-icon aria-hidden="false">mode_comment</mat-icon>
                     Description du projet
                 </mat-label>
                 <textarea 
@@ -73,6 +73,7 @@
         </form>
     </div>
 
+
     <div class="row">
         <div class="col-md-12">
             <button 
@@ -88,22 +89,31 @@
         <div class="col-md-12">
 
             <div class="col-md-12 mb-3" *ngFor="let item of myPublications" [value]="item._id">
+
+                <!-- <div *ngIf="item.deadline < this.currentDate; else done_assignment">
+                    NonValid {{item.deadline | date}}
+                </div>
+
+                <ng-template #done_assignment>
+                    Valid {{item.deadline | date}}
+                </ng-template> -->
+
                 <div class="col">
                     <div class="card-professor-publication">
                         <div class="row">
                             <div class="col-md-3 occupation-professor-publication">
                                 <h2>{{item.promotionName}}</h2>
                                 <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
-                                <h4 class="text-white"><mat-icon aria-hidden="false">calendar_today</mat-icon>&nbsp; {{item.deadline | date}}</h4>
+                                <h4 class="text-white"><mat-icon aria-hidden="false">event_available</mat-icon>&nbsp; {{item.deadline | date}}</h4>
                                 
                                 <div class="content-professor-publication-reaction">
                                     <button mat-icon-button aria-label="Example icon button with a home icon">
-                                        <mat-icon class="m-2" matBadge="15" matBadgeColor="warn">home</mat-icon>
+                                        <mat-icon class="m-2" matBadge="15" matBadgeColor="warn">assignment_returned</mat-icon>
                                     </button>
                                     
                                     
                                     <button mat-icon-button aria-label="Example icon button with a home icon">
-                                        <mat-icon class="m-2" matBadge="15" matBadgeColor="warn">home</mat-icon>
+                                        <mat-icon class="m-2" (click)="openDialogEditPublication(item._id)">mode_edit</mat-icon>
                                     </button>
                                 </div>
                             </div>
