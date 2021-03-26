@@ -7,17 +7,21 @@ import { IPromotion } from 'src/interfaces/promotion';
 import { ErrorTracker } from '../models/error-tracker';
 import { ErrorService } from './error.service';
 import { formatDate } from "@angular/common";
+import { ConfigurationService } from './configuration.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  private readonly uri = 'http://localhost:3001/api';
+  
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private confiService: ConfigurationService
   ) { }
+
+  private readonly uri = this.confiService.getApiUrl();
 
   getAllCourse() {
     return this.http.get<ICourse[]>(`${this.uri}/courses`)

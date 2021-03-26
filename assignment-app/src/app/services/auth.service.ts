@@ -1,18 +1,20 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, retry } from 'rxjs/operators';
+import { ConfigurationService } from './configuration.service';
 import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly uri = 'http://localhost:3001/api';
-
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private confiService: ConfigurationService
   ) { }
+
+  private readonly uri = this.confiService.getApiUrl();
 
   loginProfessor(paramsLogin: any) {
     const headersContent = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});

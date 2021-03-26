@@ -4,21 +4,23 @@ import { catchError, retry } from 'rxjs/operators';
 import { IProfessor } from 'src/interfaces/professor';
 import { IPublication } from 'src/interfaces/publication';
 import { DialogPublicationProfessorComponent } from '../professor/dashboard/publication-professor/dialog-publication-professor/dialog-publication-professor.component';
+import { ConfigurationService } from './configuration.service';
 import { ErrorService } from './error.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfessorService {
-
-  private readonly uri = 'http://localhost:3001/api';
   private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private confiService: ConfigurationService
   ) { }
 
-
+  private readonly uri = this.confiService.getApiUrl();
+  
   openDialog(inputDialogData: any) {    
     const dialogRef = inputDialogData._dialog.open(DialogPublicationProfessorComponent, {
       width: '100%',
