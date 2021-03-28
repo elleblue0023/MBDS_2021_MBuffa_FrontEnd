@@ -1,5 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DesignUtilService } from 'src/app/services/design-util.service';
+import { ProfessorService } from 'src/app/services/professor.service';
 
 @Component({
   selector: 'app-dialog',
@@ -12,26 +16,32 @@ export class DialogPublicationProfessorComponent implements OnInit {
   action: string = "";
   component: string = "";
 
-  dataEditProfessorPublication = {
-    id: "",
-    message: ""
-  }
 
-
+  formEditDialog: FormGroup | undefined;
+  
   constructor(
     public _dialogRef: MatDialogRef<DialogPublicationProfessorComponent>,
+    public _snackBar: MatSnackBar,
+    public designUtilService: DesignUtilService,
+    public professorService: ProfessorService,
     @Inject(MAT_DIALOG_DATA) public dataDialog: any
-  ) { }
+  ) { 
+  }
 
   ngOnInit(): void {
     this.data = this.dataDialog.data;
     this.action = this.dataDialog.action;
     this.component = this.dataDialog.component;
+
+    this.formEditDialog = new FormGroup({
+      id: new FormControl(this.data._id),
+      message: new FormControl(this.data.message, Validators.required)
+    })
   }
 
   onEditPublicationProfessor() {
-    this.dataEditProfessorPublication.id = this.data._id;
-    this.dataEditProfessorPublication.message = this.data.message;
-    this._dialogRef.close(this.dataEditProfessorPublication);
+    if (this.formEditDialog?.valid) {
+      this._dialogRef.close(this.formEditDialog?.value);
+    }
   }
 }

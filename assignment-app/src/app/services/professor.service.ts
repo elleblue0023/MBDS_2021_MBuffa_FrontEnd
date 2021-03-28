@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, retry } from 'rxjs/operators';
 import { IProfessor } from 'src/interfaces/professor';
 import { IPublication } from 'src/interfaces/publication';
@@ -15,7 +16,8 @@ export class ProfessorService {
   private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private router: Router
   ) { }
 
 
@@ -26,8 +28,12 @@ export class ProfessorService {
       data: inputDialogData
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+    dialogRef.afterClosed().subscribe(formEditDialogData => {
+      this.updatePublication(formEditDialogData).subscribe(
+        (data) => {
+          this.router.navigateByUrl(`/professor/dashboard`);
+        }
+      ) 
     });
   }
   
@@ -64,5 +70,12 @@ export class ProfessorService {
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
       )
+  }
+
+  updatePublication(paramsPublicationEdit: any) {
+    return this.http.post<any>(`${this.uri}/professor/publication`, paramsPublicationEdit, {headers: this.headerContent})
+    .pipe(
+      catchError(err => this.errorService.handleHttpError(err))
+    )
   }
 }

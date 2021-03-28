@@ -1,43 +1,30 @@
 <div *ngIf="component=='publication-professor'">
-    <div *ngIf="action=='edit'">
+  <div *ngIf="action=='edit'">
+    <form [formGroup]="formEditDialog" class="form" (ngSubmit)="onEditPublicationProfessor()">
       <h2 mat-dialog-title>Editer la publication </h2>
-        <mat-dialog-content class="mat-typography">
-          <div class="row">
-            <mat-form-field class="col-md-12 p-3">
-              <mat-label> 
-                  <mat-icon aria-hidden="false">mode_comment</mat-icon>
-                  Description du projet
-              </mat-label>
-              <textarea 
-                  class="input-full-width"
-                  matInput 
-                  placeholder="..." 
-                  cols="10"
-                  rows="5"
-                  value="{{data.message}}"
-              ></textarea>
+      <mat-dialog-content class="mat-typography">
+        <div class="row">
+          <mat-form-field class="col-md-12 p-3">
+            <mat-label>
+              <mat-icon aria-hidden="false">mode_comment</mat-icon>
+              Description du projet
+            </mat-label>
+            <textarea class="input-full-width" matInput placeholder="..." cols="10" rows="5"
+              [formControl]="formEditDialog.controls['message']"></textarea>
           </mat-form-field>
-          </div>
-        </mat-dialog-content>
-        <mat-dialog-actions align="end">          
-          <button 
-            mat-fab 
-            color="warn" 
-            class="rounded-button"
-            mat-dialog-close
-          >
-            <mat-icon>cancel</mat-icon>
-          </button>
-
-          <button 
-            mat-fab 
-            color="primary"
-            cdkFocusInitial
-            (click)="onEditPublicationProfessor()"
-          >
-            <mat-icon>check</mat-icon>
-          </button>
-        </mat-dialog-actions>
-    </div>
+          <mat-error *ngIf="formEditDialog.controls['message'].hasError('required')">
+            Champ obligatoire !
+        </mat-error>
+        </div>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-fab color="warn" class="rounded-button" mat-dialog-close>
+          <mat-icon>cancel</mat-icon>
+        </button>
+        <button mat-fab color="primary" cdkFocusInitial>
+          <mat-icon>check</mat-icon>
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </div>
 </div>
-
