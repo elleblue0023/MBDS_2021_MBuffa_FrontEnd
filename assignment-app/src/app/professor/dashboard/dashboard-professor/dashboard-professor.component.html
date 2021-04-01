@@ -1,12 +1,14 @@
-<mat-toolbar color="primary">
-  <img src="../../../../assets/images/shiba1.jpg" alt="" width="80" class="rounded-circle">
+<mat-toolbar class="theme-primary">
+  <img src="../../../../assets/images/shiba1.jpg" alt="" width="100" class="rounded-circle toolbar">
  <span class="spacer"></span>
- <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-  <mat-icon>logout</mat-icon>
-</button>
+
+ {{currentProfessor?.lastname}}
+  <button mat-icon-button>
+    <mat-icon (click) = "OnLogOut()">logout</mat-icon>
+  </button>
 </mat-toolbar>
 
-<mat-tab-group mat-align-tabs="center" color="primary" backgroundColor="primary">
+<mat-tab-group mat-align-tabs="center" color="primary" backgroundColor="default">
   <mat-tab label="A propos">
     <app-about-dashboard></app-about-dashboard>
   </mat-tab>

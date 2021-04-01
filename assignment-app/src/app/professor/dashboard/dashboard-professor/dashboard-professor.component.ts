@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ProfessorService } from 'src/app/services/professor.service';
 
 @Component({
   selector: 'app-dashboard-professor',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardProfessorComponent implements OnInit {
 
-  constructor() { }
+  currentProfessor: any;
+
+  constructor(
+    private _logOutDialog: MatDialog,
+    private professorService: ProfessorService
+  ) { }
 
   ngOnInit(): void {
+    this.professorService.getCurrentProfessor().subscribe(
+      (current) => {   
+        this.currentProfessor = current;
+      }
+    )
   }
-
+  
+  OnLogOut() {
+    let data = {
+      _dialog: this._logOutDialog
+    }
+    this.professorService.openLogOutDialog(data)
+  }
 }

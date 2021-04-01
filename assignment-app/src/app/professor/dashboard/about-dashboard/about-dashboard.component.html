@@ -1,1 +1,113 @@
-<p>about-dashboard works!</p>
+<div class="body-container">
+    <div class="row">
+        <div class="col-md-5" style="text-align: center;">
+            <img src="../../../../assets/images/shiba1.jpg" alt="" width="250">
+
+            <div class="profil-image-footer">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-1">
+                        <button 
+                            mat-fab 
+                            color="primary" 
+                            (click)="updateAbout()"
+                            aria-label="edit icon">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-md-1">
+                        <button 
+                            mat-fab 
+                            color="warn" 
+                            aria-label="add_a_photo icon">
+                            <mat-icon>add_a_photo</mat-icon>
+                          </button>
+                    </div>
+                    <div class="col-md-1">
+                        <button 
+                            mat-fab 
+                            color="accent" 
+                            aria-label="delete icon">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7 about" *ngIf="!updateStatus; else about">
+           <h1 class="mat-display-1"> {{name}} </h1>
+
+           <div class="row">
+               <div class="col-md-4 text-right">
+                   <mat-icon>email</mat-icon>
+               </div>
+               <div class="col-md-8">
+                   {{email}}
+               </div>
+           </div>
+
+        </div>
+
+        <ng-template #about>
+            <div class="col-md-7 update-about">
+                <form [formGroup]="updateAboutForm" 
+                    class="form" 
+                    (ngSubmit)="onUpdate()"
+                >
+
+                <mat-form-field class="input-full-width">
+                    <mat-label>Nom</mat-label>
+                    <input  
+                        matInput
+                        [formControl] = "updateAboutForm.controls['lastname']" 
+                        type="text" 
+                        name="lastname"
+                    >
+                    <mat-error *ngIf="updateAboutForm.controls['lastname'].hasError('required')">
+                        Champ obligatoire !
+                      </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field class="input-full-width">
+                    <mat-label>Prénom</mat-label>
+                    <input  
+                        matInput
+                        [formControl] = "updateAboutForm.controls['surname']" 
+                        type="text" 
+                        name="surname"
+                    >
+                    <mat-error *ngIf="updateAboutForm.controls['surname'].hasError('required')">
+                        Champ obligatoire !
+                      </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="input-full-width">
+                    <mat-label>Email</mat-label>
+                    <input  
+                        matInput
+                        [formControl] = "updateAboutForm.controls['email']" 
+                        type="email" 
+                        name="email"
+                    >
+                    <mat-error *ngIf="updateAboutForm.controls['email'].hasError('required')">
+                        Champ obligatoire, entrez un email valide !
+                      </mat-error>
+                </mat-form-field>
+                <button 
+                    mat-fab 
+                    color="primary" 
+                    aria-label="edit icon">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                </form>
+                
+            </div>
+        </ng-template>
+
+    </div>
+</div>
+

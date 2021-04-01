@@ -1,61 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
 @import "assets/css/bootstrap-utilities.min.css";
 @import "assets/css/bootstrap-grid.min.css";
+@import "assets/fonts/Poppins/poppins.css";
 
-@font-face {
-    font-family: 'ArialRounded';
-    src: url('/assets/fonts/ArialRounded/ArialRounded.ttf'); /* IE9 Compat Modes */
-    src: url('/assets/fonts/ArialRounded/ArialRounded.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('/assets/fonts/ArialRounded/ArialRounded.woff') format('woff'), /* Modern Browsers */
-    url('/assets/fonts/ArialRounded/ArialRounded.ttf')  format('truetype'), /* Safari, Android, iOS */
-    url('/assets/fonts/ArialRounded/ArialRounded.svg#svgFontName') format('svg'); /* Legacy iOS */
-}
 
-@font-face {
-    font-family: 'Hiragino';
-    src: url('/assets/fonts/Hiragino/Hiragino.ttf'); /* IE9 Compat Modes */
-    src: url('/assets/fonts/Hiragino/Hiragino.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('/assets/fonts/Hiragino/Hiragino.woff') format('woff'), /* Modern Browsers */
-    url('/assets/fonts/Hiragino/Hiragino.ttf')  format('truetype'), /* Safari, Android, iOS */
-    url('/assets/fonts/Hiragino/Hiragino.svg#svgFontName') format('svg'); /* Legacy iOS */
-}
 *{
-    font-family: 'Hiragino', "Helvetica Neue", sans-serif; 
+    font-family: 'Poppins', "Helvetica Neue", sans-serif; 
 }
 
 html, body { height: 100%; }
 body { margin: 0;}
 
-.container {
-    padding: 3%;
-    width: 100%;
+.body-container {
+    margin: 3% !important;
+    width: 95% !important;
 }
 
 
 .card-header .mat-card-title {
-    font-family: 'ArialRounded' !important;
     text-align: center;
 }
 
 .mat-display-1 {
-    font-family: 'ArialRounded' !important;
+    font-weight: bold;
 }
-.login-card {
-    margin: auto;
-    width: 500px;
-}
+
 
 .input-full-width {
     width: 100%;
+    //font-family: 'PoppinsLight' !important;
 }
 
 .input-half-width {
     padding-left: 5%;
     width: 80%;
+    //font-family: 'PoppinsLight' !important;
 }
 
 .input-half {
     width: 30%;
+    //font-family: 'PoppinsLight' !important;
 }
 
 .flex-container {
@@ -97,74 +81,77 @@ body { margin: 0;}
     }
 }
 
-.add-card {
-    margin: auto;
-    width: 900px;
-    border: .5px solid #3F3F3F;
-    padding: 5%;
-    border-radius: 2%;
-}
-
-.rounded-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 30px;
-    cursor: pointer;
-    padding: 10px;
-    color: #f1f1f1;
-    text-align: center;
-    line-height: 80px;
-    border-radius: 50px !important;
-    width: 100%;
-}
-
-
-.normal-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 30px;
-    cursor: pointer;
-    padding: 10px;
-    color: #f1f1f1;
-    text-align: center;
-    line-height: 80px;
-    width: 100%;
-}
-
 .button-toggle-label {
     display: inline-block;
     margin: 16px;
 }
 
-.professor-publication {
-    padding: inherit !important;
+.uni-btn-primary {
+    width: 100%;
+    display: inline-block;
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 44px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #333333;
+    padding: 0 15px;
+    text-transform: uppercase;
+    border: solid 2px #3f97da !important;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s; 
+    &:hover {
+        color: #ffffff;
+        background-color: #3f97da;
+    }
 }
 
-.occupation-professor-publication {
-    background-color: #3F3F3F;
-    color: white;
-    padding: .5%;
-    font-family: 'ArialRounded' !important;
+.uni-btn-danger {
+    width: 100%;
+    display: inline-block;
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 44px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #333333;
+    padding: 0 15px;
+    text-transform: uppercase;
+    border: solid 2px #FD6524 !important;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s; 
+    &:hover {
+        color: #ffffff;
+        background-color: #FD6524;
+    }
+}
+
+.theme-primary {
+    background-color:#3f97da;
+    color: #ffffff
+}
+
+
+
+/**----------------------
+ *    TEXT ALIGN STYLES
+ *------------------------**/
+.text-right{
+    text-align: right;
+}
+
+.text-center{
     text-align: center;
 }
 
-.card-professor-publication {
-    padding: .5%;
+.text-left{
+    text-align: left;
 }
-
-.subtitle-professor-publication {
-    color: #FD6524;
-    font-family: 'ArialRounded' !important;
-    font-weight: bold !important;
-}
-
-.content-professor-publication {
-    border: .5px solid #3F3F3F;
-    color: #3F3F3F;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    padding: 2px 15px;
-}
-

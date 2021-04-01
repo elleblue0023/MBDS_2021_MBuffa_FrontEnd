@@ -45,6 +45,9 @@ import { PublicationProfessorComponent } from './professor/dashboard/publication
 import { AboutDashboardComponent } from './professor/dashboard/about-dashboard/about-dashboard.component';
 import { DashboardProfessorComponent } from './professor/dashboard/dashboard-professor/dashboard-professor.component';
 import { DialogPublicationProfessorComponent } from './professor/dashboard/publication-professor/dialog-publication-professor/dialog-publication-professor.component';
+import { DialogLogoutComponent } from './professor/dashboard/dialog-logout/dialog-logout.component';
+import { AuthGuard } from './services/auth.guard';
+import { ConvertmonthDatePipe } from './pipes/convert-monthDate.pipe';
 
 
 const routes:Routes = [
@@ -56,7 +59,8 @@ const routes:Routes = [
     component: AddProfessorComponent
   }, {
     path: 'professor/dashboard',
-    component: DashboardProfessorComponent
+    component: DashboardProfessorComponent,
+    canActivate: [AuthGuard]
   }
 ]
 @NgModule({
@@ -67,7 +71,9 @@ const routes:Routes = [
     PublicationProfessorComponent,
     DashboardProfessorComponent,
     AboutDashboardComponent,
-    DialogPublicationProfessorComponent
+    DialogPublicationProfessorComponent,
+    DialogLogoutComponent,
+    ConvertmonthDatePipe
   ],
   imports: [
     BrowserModule,

@@ -1,96 +1,68 @@
-<div class="container">
-    <div class="row mb-5">
-        <form [formGroup]="addPublicationForm" (ngSubmit)="onAddPublication()">
-
-            <mat-form-field class="col-md-12 p-3">
-                <mat-label> 
-                    <mat-icon aria-hidden="false">mode_comment</mat-icon>
-                    Description du projet
-                </mat-label>
-                <textarea 
-                    class="input-full-width"
-                    matInput 
-                    placeholder="..." 
-                    name="message"
-                    cols="20"
-                    rows="10"
-                    [formControl]="addPublicationForm.controls['message']"
-                ></textarea>
-                <mat-error *ngIf="addPublicationForm.controls['message'].hasError('required')">
-                    Veuillez renseigner le cours ainsi que la promotion concernée par le devoir
-                </mat-error>
-            </mat-form-field>
-            
-
-
-            <div class="row">
-                <!-- Occupation --->
-                <mat-form-field class="col-md-4 p-3">
-                    <mat-label>
-                        <mat-icon aria-hidden="false">cases</mat-icon>
-                        Cours / Promotions
-                    </mat-label>
-                    <mat-select name="cours" [formControl]="addPublicationForm.controls['promotionCours']">
-                        <mat-option *ngFor="let item of myOccupation" [value]="item">
-                            {{item.course}} => {{item.promotion}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="addPublicationForm.controls['promotionCours'].hasError('required')">
-                        Veuillez renseigner le cours ainsi que la promotion concernée par le devoir
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="col-md-4 p-3">
-                    <mat-label> 
-                        <mat-icon aria-hidden="false">calendar_today</mat-icon>
-                        Deadline du projet  
-                    </mat-label>
-                    <input 
-                        matInput 
-                        [formControl]="addPublicationForm.controls['deadline']"
-                        [matDatepicker]="picker">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error *ngIf="addPublicationForm.controls['deadline'].hasError('required')">
-                        Veuillez renseigner le deadline du devoir
-                    </mat-error>
-                </mat-form-field>
-
-
-                <div class="col-md-4">
-                    <button 
-                        mat-flat-button 
-                        class="rounded-button" 
-                        color="primary"
-                        type="submit"
-                        style="padding: 2%;"
-                    >
-                        <mat-icon aria-label="add">add</mat-icon>
-                        Publier 
-                    </button> 
-                </div>
-            </div>
-        </form>
-    </div>
-
-
+<div class="body-container">
     <div class="row">
-        <div class="col-md-12">
-            <button 
-                mat-flat-button 
-                class="mb-2 normal-button" 
-                color="accent"
-            >
-                Vos publications
-            </button>
+        <div class="col-md-5 mb-5">
+            <mat-card>
+                <form [formGroup]="addPublicationForm" (ngSubmit)="onAddPublication()">
+                    <mat-form-field class="col-md-11 p-3">
+                        <mat-label>
+                            <mat-icon aria-hidden="false">mode_comment</mat-icon>
+                            Description du projet
+                        </mat-label>
+                        <textarea class="input-full-width" matInput placeholder="..." name="message" cols="20" rows="10"
+                            [formControl]="addPublicationForm.controls['message']"></textarea>
+                        <mat-error *ngIf="addPublicationForm.controls['message'].hasError('required')">
+                            Veuillez renseigner le cours ainsi que la promotion concernée par le devoir
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-md-11 p-3">
+                        <mat-label>
+                            <mat-icon aria-hidden="false">cases</mat-icon>
+                            Cours / Promotions
+                        </mat-label>
+                        <mat-select name="cours" [formControl]="addPublicationForm.controls['promotionCours']">
+                            <mat-option *ngFor="let item of myOccupation" [value]="item">
+                                {{item.course}} => {{item.promotion}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="addPublicationForm.controls['promotionCours'].hasError('required')">
+                            Veuillez renseigner le cours ainsi que la promotion concernée par le devoir
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-md-11 p-3">
+                        <mat-label>
+                            <mat-icon aria-hidden="false">calendar_today</mat-icon>
+                            Deadline du projet
+                        </mat-label>
+                        <input matInput [formControl]="addPublicationForm.controls['deadline']"
+                            [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="addPublicationForm.controls['deadline'].hasError('required')">
+                            Veuillez renseigner le deadline du devoir
+                        </mat-error>
+                    </mat-form-field>
+
+
+                    <div class="col-md-11">
+                        <button mat-flat-button class="uni-btn-primary" type="submit"
+                            style="padding: 2%;">
+                            <mat-icon aria-label="add">post_add</mat-icon>
+                            Publier
+                        </button>
+                    </div>
+                </form>
+            </mat-card>
         </div>
 
-        
-        <div class="col-md-12">
+        <div class="col-md-7">
 
-            <div class="col-md-12 mb-3" *ngFor="let item of myPublications" [value]="item._id">
+            <div class="col-md-12">
 
-                <!-- <div *ngIf="item.deadline < this.currentDate; else done_assignment">
+                <div class="col-md-12 mb-3" *ngFor="let item of myPublications" [value]="item._id">
+
+                    <!-- <div *ngIf="item.deadline < this.currentDate; else done_assignment">
                     NonValid {{item.deadline | date}}
                 </div>
 
@@ -98,27 +70,36 @@
                     Valid {{item.deadline | date}}
                 </ng-template> -->
 
-                <div class="col">
-                    <div class="card-professor-publication">
-                        <div class="row">
-                            <div class="col-md-3 occupation-professor-publication">
-                                <h2>{{item.promotionName}}</h2>
-                                <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
-                                <h4 class="text-white"><mat-icon aria-hidden="false">event_available</mat-icon>&nbsp; {{item.deadline | date}}</h4>
-                                
-                                <div class="content-professor-publication-reaction">
+
+                    <div class="col" >
+                        <div class="card-professor-publication">
+                            <div class="row">
+                                <div class="col-md-3 occupation-professor-publication">
+                                    <h2>{{item.promotionName}}</h2>
+                                    <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
+                                    
+                                    <mat-divider></mat-divider>
+                                    <div class="uni-entry-body text-left">                                     
+                                        <div class="uni-entry-time">
+                                            <li class="year"> {{item.deadline | date: 'yyyy'}} </li>
+                                            <li class="day"> {{item.deadline | date: 'dd'}} </li>
+                                   
+                                            <li class="month"> {{ item.deadline | date: 'MM' | convertmonthDate}} </li>
+                                        </div>
+                                    </div>
                                     <button mat-icon-button aria-label="Example icon button with a home icon">
-                                        <mat-icon class="m-2" matBadge="15" matBadgeColor="warn">assignment_returned</mat-icon>
+                                        <mat-icon class="m-2" matBadge="15" matBadgeColor="warn">
+                                            assignment_returned
+                                        </mat-icon>
                                     </button>
-                                    
-                                    
                                     <button mat-icon-button aria-label="Example icon button with a home icon">
-                                        <mat-icon class="m-2" (click)="openDialogEditPublication(item._id)">mode_edit</mat-icon>
+                                        <mat-icon class="m-2" (click)="openDialogEditPublication(item._id)">
+                                            mode_edit</mat-icon>
                                     </button>
                                 </div>
-                            </div>
-                            <div class="col-md-9 content-professor-publication">
-                                {{item.message}}
+                                <div class="col-md-9 content-professor-publication">
+                                    {{item.message}}
+                                </div>
                             </div>
                         </div>
                     </div>

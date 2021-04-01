@@ -1,9 +1,11 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, retry } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { catchError, retry, tap } from 'rxjs/operators';
 import { IProfessor } from 'src/interfaces/professor';
 import { IPublication } from 'src/interfaces/publication';
+import { DialogLogoutComponent } from '../professor/dashboard/dialog-logout/dialog-logout.component';
 import { DialogPublicationProfessorComponent } from '../professor/dashboard/publication-professor/dialog-publication-professor/dialog-publication-professor.component';
 import { ErrorService } from './error.service';
 
@@ -14,6 +16,8 @@ export class ProfessorService {
 
   private readonly uri = 'http://localhost:3001/api';
   private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+  public behaviour = new BehaviorSubject<any>([]);
+
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
@@ -21,24 +25,29 @@ export class ProfessorService {
   ) { }
 
 
-  openDialog(inputDialogData: any) {    
-    const dialogRef = inputDialogData._dialog.open(DialogPublicationProfessorComponent, {
-      width: '100%',
+  openLogOutDialog(inputDialogData: any) {
+    const dialogRef = inputDialogData._dialog.open(DialogLogoutComponent, {
+      width: '35%',
       padding: '5px',
       data: inputDialogData
     });
 
-    dialogRef.afterClosed().subscribe(formEditDialogData => {
-      this.updatePublication(formEditDialogData).subscribe(
-        (data) => {
-          this.router.navigateByUrl(`/professor/dashboard`);
-        }
-      ) 
+    dialogRef.afterClosed().subscribe(logOutDialogData => {
+      console.log(logOutDialogData);
     });
   }
-  
+
+
   saveProfessor(paramsProfessor: any) {
     return this.http.post<any>(`${this.uri}/professors`, paramsProfessor, { headers: this.headerContent })
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      )
+  }
+
+
+  updateProfessor(paramsProfessor: any) {
+    return this.http.put<any>(`${this.uri}/professors`, paramsProfessor, { headers: this.headerContent })
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
       )
@@ -51,7 +60,7 @@ export class ProfessorService {
       )
   }
 
-  getCurrentProfessor() {
+  currentProfessor() {
     return this.http.get<IProfessor>(`${this.uri}/professor`)
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
@@ -59,10 +68,10 @@ export class ProfessorService {
   }
 
   savePublication(paramsPublication: any) {
-    return this.http.post<any>(`${this.uri}/professor/publications`, paramsPublication, {headers: this.headerContent})
-    .pipe(
-      catchError(err => this.errorService.handleHttpError(err))
-    )
+    return this.http.post<any>(`${this.uri}/professor/publications`, paramsPublication, { headers: this.headerContent })
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      )
   }
 
   getCurrentPublication(id: any) {
@@ -73,9 +82,21 @@ export class ProfessorService {
   }
 
   updatePublication(paramsPublicationEdit: any) {
-    return this.http.post<any>(`${this.uri}/professor/publication`, paramsPublicationEdit, {headers: this.headerContent})
-    .pipe(
-      catchError(err => this.errorService.handleHttpError(err))
+    return this.http.post<any>(`${this.uri}/professor/publication`, paramsPublicationEdit, { headers: this.headerContent })
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      )
+  }
+
+  initializeCurrentProfessor() {
+    return this.currentProfessor().pipe(
+      tap(currentProfessor => {
+        this.behaviour.next(currentProfessor);
+      }) 
     )
+  }
+
+  getCurrentProfessor() {
+    return this.behaviour;
   }
 }

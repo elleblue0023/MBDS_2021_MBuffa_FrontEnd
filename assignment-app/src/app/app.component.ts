@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorTracker } from './models/error-tracker';
+import { DesignUtilService } from './services/design-util.service';
+import { ProfessorService } from './services/professor.service';
 
 @Component({
   selector: 'app-root',
@@ -8,3 +12,4 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'assignment-app';
 }
+

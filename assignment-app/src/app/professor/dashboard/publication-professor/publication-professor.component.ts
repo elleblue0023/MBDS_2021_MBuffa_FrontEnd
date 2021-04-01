@@ -9,6 +9,7 @@ import { DesignUtilService } from 'src/app/services/design-util.service';
 import { ProfessorService } from 'src/app/services/professor.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { IPublication } from 'src/interfaces/publication';
+import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component';
 import { DialogPublicationProfessorComponent } from './dialog-publication-professor/dialog-publication-professor.component';
 
 
@@ -18,8 +19,6 @@ import { DialogPublicationProfessorComponent } from './dialog-publication-profes
   styleUrls: ['./publication-professor.component.scss']
 })
 export class PublicationProfessorComponent implements OnInit {
-
-  panelOpenState = false;
 
   myOccupation: any;
   currentProfessor: any;
@@ -69,30 +68,18 @@ export class PublicationProfessorComponent implements OnInit {
     )
   }
 
-  getCurrentProfessor() {
-    this.professorService.getCurrentProfessor().subscribe(
-      (current) => {        
-        this.currentProfessor = current;
-        this.myOccupation = this.currentProfessor.occupation;
-      },
-      (error: ErrorTracker) => {
-        let snackBarData = {
-          snackBar: this._snackBar,
-          message: error.userMessage,
-          action: "OK",
-          status: "warning"
-        }
-        this.designUtilService.openSnackBar(snackBarData)
-      }
-    )
-  }
-
   isValidDeadline(date: Date) {
     return date.setHours(0,0,0,0) > new Date().setHours(0,0,0,0)
   };
 
   ngOnInit(): void {
-    this.getCurrentProfessor();
+    this.professorService.getCurrentProfessor().subscribe(
+      (current) => {   
+        this.currentProfessor = current;
+        this.myOccupation = this.currentProfessor.occupation;
+      }
+    )
+
     this.listPublications();
   }
 
@@ -131,6 +118,30 @@ export class PublicationProfessorComponent implements OnInit {
     }
   }
 
+
+  openDialog(inputDialogData: any) {
+    const dialogRef = inputDialogData._dialog.open(DialogPublicationProfessorComponent, {
+      width: '100%',
+      padding: '5px',
+      data: inputDialogData
+    });
+
+    dialogRef.afterClosed().subscribe(formEditDialogData => {
+      this.professorService.updatePublication(formEditDialogData).subscribe(
+        (data) => {
+          let snackBarData = {
+            snackBar: this._snackBar,
+            message: "Modification avec succès de la publication",
+            action: "OK",
+            status: "success"
+          }
+          this.designUtilService.openSnackBar(snackBarData) 
+          this.listPublications();
+        }
+      )
+    });
+  }
+
   openDialogEditPublication(id: any) {
     this.professorService.getCurrentPublication(id).subscribe(
       (currentDataPublication) => {        
@@ -140,7 +151,7 @@ export class PublicationProfessorComponent implements OnInit {
           component: this.COMPONENT,
           data: currentDataPublication
         }
-        this.professorService.openDialog(dialogData);
+        this.openDialog(dialogData);
       },
       (error: ErrorTracker) => {
         let snackBarData = {
@@ -155,4 +166,6 @@ export class PublicationProfessorComponent implements OnInit {
 
   }
 
+
+  
 }

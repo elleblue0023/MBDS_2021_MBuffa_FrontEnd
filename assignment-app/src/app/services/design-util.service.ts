@@ -5,7 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class DesignUtilService {
 
-  constructor() { }
+  constructor(
+    public _snackBar: MatSnackBar
+  ) { }
 
 
   /**------------------------------------------------------------------------------------------------
@@ -18,7 +20,7 @@ export class DesignUtilService {
   openSnackBar(snackBarData: any) {
     switch (snackBarData.status) {
       case 'success':
-        snackBarData.snackBar.open(
+      this._snackBar.open(
           snackBarData.message,
           snackBarData.action, {
           panelClass: ['success-snackbar'],
@@ -27,7 +29,7 @@ export class DesignUtilService {
         );
         break;
       case 'info':
-        snackBarData.snackBar.open(
+      this._snackBar.open(
           snackBarData.message,
           snackBarData.action, {
           panelClass: ['info-snackbar'],
@@ -36,7 +38,7 @@ export class DesignUtilService {
         );
         break;
       default:
-        snackBarData.snackBar.open(
+      this._snackBar.open(
           snackBarData.message,
           snackBarData.action, {
           panelClass: ['warning-snackbar'],

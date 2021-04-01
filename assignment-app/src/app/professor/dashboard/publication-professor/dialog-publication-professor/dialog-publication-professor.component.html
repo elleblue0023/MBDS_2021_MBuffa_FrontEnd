@@ -2,6 +2,7 @@
   <div *ngIf="action=='edit'">
     <form [formGroup]="formEditDialog" class="form" (ngSubmit)="onEditPublicationProfessor()">
       <h2 mat-dialog-title>Editer la publication </h2>
+
       <mat-dialog-content class="mat-typography">
         <div class="row">
           <mat-form-field class="col-md-12 p-3">
@@ -17,6 +18,24 @@
         </mat-error>
         </div>
       </mat-dialog-content>
+
+
+      <mat-form-field>
+        <mat-label>
+            <mat-icon aria-hidden="false">calendar_today</mat-icon>
+            Deadline du projet
+        </mat-label>
+        <input matInput [formControl]="formEditDialog.controls['deadline']"
+            [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="formEditDialog.controls['deadline'].hasError('required')">
+            Veuillez renseigner le deadline du devoir
+        </mat-error>
+    </mat-form-field>
+
+
+
       <mat-dialog-actions align="end">
         <button mat-fab color="warn" class="rounded-button" mat-dialog-close>
           <mat-icon>cancel</mat-icon>

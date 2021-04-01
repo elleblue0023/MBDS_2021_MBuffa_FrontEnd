@@ -1,4 +1,4 @@
-<div class="container">
+<div class="body-container">
     <div class="add-card">
 
         <h1 class="mat-display-1 text-center">Nouveau professeur</h1>
@@ -102,7 +102,6 @@
 
             <button 
                 mat-fab 
-                color="primary" 
                 aria-label="add icon"
                 (click)="onAddOccupation()"
             >
@@ -112,7 +111,7 @@
 
         <div class="row">
             <div class="col-md-3 m-3" *ngFor="let occupation of occupationList; let i = index">
-                <mat-card>
+                <mat-card class="list-occupation">
                     <mat-card-content>
                         Cours : {{occupation.course}} <br>
                         Promotion : <b>{{occupation.promotion}}</b>
@@ -136,7 +135,7 @@
             </div>
         
             <div class="col-md-3 text-center">
-                <a routerLink="/" mat-flat-button color="warn" class="rounded-button">
+                <a routerLink="/" mat-flat-button class="uni-btn-danger">
                     Se connecter
                 </a> 
             </div>
@@ -145,8 +144,7 @@
                 <button 
                     type="submit"
                     mat-flat-button 
-                    color="primary"
-                    class="rounded-button"
+                    class="uni-btn-primary"
                 >
                     S'inscrire
                 </button>
