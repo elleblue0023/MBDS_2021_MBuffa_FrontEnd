@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     private designUtilService: DesignUtilService
   ) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const token = localStorage.getItem("token");
     let result = false;
     if (token) {

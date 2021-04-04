@@ -15,15 +15,17 @@ import { ErrorService } from './error.service';
   providedIn: 'root'
 })
 export class ProfessorService {
-  private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
-  public behaviour = new BehaviorSubject<any>([]);
-
+  
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
-    private router: Router
-  ) { }
-
+    private router: Router,
+    private configurationService: ConfigurationService
+    ) { }
+    
+  private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+  public behaviour = new BehaviorSubject<any>([]);
+  private uri = this.configurationService.getApiUrl();
 
   openLogOutDialog(inputDialogData: any) {
     const dialogRef = inputDialogData._dialog.open(DialogLogoutComponent, {
