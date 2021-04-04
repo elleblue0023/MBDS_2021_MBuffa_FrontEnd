@@ -12,7 +12,7 @@
                     <mat-label>Email</mat-label>
                     <input  
                         matInput
-                        [formControl] = "loginForm.controls['email']" 
+                        formControlName="email"
                         type="email" 
                         name="email"
                     >
@@ -25,7 +25,7 @@
                     <mat-label>Mot de passe</mat-label>
                     <input  
                         matInput
-                        [formControl] = "loginForm.controls['password']" 
+                        formControlName="password"
                         type="password" 
                         name="password"
                     >

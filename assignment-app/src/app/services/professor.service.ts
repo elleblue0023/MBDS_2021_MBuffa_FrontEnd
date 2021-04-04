@@ -7,25 +7,23 @@ import { IProfessor } from 'src/interfaces/professor';
 import { IPublication } from 'src/interfaces/publication';
 import { DialogLogoutComponent } from '../professor/dashboard/dialog-logout/dialog-logout.component';
 import { DialogPublicationProfessorComponent } from '../professor/dashboard/publication-professor/dialog-publication-professor/dialog-publication-professor.component';
-import { ConfigurationService } from './configuration.service';
 import { ErrorService } from './error.service';
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfessorService {
-  
+
+  private readonly uri = 'http://localhost:3001/api';
+  private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+  public behaviourCurrentProfessor: BehaviorSubject<any>= new BehaviorSubject<any>([]);
+
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
-    private router: Router,
-    private configurationService: ConfigurationService
-    ) { }
-    
-  private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
-  public behaviour = new BehaviorSubject<any>([]);
-  private uri = this.configurationService.getApiUrl();
+    private router: Router
+  ) { }
+
 
   openLogOutDialog(inputDialogData: any) {
     const dialogRef = inputDialogData._dialog.open(DialogLogoutComponent, {
@@ -51,7 +49,11 @@ export class ProfessorService {
   updateProfessor(paramsProfessor: any) {
     return this.http.put<any>(`${this.uri}/professors`, paramsProfessor, { headers: this.headerContent })
       .pipe(
+        tap(result => {
+          this.initializeCurrentProfessor()
+        },
         catchError(err => this.errorService.handleHttpError(err))
+        )
       )
   }
 
@@ -93,12 +95,13 @@ export class ProfessorService {
   initializeCurrentProfessor() {
     return this.currentProfessor().pipe(
       tap(currentProfessor => {
-        this.behaviour.next(currentProfessor);
+        this.behaviourCurrentProfessor.next(currentProfessor);
       }) 
     )
   }
 
+
   getCurrentProfessor() {
-    return this.behaviour;
+    return this.behaviourCurrentProfessor;
   }
 }

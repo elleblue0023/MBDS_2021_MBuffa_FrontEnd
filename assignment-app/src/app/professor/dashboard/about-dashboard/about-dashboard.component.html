@@ -7,107 +7,158 @@
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-1">
-                        <button 
-                            mat-fab 
-                            color="primary" 
-                            (click)="updateAbout()"
-                            aria-label="edit icon">
+                        <button mat-fab color="primary" aria-label="edit icon">
                             <mat-icon>edit</mat-icon>
                         </button>
                     </div>
                     <div class="col-md-1">
-                        <button 
-                            mat-fab 
-                            color="warn" 
-                            aria-label="add_a_photo icon">
+                        <button mat-fab color="warn" aria-label="add_a_photo icon">
                             <mat-icon>add_a_photo</mat-icon>
-                          </button>
+                        </button>
                     </div>
                     <div class="col-md-1">
-                        <button 
-                            mat-fab 
-                            color="accent" 
-                            aria-label="delete icon">
+                        <button mat-fab color="accent" aria-label="delete icon">
                             <mat-icon>delete</mat-icon>
-                          </button>
+                        </button>
                     </div>
                     <div class="col-md-4"></div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-7 about" *ngIf="!updateStatus; else about">
-           <h1 class="mat-display-1"> {{name}} </h1>
+        <div class="col-md-7 about">
+            <h1 class="mat-display-1"> {{name}} </h1>
 
-           <div class="row">
-               <div class="col-md-4 text-right">
-                   <mat-icon>email</mat-icon>
-               </div>
-               <div class="col-md-8">
-                   {{email}}
-               </div>
-           </div>
+            <div class="row">
+                <mat-accordion class="headers-align" multi>
+                    <!--* Email expand panel --->
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                                <mat-panel-title>Email</mat-panel-title>
+                                <mat-panel-description>{{email}}<mat-icon>email</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <form class="form" (submit)="onUpdateEmail($event)">
+                            <mat-form-field class="input-half-width">
+                                <mat-label>Email professionnel</mat-label>
+                                <input matInput placeholder="{{email}}" name="email">
+                            </mat-form-field>
+                            <button mat-fab color="primary" aria-label="edit icon">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </form>
+                    </mat-expansion-panel>
+                    <!--* Email expand panel --->
+
+
+                    <!--* Lastname + surname expand panel --->
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Noms et prénom
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                {{name}}
+                                <mat-icon>account_box</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <form (submit)="onUpdateName($event)" class="form">
+                            <mat-form-field class="input-half-width">
+                                <mat-label>Nom</mat-label>
+                                <input matInput placeholder="{{currentProfessor.lastname}}" name="lastname">
+                            </mat-form-field>
+                            <mat-form-field class="input-half-width">
+                                <mat-label>Prénom</mat-label>
+                                <input matInput placeholder="currentProfessor.surname" name="surname">
+                            </mat-form-field>
+                            <button mat-fab color="primary" aria-label="edit icon">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </form>
+                        
+                    </mat-expansion-panel>
+                    <!--* Lastname + surname expand panel --->
+
+
+                    <!--* Occupation expand panel --->
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                                <mat-panel-title>Mes occupations</mat-panel-title>
+                                <mat-panel-description>...<mat-icon>view_column</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        
+
+                        <form class="form" (submit)="onAddOccupation($event)">
+                            <div class="flex-container">
+                                <!-- Occupation --->
+                                <mat-form-field class="input-half">
+                                    <mat-label>
+                                        <mat-icon aria-hidden="false">cases</mat-icon>
+                                        Cours
+                                    </mat-label>
+                                    <mat-select name="cours">
+                                        <mat-option *ngFor="let item of coursesList" [value]="item.name">
+                                            {{item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field class="input-half">
+                                    <mat-label>
+                                        <mat-icon aria-hidden="false">class</mat-icon>
+                                        Promotions
+                                    </mat-label>
+                                    <mat-select name="promotion">
+                                        <mat-option *ngFor="let item of promotionsList" [value]="item.name">
+                                            {{item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                    
+                                <button 
+                                    mat-fab 
+                                    aria-label="add icon"
+                                >
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                        </form>
+
+
+                        <div class="row">
+                            <div class="col-md-3 m-3" *ngFor="let occupation of occupationList; let i = index">
+                                <mat-card class="list-occupation">
+                                    <mat-card-content>
+                                        Cours : {{occupation.course}} <br>
+                                        Promotion : <b>{{occupation.promotion}}</b>
+                                    </mat-card-content>
+                                    <mat-card-actions class="text-center">
+                                        <button 
+                                            mat-mini-fab 
+                                            color="primary" 
+                                            aria-label="delete icon"
+                                            (click) = "onDeleteOccupation(i)"
+                                        >
+                                            <mat-icon>delete</mat-icon>
+                                            </button>
+                                    </mat-card-actions>
+                                </mat-card>
+                            </div>
+                        </div>
+
+
+                    </mat-expansion-panel>
+                    <!--* Occupation expand panel --->
+
+                </mat-accordion>
+            </div>
 
         </div>
 
-        <ng-template #about>
-            <div class="col-md-7 update-about">
-                <form [formGroup]="updateAboutForm" 
-                    class="form" 
-                    (ngSubmit)="onUpdate()"
-                >
-
-                <mat-form-field class="input-full-width">
-                    <mat-label>Nom</mat-label>
-                    <input  
-                        matInput
-                        [formControl] = "updateAboutForm.controls['lastname']" 
-                        type="text" 
-                        name="lastname"
-                    >
-                    <mat-error *ngIf="updateAboutForm.controls['lastname'].hasError('required')">
-                        Champ obligatoire !
-                      </mat-error>
-                </mat-form-field>
 
 
-                <mat-form-field class="input-full-width">
-                    <mat-label>Prénom</mat-label>
-                    <input  
-                        matInput
-                        [formControl] = "updateAboutForm.controls['surname']" 
-                        type="text" 
-                        name="surname"
-                    >
-                    <mat-error *ngIf="updateAboutForm.controls['surname'].hasError('required')">
-                        Champ obligatoire !
-                      </mat-error>
-                </mat-form-field>
-
-                <mat-form-field class="input-full-width">
-                    <mat-label>Email</mat-label>
-                    <input  
-                        matInput
-                        [formControl] = "updateAboutForm.controls['email']" 
-                        type="email" 
-                        name="email"
-                    >
-                    <mat-error *ngIf="updateAboutForm.controls['email'].hasError('required')">
-                        Champ obligatoire, entrez un email valide !
-                      </mat-error>
-                </mat-form-field>
-                <button 
-                    mat-fab 
-                    color="primary" 
-                    aria-label="edit icon">
-                    <mat-icon>edit</mat-icon>
-                </button>
-
-                </form>
-                
-            </div>
-        </ng-template>
+        
 
     </div>
 </div>
-
