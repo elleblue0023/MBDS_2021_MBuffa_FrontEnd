@@ -1,0 +1,113 @@
+<div class="body-container">
+    <div class="add-card">
+
+        <h1 class="mat-display-1 text-center">Nouvel étudiant</h1>    
+
+        <form [formGroup]="addStudentForm" (ngSubmit)="onAddStudent()">
+            
+        
+        <!-- Lastname --->
+        <mat-form-field class="input-half-width">
+            <mat-label> 
+                <mat-icon aria-hidden="false">account_circle</mat-icon>
+                Nom
+            </mat-label>
+            <input  
+                matInput
+                [formControl] = "addStudentForm.controls['lastname']" 
+                type="text" 
+                name="lastname"
+            >
+            <mat-error *ngIf="addStudentForm.controls['lastname'].hasError('required')">
+                Champ obligatoire !
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Surname --->
+        <mat-form-field class="input-half-width">
+            <mat-label> 
+                <mat-icon aria-hidden="false">account_circle</mat-icon>
+                Prénom (s)
+            </mat-label>
+            <input  
+                matInput
+                [formControl] = "addStudentForm.controls['surname']" 
+                type="text" 
+                name="surname"
+            >
+            <mat-error *ngIf="addStudentForm.controls['surname'].hasError('required')">
+                Champ obligatoire !
+                </mat-error>
+        </mat-form-field>
+
+        <!-- Email --->
+        <mat-form-field class="input-half-width">
+            <mat-label> 
+                <mat-icon aria-hidden="false">contact_mail</mat-icon>
+                Email
+            </mat-label>
+            <input  
+                matInput
+                [formControl] = "addStudentForm.controls['email']" 
+                type="email" 
+                name="email"
+            >
+            <mat-error *ngIf="addStudentForm.controls['email'].hasError('required')">
+                Champ obligatoire, entrez un email valide !
+                </mat-error>
+        </mat-form-field>
+
+        <!-- Password --->
+        <mat-form-field class="input-half-width">
+            <mat-label> 
+                <mat-icon aria-hidden="false">vpn_key</mat-icon>
+                Mot de passe
+            </mat-label>
+            <input  
+                matInput
+                [formControl] = "addStudentForm.controls['password']" 
+                type="password" 
+                name="password"
+            >
+            <mat-error *ngIf="addStudentForm.controls['password'].hasError('required')">
+                Champ obligatoire, entrez un email valide !
+                </mat-error>
+        </mat-form-field>
+
+        <!-- Promotion --->
+        <mat-form-field class="input-half-width">
+            <mat-label> 
+                <mat-icon aria-hidden="false">class</mat-icon>
+                Promotions
+            </mat-label>
+            <mat-select [formControl] = "addStudentForm.controls['promotion']"  name="promotion">
+                <mat-option *ngFor="let item of promotionsList" [value]="item.name">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="row m-4">
+            <div class="col-md-6">
+            </div>
+        
+            <div class="col-md-3 text-center">
+                <a routerLink="/" mat-flat-button class="uni-btn-danger">
+                    Se connecter
+                </a> 
+            </div>
+
+            <div class="col-md-3 text-center">
+                <button 
+                    type="submit"
+                    mat-flat-button 
+                    class="uni-btn-primary"
+                >
+                    S'inscrire
+                </button>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+

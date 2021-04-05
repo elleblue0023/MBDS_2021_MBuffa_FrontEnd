@@ -23,4 +23,12 @@ export class AuthService {
         catchError(err => this.errorService.handleHttpError(err))
       )
   }
+
+  loginStudent(paramsLogin: any) {
+    const headersContent = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
+    return this.http.post<any>(`${this.uri}/students/login`, paramsLogin, {headers: headersContent})
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      )
+  }
 }

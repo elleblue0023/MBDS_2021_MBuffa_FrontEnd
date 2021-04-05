@@ -48,6 +48,12 @@ import { DialogPublicationProfessorComponent } from './professor/dashboard/publi
 import { DialogLogoutComponent } from './professor/dashboard/dialog-logout/dialog-logout.component';
 import { AuthGuard } from './services/auth.guard';
 import { ConvertmonthDatePipe } from './pipes/convert-monthDate.pipe';
+import { AddStudentComponent } from './student/add-student/add-student.component';
+import { StudashboardComponent } from './student/studashboard/studashboard.component';
+import { StudialogLogoutComponent } from './student/studashboard/studialog-logout/studialog-logout.component';
+import { StuaboutComponent } from './student/studashboard/stuabout/stuabout.component';
+
+import { FormsModule } from '@angular/forms';
 
 
 const routes:Routes = [
@@ -61,6 +67,13 @@ const routes:Routes = [
     path: 'professor/dashboard',
     component: DashboardProfessorComponent,
     canActivate: [AuthGuard]
+  }, {
+    path: 'student/create-account',
+    component: AddStudentComponent
+  }, {
+    path: 'student/dashboard',
+    component: StudashboardComponent,
+    canActivate: [AuthGuard]
   }
 ]
 @NgModule({
@@ -73,7 +86,11 @@ const routes:Routes = [
     AboutDashboardComponent,
     DialogPublicationProfessorComponent,
     DialogLogoutComponent,
-    ConvertmonthDatePipe
+    ConvertmonthDatePipe,
+    AddStudentComponent,
+    StudashboardComponent,
+    StudialogLogoutComponent,
+    StuaboutComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +120,7 @@ const routes:Routes = [
     HttpClientModule,
 
     CKEditorModule,
-
+    FormsModule,
     RouterModule.forRoot(routes)
 
   ],
