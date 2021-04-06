@@ -86,7 +86,7 @@ export class ProfessorService {
   }
 
   updatePublication(paramsPublicationEdit: any) {
-    return this.http.post<any>(`${this.uri}/professor/publication`, paramsPublicationEdit, { headers: this.headerContent })
+    return this.http.put<any>(`${this.uri}/professor/publications`, paramsPublicationEdit, { headers: this.headerContent })
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
       )

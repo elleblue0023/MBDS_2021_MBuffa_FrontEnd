@@ -30,6 +30,9 @@ export class AboutDashboardComponent implements OnInit{
   promotionsList: IPromotion[] = [];
   occupationList: any[] = [];
 
+  coursValue = "";
+  promotionValue = "";
+
 
   
   @ViewChild(MatAccordion) accordion!: MatAccordion;
@@ -179,22 +182,18 @@ export class AboutDashboardComponent implements OnInit{
     this.designUtilService.openSnackBar(snackBarData)
   }
 
-  onAddOccupation(event) {
-    
-    let courseValue = event.target.cours.value;
-    let promotionValue = event.target.promotion.value;
-    console.log(courseValue + ' '+promotionValue);
-    
-
-    /* if (courseValue === "" || promotionValue === "") {
+  onAddOccupation() {
+    if (this.coursValue === "" || this.promotionValue === "") {
       this.emptyOccupation();
     } else {
       let newOccupation = {
-        course: courseValue,
-        promotion: promotionValue
+        course: this.coursValue,
+        promotion: this.promotionValue
       }
       this.occupationList.push(newOccupation);
-      console.log(this.occupationList);
-    } */
+      // console.log(this.occupationList);
+      let result = this.utilsService.checkIfOccupationExist(this.occupationList, newOccupation);
+      console.log(result);
+    }
   }
 }

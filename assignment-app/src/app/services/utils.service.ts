@@ -37,6 +37,24 @@ export class UtilsService {
       )
   }
 
+  checkIfOccupationExist(occupation: any, checkList: any): Boolean {
+    /* return occupation.forEach(elt => {
+      console.log("OccupationArray");
+      console.log(elt['course'] +' => '+ elt['promotion']);
+
+      console.log("CheckList");
+      console.log(checkList['course'] +' => '+ checkList['promotion']); 
+      (elt['course'] == checkList['course'] && elt['promotion'] == checkList['promotion'])
+    }); */
+
+    if(occupation.some(item => item.course === checkList.course && item.promotion == checkList.promotion)){
+      return true;
+    } 
+    return false;
+
+  }
+
+
   formatDate(dateToFormat: string) {
     const format = 'yyyy-MM-dd';
     const locale = 'en-US';

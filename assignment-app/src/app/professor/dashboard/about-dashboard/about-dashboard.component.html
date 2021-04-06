@@ -89,36 +89,53 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         
+                        <div class="row">
+                            <div class="col-md-3 m-3" *ngFor="let occupation of myOccupation; let i = index">
+                                <mat-card class="list-occupation">
+                                    <mat-card-content>
+                                        Cours : {{occupation.course}} <br>
+                                        Promotion : <b>{{occupation.promotion}}</b>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                        
 
-                        <form class="form" (submit)="onAddOccupation($event)">
+                        <form class="form">
                             <div class="flex-container">
                                 <!-- Occupation --->
+                                <!-- Cours -->
                                 <mat-form-field class="input-half">
                                     <mat-label>
                                         <mat-icon aria-hidden="false">cases</mat-icon>
                                         Cours
                                     </mat-label>
-                                    <mat-select name="cours">
+                                    <mat-select name="cours" [(ngModel)]="coursValue"> 
                                         <mat-option *ngFor="let item of coursesList" [value]="item.name">
                                             {{item.name}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
+                                <!-- Cours -->
+
+                                <!-- Promotion -->
                                 <mat-form-field class="input-half">
                                     <mat-label>
                                         <mat-icon aria-hidden="false">class</mat-icon>
                                         Promotions
                                     </mat-label>
-                                    <mat-select name="promotion">
+                                    <mat-select name="promotion" [(ngModel)]="promotionValue">
                                         <mat-option *ngFor="let item of promotionsList" [value]="item.name">
                                             {{item.name}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                    
+                                <!-- Promotion -->
+
                                 <button 
                                     mat-fab 
                                     aria-label="add icon"
+                                    (click)="onAddOccupation()"
                                 >
                                     <mat-icon>add</mat-icon>
                                 </button>

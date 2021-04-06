@@ -9,7 +9,7 @@
                             Description du projet
                         </mat-label>
                         <textarea class="input-full-width" matInput placeholder="..." name="message" cols="20" rows="10"
-                            [formControl]="addPublicationForm.controls['message']"></textarea>
+                            formControlName="message"></textarea>
                         <mat-error *ngIf="addPublicationForm.controls['message'].hasError('required')">
                             Veuillez renseigner le cours ainsi que la promotion concernée par le devoir
                         </mat-error>
@@ -20,7 +20,7 @@
                             <mat-icon aria-hidden="false">cases</mat-icon>
                             Cours / Promotions
                         </mat-label>
-                        <mat-select name="cours" [formControl]="addPublicationForm.controls['promotionCours']">
+                        <mat-select name="cours" formControlName="promotionCours">
                             <mat-option *ngFor="let item of myOccupation" [value]="item">
                                 {{item.course}} => {{item.promotion}}
                             </mat-option>
@@ -35,7 +35,7 @@
                             <mat-icon aria-hidden="false">calendar_today</mat-icon>
                             Deadline du projet
                         </mat-label>
-                        <input matInput [formControl]="addPublicationForm.controls['deadline']"
+                        <input matInput formControlName="deadline"
                             [matDatepicker]="picker">
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -57,7 +57,6 @@
         </div>
 
         <div class="col-md-7">
-
             <div class="col-md-12">
 
                 <div class="col-md-12 mb-3" *ngFor="let item of myPublications" [value]="item._id">
@@ -69,7 +68,6 @@
                 <ng-template #done_assignment>
                     Valid {{item.deadline | date}}
                 </ng-template> -->
-
 
                     <div class="col" >
                         <div class="card-professor-publication">
@@ -83,7 +81,6 @@
                                         <div class="uni-entry-time">
                                             <li class="year"> {{item.deadline | date: 'yyyy'}} </li>
                                             <li class="day"> {{item.deadline | date: 'dd'}} </li>
-                                   
                                             <li class="month"> {{ item.deadline | date: 'MM' | convertmonthDate}} </li>
                                         </div>
                                     </div>
@@ -98,13 +95,19 @@
                                     </button>
                                 </div>
                                 <div class="col-md-9 content-professor-publication">
-                                    {{item.message}}
+                                    {{item.message}} 
+                                    ---------- 
+                                    {{item.deadline || checkLateDate}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="col-md-5 mb-5">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur, deleniti. Suscipit nemo sint alias repellendus porro, magni voluptates eveniet ratione autem nobis laudantium eligendi dolorum fuga odit quibusdam ducimus neque.
         </div>
     </div>
 </div>
