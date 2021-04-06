@@ -1,0 +1,113 @@
+<div class="body-container">
+    <div class="row">
+        <div class="col-md-5" style="text-align: center;">
+            <img src="../../../../assets/images/shiba1.jpg" alt="" width="250">
+
+            <div class="profil-image-footer">
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-1">
+                        <button mat-fab color="primary" aria-label="edit icon">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-md-1">
+                        <button mat-fab color="warn" aria-label="add_a_photo icon">
+                            <mat-icon>add_a_photo</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-md-1">
+                        <button mat-fab color="accent" aria-label="delete icon">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-7 about">
+            <h1 class="mat-display-1"> {{name}} </h1>
+
+            <div class="row">
+                <mat-accordion class="headers-align" multi>
+                    <!--* Email expand panel --->
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                                <mat-panel-title>Email</mat-panel-title>
+                                <mat-panel-description>{{email}}<mat-icon>email</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <form class="form" (submit)="onUpdateEmail($event)">
+                            <mat-form-field class="input-half-width">
+                                <mat-label>Email</mat-label>
+                                <input matInput placeholder="{{email}}" name="email">
+                            </mat-form-field>
+                            <button mat-fab color="primary" aria-label="edit icon">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </form>
+                    </mat-expansion-panel>
+                    <!--* Email expand panel --->
+
+
+                    <!--* Lastname + surname expand panel --->
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Noms et prénom
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                {{name}}
+                                <mat-icon>account_box</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+                        <form (submit)="onUpdateName($event)" class="form">
+                            <mat-form-field class="input-half-width">
+                                <mat-label>Nom</mat-label>
+                                <input matInput placeholder="{{lastname}}" name="lastname">
+                            </mat-form-field>
+                            <mat-form-field class="input-half-width">
+                                <mat-label>Prénom</mat-label>
+                                <input matInput placeholder="{{surname}}" name="surname">
+                            </mat-form-field>
+                            <button mat-fab color="primary" aria-label="edit icon">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </form>
+                        
+                    </mat-expansion-panel>
+                    <!--* Lastname + surname expand panel --->
+
+                    <!--* Email expand panel --->
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                                <mat-panel-title>Promotion</mat-panel-title>
+                                <mat-panel-description>{{promotionName}}<mat-icon>class</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <form class="form" (submit)="onUpdatePromotion($event)">
+                            <mat-form-field class="input-half">
+                                <mat-label>
+                                    <mat-icon aria-hidden="false">class</mat-icon>
+                                    Promotion
+                                </mat-label>
+                                <mat-select name="promotion" [(ngModel)]="selectedPromotion">
+                                    <mat-option *ngFor="let item of promotionsList" [value]="item.name">
+                                        {{item.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <button mat-fab color="primary" aria-label="edit icon">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </form>
+                    </mat-expansion-panel>
+                    <!--* Email expand panel --->
+                </mat-accordion>
+            </div>
+
+        </div>
+    </div>
+</div>

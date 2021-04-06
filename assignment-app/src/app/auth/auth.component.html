@@ -43,15 +43,22 @@
             </section>
 
             <mat-card-actions class="text-end m-4">
-                <div class="row">
+                <div class="row rowcenter">
                     <div class="col-md-6">
                         <button mat-flat-button class="uni-btn-primary">
                             <mat-icon aria-hidden="false" aria-label="login icon">login</mat-icon> Se connecter
                         </button>
                     </div>
+                </div>   
+                <div class="row">
                     <div class="col-md-6">
                         <a routerLink="/professor/create-account" mat-flat-button class="uni-btn-danger">
-                            <mat-icon aria-hidden="false" aria-label="add circle outline icon">add_circle_outline</mat-icon> S'inscrire
+                            <mat-icon aria-hidden="false" aria-label="add circle outline icon">add_circle_outline</mat-icon> S'inscrire (Prof)
+                        </a> 
+                    </div>
+                    <div class="col-md-6">
+                        <a routerLink="/student/create-account" mat-flat-button class="uni-btn-danger">
+                            <mat-icon aria-hidden="false" aria-label="add circle outline icon">add_circle_outline</mat-icon> S'inscrire (Etudiant)
                         </a> 
                     </div>
                 </div>   

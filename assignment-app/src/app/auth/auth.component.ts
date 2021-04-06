@@ -47,7 +47,37 @@ export class AuthComponent implements OnInit {
             if (loggedData.token) {
               console.log("Professor logged in");
               localStorage.setItem("token", loggedData.token);
+              localStorage.setItem("currentstatus", "professor");
               this.router.navigateByUrl(`/professor/dashboard`);
+            }
+          },
+          (error: ErrorTracker) => {
+            if (error.errorNumber == 400) {
+              error.userMessage = "Email ou mot de passe incorrect ! "
+            }
+            let snackBarData = {
+              snackBar: this._snackBar,
+              message: error.userMessage,
+              action: "OK",
+              status: "warning"
+            }
+            this.designUtilService.openSnackBar(snackBarData)
+            this.loginForm.reset();
+          }
+        )
+      }
+      else if (statut == "student") {
+        var dataForms = {
+          "email": this.loginForm.controls['email'].value,
+          "password": this.loginForm.controls['password'].value
+        }
+        this.authService.loginStudent(dataForms).subscribe(
+          (loggedData) => {
+            if (loggedData.token) {
+              console.log("Student logged in");
+              localStorage.setItem("token", loggedData.token);
+              localStorage.setItem("currentstatus", "student");
+              this.router.navigateByUrl(`/student/dashboard`);
             }
           },
           (error: ErrorTracker) => {

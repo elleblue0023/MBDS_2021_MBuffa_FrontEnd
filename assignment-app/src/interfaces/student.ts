@@ -1,4 +1,4 @@
-export interface Student {
+export interface IStudent {
     _id?: any;
     lastname: string;
 	surname: string; 

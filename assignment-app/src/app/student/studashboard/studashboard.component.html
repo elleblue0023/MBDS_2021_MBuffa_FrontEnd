@@ -1,0 +1,17 @@
+<mat-toolbar class="theme-primary">
+    <img src="../../../assets/images/shiba1.jpg" alt="" width="100" class="rounded-circle toolbar">
+   <span class="spacer"></span>
+   {{currentStudent?.lastname}}
+    <button mat-icon-button>
+      <mat-icon (click) = "OnLogOut()">logout</mat-icon>
+    </button>
+  </mat-toolbar>
+  
+  <mat-tab-group mat-align-tabs="center" color="primary" backgroundColor="default">
+    <mat-tab label="A propos">
+      <app-stuabout></app-stuabout>
+    </mat-tab>
+    <mat-tab label="Devoirs">
+      <h1>Devoir</h1>
+    </mat-tab>
+  </mat-tab-group>

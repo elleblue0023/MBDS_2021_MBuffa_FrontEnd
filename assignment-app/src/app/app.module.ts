@@ -49,6 +49,12 @@ import { DialogLogoutComponent } from './professor/dashboard/dialog-logout/dialo
 import { AuthGuard } from './services/auth.guard';
 import { ConvertmonthDatePipe } from './pipes/convert-monthDate.pipe';
 import { CheckLateDatePipe } from './pipes/check-late-date.pipe';
+import { AddStudentComponent } from './student/add-student/add-student.component';
+import { StudashboardComponent } from './student/studashboard/studashboard.component';
+import { StudialogLogoutComponent } from './student/studashboard/studialog-logout/studialog-logout.component';
+import { StuaboutComponent } from './student/studashboard/stuabout/stuabout.component';
+
+
 
 
 const routes:Routes = [
@@ -61,6 +67,13 @@ const routes:Routes = [
   }, {
     path: 'professor/dashboard',
     component: DashboardProfessorComponent,
+    canActivate: [AuthGuard]
+  }, {
+    path: 'student/create-account',
+    component: AddStudentComponent
+  }, {
+    path: 'student/dashboard',
+    component: StudashboardComponent,
     canActivate: [AuthGuard]
   }
 ]
@@ -75,7 +88,11 @@ const routes:Routes = [
     DialogPublicationProfessorComponent,
     DialogLogoutComponent,
     ConvertmonthDatePipe,
-    CheckLateDatePipe
+    CheckLateDatePipe,
+    AddStudentComponent,
+    StudashboardComponent,
+    StudialogLogoutComponent,
+    StuaboutComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +122,7 @@ const routes:Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
 
+    FormsModule,
     RouterModule.forRoot(routes)
 
   ],
