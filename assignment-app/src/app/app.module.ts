@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /** Import des modules angular */
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from "@angular/forms";
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
@@ -32,7 +33,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AddHeaderInterceptor } from '../interceptor/add-header.interceptor';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 /** Services */
@@ -48,6 +48,7 @@ import { DialogPublicationProfessorComponent } from './professor/dashboard/publi
 import { DialogLogoutComponent } from './professor/dashboard/dialog-logout/dialog-logout.component';
 import { AuthGuard } from './services/auth.guard';
 import { ConvertmonthDatePipe } from './pipes/convert-monthDate.pipe';
+import { CheckLateDatePipe } from './pipes/check-late-date.pipe';
 
 
 const routes:Routes = [
@@ -73,12 +74,14 @@ const routes:Routes = [
     AboutDashboardComponent,
     DialogPublicationProfessorComponent,
     DialogLogoutComponent,
-    ConvertmonthDatePipe
+    ConvertmonthDatePipe,
+    CheckLateDatePipe
   ],
   imports: [
     BrowserModule,
     
     ReactiveFormsModule, 
+    FormsModule,
     MatFormFieldModule, 
     MatInputModule,
     MatCardModule,
@@ -101,8 +104,6 @@ const routes:Routes = [
 
     BrowserAnimationsModule,
     HttpClientModule,
-
-    CKEditorModule,
 
     RouterModule.forRoot(routes)
 
