@@ -50,6 +50,11 @@ export class AppComponent {
       'edit',
       this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/edit.svg")
     );
+
+    this.matIconRegistry.addSvgIcon(
+      'scholarship',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/scholarship.svg")
+    );
   }
 }
 

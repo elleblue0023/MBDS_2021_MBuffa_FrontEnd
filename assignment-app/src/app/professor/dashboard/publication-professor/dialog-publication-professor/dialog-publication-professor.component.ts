@@ -34,6 +34,7 @@ export class DialogPublicationProfessorComponent implements OnInit {
 
     this.formEditDialog = new FormGroup({
       id: new FormControl(this.data._id),
+      name: new FormControl(this.data.name, Validators.required),
       message: new FormControl(this.data.message, Validators.required),
       deadline: new FormControl(this.data.deadline, Validators.required)
     })

@@ -42,6 +42,7 @@ export class PublicationProfessorComponent implements OnInit {
     private _dialog: MatDialog
   ) {
     this.addPublicationForm = new FormGroup({
+      name: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required),
       promotionCours: new FormControl('', Validators.required),
       deadline: new FormControl('', Validators.required)
@@ -87,6 +88,7 @@ export class PublicationProfessorComponent implements OnInit {
     if (this.addPublicationForm.valid) {
       let params = {
         message : this.addPublicationForm.controls["message"].value,
+        name : this.addPublicationForm.controls["name"].value,
         promotion : this.addPublicationForm.controls["promotionCours"].value.promotion,
         course : this.addPublicationForm.controls["promotionCours"].value.course,
         deadline : this.utilsService.formatDate(this.addPublicationForm.controls["deadline"].value)

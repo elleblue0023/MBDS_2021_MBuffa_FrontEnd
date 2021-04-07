@@ -5,6 +5,21 @@
 
       <mat-dialog-content class="mat-typography">
         <div class="row">
+
+          <mat-form-field class="col-md-12 p-3">
+              <mat-label>Nom du projet</mat-label>
+              <input  
+                  matInput
+                  formControlName="name"
+                  type="text" 
+                  name="name"
+              >
+              <mat-error *ngIf="formEditDialog.controls['name'].hasError('required')">
+                Champ obligatoire !
+              </mat-error>
+          </mat-form-field>
+
+
           <mat-form-field class="col-md-12 p-3">
             <mat-label>
               <mat-icon aria-hidden="false">mode_comment</mat-icon>

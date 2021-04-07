@@ -4,6 +4,19 @@
             <mat-card>
                 <form [formGroup]="addPublicationForm" (ngSubmit)="onAddPublication()">
                     <mat-form-field class="col-md-11 p-3">
+                        <mat-label>Nom du projet</mat-label>
+                        <input  
+                            matInput
+                            formControlName="name"
+                            type="text" 
+                            name="name"
+                        >
+                        <mat-error *ngIf="addPublicationForm.controls['name'].hasError('required')">
+                            Champ obligatoire !
+                          </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="col-md-11 p-3">
                         <mat-label>
                             <mat-icon aria-hidden="false">mode_comment</mat-icon>
                             Description du projet
@@ -87,11 +100,19 @@
                                     <button mat-icon-button aria-label="Example icon button with a home icon">
                                         <mat-icon class="m-3" matBadge="15" svgIcon="assignments"></mat-icon>
                                     </button>
-                                    <button mat-icon-button aria-label="Example icon button with a home icon">
+                                    <button 
+                                        mat-icon-button 
+                                        aria-label="Example icon button with a home icon"
+                                        #tooltip="matTooltip"
+                                        matTooltip="Editer la publication de {{item.deadline | date: 'dd'}} {{ item.deadline | date: 'MM' | convertmonthDate}} {{item.deadline | date: 'yyyy'}}"
+                                        matTooltipPosition="below"
+                                    >
                                         <mat-icon class="m-4" (click)="openDialogEditPublication(item._id)" svgIcon="edit"></mat-icon>
                                     </button>
                                 </div>
                                 <div class="col-md-9 content-professor-publication">
+                                    {{item.name}} 
+                                    <mat-divider></mat-divider>
                                     {{item.message}} 
                                     ---------- 
                                     {{item.deadline || checkLateDate}}
