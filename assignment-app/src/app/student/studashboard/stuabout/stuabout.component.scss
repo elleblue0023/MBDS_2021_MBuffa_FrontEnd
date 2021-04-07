@@ -1,3 +1,6 @@
+/* .profil-image-footer {
+} */
+
 .about {
     border: solid 1px #e0e0e0;
 }
@@ -11,4 +14,28 @@
     padding: 1%;
     color: #757575;
     text-align: center;
+}
+
+
+
+
+/**----------------------
+ *    ACCORDION STYLE
+ *------------------------**/
+.action-buttons {
+    padding-bottom: 20px;
+}
+  
+.headers-align .mat-expansion-panel-header-title,
+.headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+}
+
+.headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headers-align .mat-form-field + .mat-form-field {
+    margin-left: 8px;
 }

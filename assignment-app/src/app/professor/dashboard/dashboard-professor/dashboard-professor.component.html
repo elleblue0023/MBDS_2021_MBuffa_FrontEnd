@@ -1,10 +1,11 @@
 <mat-toolbar class="theme-primary">
   <img src="../../../../assets/images/shiba1.jpg" alt="" width="100" class="rounded-circle toolbar">
+  {{currentProfessor?.lastname}}
  <span class="spacer"></span>
 
- {{currentProfessor?.lastname}}
-  <button mat-icon-button>
-    <mat-icon (click) = "OnLogOut()">logout</mat-icon>
+ 
+  <button mat-icon-button class="btn-fab">
+    <mat-icon (click) = "OnLogOut()" svgIcon="logout"></mat-icon>
   </button>
 </mat-toolbar>
 

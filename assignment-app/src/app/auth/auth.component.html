@@ -1,7 +1,21 @@
 <div class="body-container">
     <mat-card class="login-card">
         <mat-card-header class="card-header">
-            <mat-card-title>Se connecter</mat-card-title>
+            <div class="row">
+                <div class="col-md-6 mb-5">
+                    <a routerLink="/professor/create-account" mat-flat-button class="uni-btn-danger">
+                        <mat-icon aria-hidden="false" svgIcon="teacher" aria-label="add circle outline icon">add_circle_outline</mat-icon> S'inscrire 
+                    </a> 
+                </div>
+                <div class="col-md-6">
+                    <a routerLink="/student/create-account" mat-flat-button class="uni-btn-danger">
+                        <mat-icon svgIcon="student" aria-hidden="false" aria-label="add circle outline icon"></mat-icon> S'inscrire 
+                    </a> 
+                </div> 
+                <div class="col-md-6">
+                    <mat-card-title>Se connecter</mat-card-title>
+                </div>
+            </div>            
         </mat-card-header>
         <form [formGroup]="loginForm" 
             class="form" 
@@ -37,32 +51,21 @@
             
             <section class="example-section">
                 <mat-radio-group [formControl] = "loginForm.controls['statut']"  name="statut">
-                    <mat-radio-button class="radio-margin" value="professor">Professeur</mat-radio-button>
-                    <mat-radio-button class="radio-margin" value="student">Etudiant</mat-radio-button>
+                    <mat-radio-button class="radio-margin" value="professor">
+                        <mat-icon svgIcon="teacher" aria-hidden="false"></mat-icon>
+                    </mat-radio-button>
+                    <mat-radio-button class="radio-margin" value="student">
+                        <mat-icon svgIcon="student" aria-hidden="false"></mat-icon>
+                    </mat-radio-button>
                 </mat-radio-group>
             </section>
 
-            <mat-card-actions class="text-end m-4">
-                <div class="row rowcenter">
-                    <div class="col-md-6">
-                        <button mat-flat-button class="uni-btn-primary">
-                            <mat-icon aria-hidden="false" aria-label="login icon">login</mat-icon> Se connecter
-                        </button>
-                    </div>
-                </div>   
-                <div class="row">
-                    <div class="col-md-6">
-                        <a routerLink="/professor/create-account" mat-flat-button class="uni-btn-danger">
-                            <mat-icon aria-hidden="false" aria-label="add circle outline icon">add_circle_outline</mat-icon> S'inscrire (Prof)
-                        </a> 
-                    </div>
-                    <div class="col-md-6">
-                        <a routerLink="/student/create-account" mat-flat-button class="uni-btn-danger">
-                            <mat-icon aria-hidden="false" aria-label="add circle outline icon">add_circle_outline</mat-icon> S'inscrire (Etudiant)
-                        </a> 
-                    </div>
-                </div>   
+            <mat-card-actions class="text-end">
+                <button mat-fab class="btn-fab">
+                    <mat-icon aria-hidden="false" svgIcon="login" aria-label="login icon"></mat-icon> 
+                </button>
             </mat-card-actions>
         </form>
     </mat-card>
 </div>
+

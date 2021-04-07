@@ -155,3 +155,23 @@ body { margin: 0;}
 .text-left{
     text-align: left;
 }
+
+
+/**--------------------------------------------
+ *               MAT FAB BUTTON
+ *---------------------------------------------**/
+
+.btn-fab {
+    width: 100%;
+    background-color: #ffffff !important;
+    line-height: 44px;
+    text-align: center;
+    padding: 15px;
+    border: solid 2px #3f97da !important;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s; 
+    &:hover {
+        border: solid 2px #FD6524 !important;
+    }
+}

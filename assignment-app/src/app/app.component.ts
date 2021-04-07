@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorTracker } from './models/error-tracker';
-import { DesignUtilService } from './services/design-util.service';
-import { ProfessorService } from './services/professor.service';
+import { Component } from '@angular/core';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +9,47 @@ import { ProfessorService } from './services/professor.service';
 })
 export class AppComponent {
   title = 'assignment-app';
+
+  constructor(private matIconRegistry: MatIconRegistry, private domSatinizer: DomSanitizer) {
+    this.matIconRegistry.addSvgIcon(
+      'assignment',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/assigment.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'student',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/student.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'teacher',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/teacher.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'login',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/login.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'logout',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/logout.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'communicate',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/communicate.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'assignments',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/assignment.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'edit',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/edit.svg")
+    );
+  }
 }
 
