@@ -54,6 +54,7 @@ import { AddStudentComponent } from './student/add-student/add-student.component
 import { StudashboardComponent } from './student/studashboard/studashboard.component';
 import { StudialogLogoutComponent } from './student/studashboard/studialog-logout/studialog-logout.component';
 import { StuaboutComponent } from './student/studashboard/stuabout/stuabout.component';
+import { PublicationProfessorDetailComponent } from './professor/dashboard/publication-professor/publication-professor-detail/publication-professor-detail.component';
 
 
 
@@ -93,7 +94,8 @@ const routes:Routes = [
     AddStudentComponent,
     StudashboardComponent,
     StudialogLogoutComponent,
-    StuaboutComponent
+    StuaboutComponent,
+    PublicationProfessorDetailComponent
   ],
   imports: [
     BrowserModule,

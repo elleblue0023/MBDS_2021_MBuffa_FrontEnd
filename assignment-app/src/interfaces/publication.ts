@@ -4,7 +4,11 @@ export interface IPublication {
     professor: IProfessor;
     name: string;
     message: string;
-    class: string;
+    promotion: string;
     course: string;
-    deadline: Date;
+    deadline: string ;
+    isOutofDate: Boolean;
 }
+
+
+ 

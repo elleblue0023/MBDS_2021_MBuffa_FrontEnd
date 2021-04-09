@@ -55,6 +55,11 @@ export class AppComponent {
       'scholarship',
       this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/scholarship.svg")
     );
+
+    this.matIconRegistry.addSvgIcon(
+      'done',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/done.svg")
+    );
   }
 }
 

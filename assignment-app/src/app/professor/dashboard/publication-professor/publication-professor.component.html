@@ -69,23 +69,15 @@
             </mat-card>
         </div>
 
-        <div class="col-md-7">
+        <div class="col-md-7 publication-list">
             <div class="col-md-12">
-
                 <div class="col-md-12 mb-3" *ngFor="let item of myPublications" [value]="item._id">
 
-                    <!-- <div *ngIf="item.deadline < this.currentDate; else done_assignment">
-                    NonValid {{item.deadline | date}}
-                </div>
-
-                <ng-template #done_assignment>
-                    Valid {{item.deadline | date}}
-                </ng-template> -->
-
-                    <div class="col" >
+                <div *ngIf="!item.isOutofDate; else done_assignment">
+                    <div class="col">
                         <div class="card-professor-publication">
                             <div class="row">
-                                <div class="col-md-3 occupation-professor-publication">
+                                <div class="col-md-3 occupation-professor-publication undone-publication">
                                     <h2>{{item.promotionName}}</h2>
                                     <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
                                     
@@ -98,7 +90,7 @@
                                         </div>
                                     </div>
                                     <button mat-icon-button aria-label="Example icon button with a home icon">
-                                        <mat-icon class="m-3" matBadge="15" svgIcon="assignments"></mat-icon>
+                                        <mat-icon class="m-3" matBadge="15" svgIcon="assignments" (click)="onUpdateIdPublicationDetail(item._id)"></mat-icon>
                                     </button>
                                     <button 
                                         mat-icon-button 
@@ -111,21 +103,65 @@
                                     </button>
                                 </div>
                                 <div class="col-md-9 content-professor-publication">
-                                    {{item.name}} 
-                                    <mat-divider></mat-divider>
-                                    {{item.message}} 
-                                    ---------- 
-                                    {{item.deadline || checkLateDate}}
+                                    <button mat-flat-button color="primary">{{item.name}} </button>
+
+                                    <p class="p-3">
+                                        {{item.message}}------------{{item.isOutofDate}}
+                                    </p>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <ng-template #done_assignment>
+                    <div class="col done">
+                        <div class="card-professor-publication">
+                            <div class="row">
+                                <div class="col-md-3 occupation-professor-publication done-publication">
+                                    <h2>{{item.promotionName}}</h2>
+                                    <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
+                                    
+                                    <mat-divider style="background-color: white;"></mat-divider>
+                                    <div class="uni-entry-body text-left">                                     
+                                        <div class="uni-entry-time">
+                                            <li class="year"> {{item.deadline | date: 'yyyy'}} </li>
+                                            <li class="day"> {{item.deadline | date: 'dd'}} </li>
+                                            <li class="month"> {{ item.deadline | date: 'MM' | convertmonthDate}} </li>
+                                        </div>
+                                    </div>
+                                    <button mat-icon-button aria-label="Example icon button with a home icon">
+                                        <mat-icon class="m-3" matBadge="15" svgIcon="assignments" (click)="onUpdateIdPublicationDetail(item._id)"></mat-icon>
+                                    </button>
+                                    <button 
+                                        mat-icon-button 
+                                        aria-label="Example icon button with a home icon"
+                                        #tooltip="matTooltip"
+                                        matTooltip="Editer la publication de {{item.deadline | date: 'dd'}} {{ item.deadline | date: 'MM' | convertmonthDate}} {{item.deadline | date: 'yyyy'}}"
+                                        matTooltipPosition="below"
+                                    >
+                                    </button>
+                                </div>
+                                <div class="col-md-9 content-professor-publication">
+
+                                    <button mat-flat-button color="warn">{{item.name}} </button>
+
+                                    <p class="p-3">
+                                        {{item.message}}------------{{item.isOutofDate}}
+                                    </p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-5 mb-5">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tenetur, deleniti. Suscipit nemo sint alias repellendus porro, magni voluptates eveniet ratione autem nobis laudantium eligendi dolorum fuga odit quibusdam ducimus neque.
+        <div class="row mt-4" *ngIf="idPublicationDetail">
+            <app-publication-professor-detail [publication] = "idPublicationDetail" ></app-publication-professor-detail>
         </div>
     </div>
 </div>

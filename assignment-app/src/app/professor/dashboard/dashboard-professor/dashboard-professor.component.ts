@@ -10,16 +10,19 @@ import { ProfessorService } from 'src/app/services/professor.service';
 export class DashboardProfessorComponent implements OnInit {
 
   currentProfessor: any;
+  publicationCount: any;
 
   constructor(
     private _logOutDialog: MatDialog,
-    private professorService: ProfessorService
+    private professorService: ProfessorService,
   ) { }
 
+  
   ngOnInit(): void {
     this.professorService.getCurrentProfessor().subscribe(
       (current) => {   
         this.currentProfessor = current;
+        this.professorService.publicationCount.subscribe(count => this.publicationCount = count);
       }
     )
   }

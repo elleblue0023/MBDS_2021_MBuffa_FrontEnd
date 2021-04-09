@@ -1,12 +1,11 @@
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { catchError, retry, tap } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { IProfessor } from 'src/interfaces/professor';
 import { IPublication } from 'src/interfaces/publication';
 import { DialogLogoutComponent } from '../professor/dashboard/dialog-logout/dialog-logout.component';
-import { DialogPublicationProfessorComponent } from '../professor/dashboard/publication-professor/dialog-publication-professor/dialog-publication-professor.component';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -16,8 +15,9 @@ export class ProfessorService {
 
   private readonly uri = 'http://localhost:3001/api';
   private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
-  public behaviourCurrentProfessor: BehaviorSubject<any>= new BehaviorSubject<any>([]);
-
+  public behaviourCurrentProfessor: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  public publicationCount = new Subject();
+  
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
@@ -96,8 +96,20 @@ export class ProfessorService {
     return this.currentProfessor().pipe(
       tap(currentProfessor => {
         this.behaviourCurrentProfessor.next(currentProfessor);
-      }) 
+      })
     )
+
+
+    /* this.getProfessorPublication().pipe(
+      tap(listPublication => {
+        if (listPublication instanceof Array) {
+          this.myPublications = listPublication;
+          console.log("Nombre " + this.myPublications.length );
+          
+          this.publicationCount.next(this.myPublications.length);
+        }
+      })
+    ) */
   }
 
 

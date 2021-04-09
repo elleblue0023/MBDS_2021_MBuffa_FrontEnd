@@ -60,4 +60,9 @@ export class UtilsService {
     const locale = 'en-US';
     return formatDate(dateToFormat, format, locale);
   }
+
+  isValidDeadline(date: Date) {
+    return date.setHours(0,0,0,0) < new Date().setHours(0,0,0,0)
+  };
+
 }

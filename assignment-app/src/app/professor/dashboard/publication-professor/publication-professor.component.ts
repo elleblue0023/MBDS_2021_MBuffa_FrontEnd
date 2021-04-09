@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ErrorTracker } from 'src/app/models/error-tracker';
@@ -8,30 +8,29 @@ import { ErrorTracker } from 'src/app/models/error-tracker';
 import { DesignUtilService } from 'src/app/services/design-util.service';
 import { ProfessorService } from 'src/app/services/professor.service';
 import { UtilsService } from 'src/app/services/utils.service';
-import { IPublication } from 'src/interfaces/publication';
-import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component';
 import { DialogPublicationProfessorComponent } from './dialog-publication-professor/dialog-publication-professor.component';
+import { ViewEncapsulation } from '@angular/core';
+import { IPublication } from 'src/interfaces/publication';
 
 
 @Component({
   selector: 'app-publication-professor',
   templateUrl: './publication-professor.component.html',
-  styleUrls: ['./publication-professor.component.scss']
+  styleUrls: ['./publication-professor.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PublicationProfessorComponent implements OnInit {
 
   myOccupation: any;
   currentProfessor: any;
   myPublications: IPublication[] = [];
+  //myPublications: any;
   addPublicationForm: FormGroup;
-
-  message: string = "";
-  currentDate: Date = new Date();
-
-  editedMessage: string = "";
 
   ACTION = "edit";
   COMPONENT = "publication-professor";
+
+  idPublicationDetail: any;
 
   constructor(
     private router: Router,
@@ -41,20 +40,24 @@ export class PublicationProfessorComponent implements OnInit {
     private utilsService: UtilsService,
     private _dialog: MatDialog
   ) {
+    /**Initialisation de la form Group */
     this.addPublicationForm = new FormGroup({
       name: new FormControl('', Validators.required),
       message: new FormControl('', Validators.required),
       promotionCours: new FormControl('', Validators.required),
       deadline: new FormControl('', Validators.required)
     })
-   }
-
+  }
 
   listPublications() {
     this.professorService.getProfessorPublication().subscribe(
       (publications) => {
         if (publications instanceof Array) {
+          publications.forEach(elt => {
+            elt.isOutofDate = this.utilsService.isValidDeadline(new Date(elt.deadline));
+          });
           this.myPublications = publications;
+          this.professorService.publicationCount.next(this.myPublications.length);
         }
       },
       (error: ErrorTracker) => {
@@ -69,9 +72,6 @@ export class PublicationProfessorComponent implements OnInit {
     )
   }
 
-  isValidDeadline(date: Date) {
-    return date.setHours(0,0,0,0) > new Date().setHours(0,0,0,0)
-  };
 
   ngOnInit(): void {
     this.professorService.getCurrentProfessor().subscribe(
@@ -120,7 +120,6 @@ export class PublicationProfessorComponent implements OnInit {
     }
   }
 
-
   openDialog(inputDialogData: any) {
     const dialogRef = inputDialogData._dialog.open(DialogPublicationProfessorComponent, {
       width: '100%',
@@ -168,6 +167,8 @@ export class PublicationProfessorComponent implements OnInit {
 
   }
 
-
+  onUpdateIdPublicationDetail(id) {
+    this.idPublicationDetail = id;
+  }
   
 }
