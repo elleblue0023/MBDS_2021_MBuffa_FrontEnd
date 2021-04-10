@@ -7,4 +7,5 @@ export interface IPublication {
     class: string;
     course: string;
     deadline: Date;
+    assignmentStudentCreated: boolean;
 }

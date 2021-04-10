@@ -55,6 +55,7 @@ import { StudashboardComponent } from './student/studashboard/studashboard.compo
 import { StudialogLogoutComponent } from './student/studashboard/studialog-logout/studialog-logout.component';
 import { StuaboutComponent } from './student/studashboard/stuabout/stuabout.component';
 import { StupubliandassignComponent } from './student/studashboard/stupubliandassign/stupubliandassign.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -125,6 +126,7 @@ const routes:Routes = [
 
     BrowserAnimationsModule,
     HttpClientModule,
+    ScrollingModule,
 
     RouterModule.forRoot(routes)
 

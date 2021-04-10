@@ -84,7 +84,7 @@ export class StudentService {
   }
 
   getStudentAssignment() {
-    return this.http.get<IAssignment[]>(`${this.uri}/assignments/student`)
+    return this.http.get<IAssignment[]>(`${this.uri}/assignments/student/list`)
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
       )

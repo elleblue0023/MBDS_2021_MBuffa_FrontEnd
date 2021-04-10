@@ -12,7 +12,7 @@
                                 <h2>{{item.promotionName}}</h2>
                                 <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
                                 <mat-divider></mat-divider>
-                                <button mat-raised-button color="primary" style="margin-top: 10px;" (click)="openAddAssignmentForm(item)">Créer le devoir</button>
+                                <button mat-raised-button color="primary" style="margin-top: 10px;" *ngIf="!item.assignmentStudentCreated" (click)="openAddAssignmentForm(item)">Créer le devoir</button>
                             </div>
                             <div class="col-md-6 content-professor-publication">
                                 Titre du devoir: {{item.name}} 
@@ -50,7 +50,10 @@
                         >
                         <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('required')">
                             Champ obligatoire !
-                          </mat-error>
+                        </mat-error>
+                        <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('pattern')">
+                            Veuillez bien écrire votre url svp (ex: http://github.com/nomprojet)
+                        </mat-error>
                     </mat-form-field>
                     <div class="col-md-11">
                         <button mat-flat-button class="uni-btn-primary" type="submit"
@@ -72,27 +75,37 @@
         <h1>Liste des devoirs créés</h1>
     </div>
     <div class="row">
-        <div class="col-md-11" *ngFor="let item of myAssignments" [value]="item._id">
+        <div class="col-md-11" *ngFor="let assignment of myAssignments" [value]="assignment._id">
             <mat-card class="example-card">
                 <mat-card-header>
-                  <div class="col-md-10" style="display: flex;">
+                  <div class="col-md-12" style="display: flex;">
                     <div class="col-md-4" style="display: flex;">
                         <div class="col-md-2"> <div mat-card-avatar class="example-header-image"><img src="../../../assets/images/shiba1.jpg" alt="" style="width: inherit;"></div></div>
                         <div class="col-md-10">
-                            <div class="row"><mat-card-title>Nom Prof</mat-card-title></div>
-                            <div class="row"><mat-card-subtitle>Matière:</mat-card-subtitle></div>
+                            <div class="row"><mat-card-title>Prof: {{assignment.publication.professor.surname}} {{assignment.publication.professor.lastname}}</mat-card-title></div>
+                            <div class="row"><mat-card-subtitle>Matière: {{assignment.publication.courseName}}</mat-card-subtitle></div>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <h4 style="margin-bottom: 0px;">Date de création du devoir (date de rendu): dd/MM/YYYY</h4>
-                        <h4 style="margin-bottom: 0px;">Note: En attente de la correction du prof ou note /20</h4>
+                    <div class="col-md-6">
+                        <h2 style="margin-bottom: 0px;">Nom du devoir: {{assignment.name}}</h2>
+                        <h4 style="margin-bottom: 0px;">Date de création du devoir (date de rendu): {{assignment.doneDate | date: 'dd-MM-yyyy'}}</h4>
+                        <h4 style="margin-bottom: 0px;">Url de dépôt de votre devoir: {{assignment.depositUrl}}</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <div *ngIf="assignment.isMarked; else elseBlockNote">
+                            <h4 style="margin-bottom: 0px;">Note: {{assignment.note}} /20</h4>
+                        </div>
+                        <ng-template #elseBlockNote>Votre devoir n'a pas encore été corrigé par le professeur.</ng-template>
                     </div>
                   </div>
                 </mat-card-header>
                 <mat-card-content>
-                  <p>
-                    Remarque du prof: ...
-                  </p>
+                  <div *ngIf="assignment.remark != ''; else elseBlockremark">
+                    <p>
+                        Remarque du prof: {{assignment.remark}}
+                    </p>
+                  </div>
+                  <ng-template #elseBlockremark>Aucune remarque laissée par le professeur</ng-template>
                 </mat-card-content>
               </mat-card>  
         </div>
