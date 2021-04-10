@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { IAssignment } from 'src/interfaces/assignment';
+import { IPublication } from 'src/interfaces/publication';
 import { IStudent } from 'src/interfaces/student';
 import { StudialogLogoutComponent } from '../student/studashboard/studialog-logout/studialog-logout.component';
 import { ErrorService } from './error.service';
@@ -64,6 +66,27 @@ export class StudentService {
         },
         catchError(err => this.errorService.handleHttpError(err))
         )
+      )
+  }
+
+  getPromotionPublications(promo: any) {
+    return this.http.get<IPublication[]>(`${this.uri}/professor/publications/assignment/${promo}`)
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      )
+  }
+
+  saveAssignmentForCurrStu(paramsAssignment: any) {
+    return this.http.post<any>(`${this.uri}/assignments`, paramsAssignment, { headers: this.headerContent })
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      )
+  }
+
+  getStudentAssignment() {
+    return this.http.get<IAssignment[]>(`${this.uri}/assignments/student`)
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
       )
   }
 

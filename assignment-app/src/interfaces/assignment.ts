@@ -1,13 +1,14 @@
-import { Student } from "./student";
+import { IPublication } from "./publication";
+import { IStudent } from "./student";
 
-export interface Assignment {
+export interface IAssignment {
     _id?: any;
-    student: Student; 
-	promotionName: string;
-	courseName: string;
+    student: IStudent; 
+    publication: IPublication;
 	note: number;
-	projectUrl: string;
+	remark: string;
     doneDate: Date;
     name: string;
-    isDone: boolean;
+    depositUrl: string;
+    isMarked: boolean;
 }

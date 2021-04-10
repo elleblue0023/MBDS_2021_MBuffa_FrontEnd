@@ -1,0 +1,100 @@
+<div class="body-container">
+    <div class="row">
+        <h1>Publication des professeurs de votre promotion</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12 mb-3" *ngFor="let item of myPublications" [value]="item._id">
+                <div class="col" >
+                    <div class="card-professor-publication">
+                        <div class="row">
+                            <div class="col-md-3 occupation-professor-publication">
+                                <h2>{{item.promotionName}}</h2>
+                                <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
+                                <mat-divider></mat-divider>
+                                <button mat-raised-button color="primary" style="margin-top: 10px;" (click)="openAddAssignmentForm(item)">Créer le devoir</button>
+                            </div>
+                            <div class="col-md-6 content-professor-publication">
+                                Titre du devoir: {{item.name}} 
+                                <mat-divider></mat-divider>
+                                Description: {{item.message}} 
+                            </div>
+                            <div class="col-md-2 occupation-professor-publication">
+                                <h4 style="text-align: center; color: crimson;">Créer le devoir avant le:</h4>
+                                <div class="uni-entry-body text-left">                                     
+                                    <div class="uni-entry-time">
+                                        <li class="year"> {{item.deadline | date: 'yyyy'}} </li>
+                                        <li class="day"> {{item.deadline | date: 'dd'}} </li>
+                                        <li class="month"> {{ item.deadline | date: 'MM' | convertmonthDate}} </li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="formulaireToShow">
+        <h1>Création du devoir "{{titleSelected}}"</h1>
+        <div class="col-md-5 mb-5">
+            <mat-card>
+                <form [formGroup]="addAssignmentForm" (ngSubmit)="onAddAssignment()">
+                    <mat-form-field class="col-md-11 p-3">
+                        <mat-label>Url du dépôt du projet</mat-label>
+                        <input  
+                            matInput
+                            formControlName="depositUrl"
+                            type="text" 
+                            name="name"
+                        >
+                        <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('required')">
+                            Champ obligatoire !
+                          </mat-error>
+                    </mat-form-field>
+                    <div class="col-md-11">
+                        <button mat-flat-button class="uni-btn-primary" type="submit"
+                            style="padding: 2%;">
+                            <mat-icon aria-label="add" svgIcon="communicate"></mat-icon>
+                            Créer
+                        </button>
+                        <button mat-flat-button class="uni-btn-danger"
+                            style="padding: 2%;" (click)="closeAddAssignmentForm()">
+                            Annuler
+                        </button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+    
+    <div class="row">
+        <h1>Liste des devoirs créés</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-11" *ngFor="let item of myAssignments" [value]="item._id">
+            <mat-card class="example-card">
+                <mat-card-header>
+                  <div class="col-md-10" style="display: flex;">
+                    <div class="col-md-4" style="display: flex;">
+                        <div class="col-md-2"> <div mat-card-avatar class="example-header-image"><img src="../../../assets/images/shiba1.jpg" alt="" style="width: inherit;"></div></div>
+                        <div class="col-md-10">
+                            <div class="row"><mat-card-title>Nom Prof</mat-card-title></div>
+                            <div class="row"><mat-card-subtitle>Matière:</mat-card-subtitle></div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h4 style="margin-bottom: 0px;">Date de création du devoir (date de rendu): dd/MM/YYYY</h4>
+                        <h4 style="margin-bottom: 0px;">Note: En attente de la correction du prof ou note /20</h4>
+                    </div>
+                  </div>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                    Remarque du prof: ...
+                  </p>
+                </mat-card-content>
+              </mat-card>  
+        </div>
+    </div>
+</div>
