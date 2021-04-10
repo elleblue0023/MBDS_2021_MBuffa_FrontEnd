@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { IAssignment } from 'src/interfaces/assignment';
 import { IProfessor } from 'src/interfaces/professor';
 import { IPublication } from 'src/interfaces/publication';
 import { DialogLogoutComponent } from '../professor/dashboard/dialog-logout/dialog-logout.component';
@@ -17,7 +18,7 @@ export class ProfessorService {
   private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   public behaviourCurrentProfessor: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public publicationCount = new Subject();
-  
+
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
@@ -52,7 +53,7 @@ export class ProfessorService {
         tap(result => {
           this.initializeCurrentProfessor()
         },
-        catchError(err => this.errorService.handleHttpError(err))
+          catchError(err => this.errorService.handleHttpError(err))
         )
       )
   }
@@ -98,20 +99,14 @@ export class ProfessorService {
         this.behaviourCurrentProfessor.next(currentProfessor);
       })
     )
-
-
-    /* this.getProfessorPublication().pipe(
-      tap(listPublication => {
-        if (listPublication instanceof Array) {
-          this.myPublications = listPublication;
-          console.log("Nombre " + this.myPublications.length );
-          
-          this.publicationCount.next(this.myPublications.length);
-        }
-      })
-    ) */
   }
 
+  getAssignmentListPublication(id: any) {
+    return this.http.get<IAssignment[]>(`${this.uri}/assignments/student/publication/${id}`)
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      )
+  }
 
   getCurrentProfessor() {
     return this.behaviourCurrentProfessor;

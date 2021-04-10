@@ -11,6 +11,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { DialogPublicationProfessorComponent } from './dialog-publication-professor/dialog-publication-professor.component';
 import { ViewEncapsulation } from '@angular/core';
 import { IPublication } from 'src/interfaces/publication';
+import { IAssignment } from 'src/interfaces/assignment';
 
 
 @Component({
@@ -30,7 +31,9 @@ export class PublicationProfessorComponent implements OnInit {
   ACTION = "edit";
   COMPONENT = "publication-professor";
 
-  idPublicationDetail: any;
+  markedAssignment: IAssignment[] = [];
+  unMarkedAssignment: IAssignment[] = [];
+
 
   constructor(
     private router: Router,
@@ -71,7 +74,6 @@ export class PublicationProfessorComponent implements OnInit {
       }
     )
   }
-
 
   ngOnInit(): void {
     this.professorService.getCurrentProfessor().subscribe(
@@ -168,7 +170,32 @@ export class PublicationProfessorComponent implements OnInit {
   }
 
   onUpdateIdPublicationDetail(id) {
-    this.idPublicationDetail = id;
+    this.professorService.getAssignmentListPublication(id).subscribe(
+      (list) => {
+        if (list instanceof Array) {
+          let markedList: IAssignment[] = [];
+          let unMarkedList: IAssignment[] = [];
+
+          list.forEach(elt => {
+            if (elt.publication != null) {
+              (elt.isMarked) ? markedList.push(elt) : unMarkedList.push(elt)
+            }
+          });
+
+          this.markedAssignment = markedList;
+          this.unMarkedAssignment = unMarkedList;
+        } 
+      }, 
+      (error: ErrorTracker) => {
+        let snackBarData = {
+          snackBar: this._snackBar,
+          message: error.userMessage,
+          action: "OK",
+          status: "warning"
+        }
+        this.designUtilService.openSnackBar(snackBarData)
+      }
+    )
   }
   
 }

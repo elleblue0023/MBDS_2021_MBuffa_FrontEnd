@@ -148,7 +148,7 @@
                                     <button mat-flat-button color="warn">{{item.name}} </button>
 
                                     <p class="p-3">
-                                        {{item.message}}------------{{item.isOutofDate}}
+                                        {{item.message}}
                                     </p>
                                     
                                 </div>
@@ -160,8 +160,8 @@
             </div>
         </div>
 
-        <div class="row mt-4" *ngIf="idPublicationDetail">
-            <app-publication-professor-detail [publication] = "idPublicationDetail" ></app-publication-professor-detail>
+        <div class="row mt-4" *ngIf="unMarkedAssignment && markedAssignment">
+            <app-publication-professor-detail [markedAssignment] = "markedAssignment" [unMarkedAssignment] = "unMarkedAssignment"></app-publication-professor-detail>
         </div>
     </div>
 </div>

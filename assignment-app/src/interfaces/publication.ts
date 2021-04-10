@@ -9,6 +9,7 @@ export interface IPublication {
     deadline: string ;
     isOutofDate: Boolean;
     assignmentStudentCreated: boolean;
+    receivedAssignement: number;
 }
 
 

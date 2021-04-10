@@ -1,2 +1,55 @@
-<p>publication-professor-detail works!</p>
-Id de la publicaiton => {{publication}}
+<div class="row">
+    <div class="col-md-6 unmarked">
+        <h2 class="text-center"><mat-icon svgIcon="waiting"></mat-icon>&nbsp; Non corrigé</h2>
+        <div
+            cdkDropList
+            #todoList="cdkDropList"
+            [cdkDropListData]="unMarkedAssignment"
+            [cdkDropListConnectedTo]="[doneList]"
+            class="list"
+            (cdkDropListDropped)="drop($event)">
+            <div class="box" *ngFor="let item of unMarkedAssignment" cdkDrag>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title> {{item.student.lastname}} {{item.student.surname}}</mat-card-title>
+                        <mat-card-subtitle>{{item.student.email}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
+                        <a style="cursor: pointer" href={{item.depositUrl}}>{{item.depositUrl}}</a>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 marked">
+        <h2 class="text-center"><mat-icon svgIcon="marked"></mat-icon>&nbsp; Corrigé</h2>
+        <div
+            cdkDropList
+            #doneList="cdkDropList"
+            [cdkDropListData]="markedAssignment"
+            [cdkDropListConnectedTo]="[todoList]"
+            class="list"
+            (cdkDropListDropped)="drop($event)">
+            <div class="box" *ngFor="let item of markedAssignment" cdkDrag>
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title> {{item.student.lastname}} {{item.student.surname}}</mat-card-title>
+                        <mat-card-subtitle>{{item.student.email}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col-md-10">
+                                <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
+                                    <a style="cursor: pointer" href={{item.depositUrl}}>{{item.depositUrl}}</a>
+                            </div>
+                            <div class="col-md-2 markStyle">
+                                12
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
