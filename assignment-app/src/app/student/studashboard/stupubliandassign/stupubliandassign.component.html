@@ -1,11 +1,11 @@
 <div class="body-container">
+    <mat-progress-spinner mode="indeterminate" *ngIf="isWait" style="position: fixed;left: 50%;margin-left: -50px;top: 50%;margin-top: -50px;">
+    </mat-progress-spinner>
     <div class="row">
         <h1>Publication des professeurs de votre promotion</h1>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-12 mb-3" *ngFor="let item of myPublications" [value]="item._id">
-                <div class="col" >
+    <div>
+            <div style="width: 50%;" *ngFor="let item of myPublications" [value]="item._id">
                     <div class="card-professor-publication">
                         <div class="row">
                             <div class="col-md-3 occupation-professor-publication">
@@ -13,11 +13,12 @@
                                 <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
                                 <mat-divider></mat-divider>
                                 
-                                <button mat-raised-button color="primary" style="margin-top: 10px;" *ngIf="!item.assignmentStudentCreated; else elseDoneAssignment" (click)="openAddAssignmentForm(item)">Créer le devoir</button>
+                                <button mat-raised-button color="primary" [disabled]='isWait' style="margin-top: 10px;" *ngIf="!item.assignmentStudentCreated; else elseDoneAssignment" (click)="openAddAssignmentForm(item)">Créer le devoir</button>
 
                                 <ng-template #elseDoneAssignment>
-                                    <button mat-raised-button color="accent" style="margin-top: 10px;">Devoir déjà rendu</button>
+                                    <button mat-raised-button color="accent" style="margin-top: 10px;" disabled>Devoir déjà rendu</button>
                                 </ng-template>
+
                             </div>
                             <div class="col-md-6 content-professor-publication">
                                 Titre du devoir: {{item.name}} 
@@ -36,48 +37,43 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
-        </div>
-    </div>
-    <div class="row" *ngIf="formulaireToShow">
-        <h1>Création du devoir "{{titleSelected}}"</h1>
-        <div class="col-md-5 mb-5">
-            <mat-card>
-                <form [formGroup]="addAssignmentForm" (ngSubmit)="onAddAssignment()">
-                    <mat-form-field class="col-md-12 p-3">
-                        <mat-label>Url du dépôt du projet</mat-label>
-                        <input  
-                            matInput
-                            formControlName="depositUrl"
-                            type="text" 
-                            name="name"
-                        >
-                        <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('required')">
-                            Champ obligatoire !
-                        </mat-error>
-                        <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('pattern')">
-                            Veuillez bien écrire votre url svp (ex: http://github.com/nomprojet)
-                        </mat-error>
-                    </mat-form-field>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button mat-flat-button class="uni-btn-primary" type="submit" style="padding: 2%;">
-                                <mat-icon aria-label="add" svgIcon="send_document"></mat-icon>
-                                Créer
-                            </button>
+            <div style="width: 40%;" *ngIf="formulaireToShow">
+                <h1>Création du devoir "{{titleSelected}}"</h1>
+                <mat-card>
+                    <form [formGroup]="addAssignmentForm" (ngSubmit)="onAddAssignment()">
+                        <mat-form-field class="col-md-11 p-3">
+                            <mat-label>Url du dépôt du projet</mat-label>
+                            <input  
+                                matInput
+                                formControlName="depositUrl"
+                                type="text" 
+                                name="name"
+                            >
+                            <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('required')">
+                                Champ obligatoire !
+                            </mat-error>
+                            <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('pattern')">
+                                Veuillez bien écrire votre url svp (ex: http://github.com/nomprojet)
+                            </mat-error>
+                        </mat-form-field>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button mat-flat-button class="uni-btn-primary" type="submit" style="padding: 2%;">
+                                    <mat-icon aria-label="add" svgIcon="send_document"></mat-icon>
+                                    Créer
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button mat-flat-button class="uni-btn-danger" style="padding: 2%;" (click)="closeAddAssignmentForm()">
+                                    Annuler
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <button mat-flat-button class="uni-btn-danger" style="padding: 2%;" (click)="closeAddAssignmentForm()">
-                                Annuler
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </mat-card>
-        </div>
+                    </form>
+                </mat-card>
+            </div>
     </div>
-    
     <div class="row">
         <h1>Liste des devoirs créés</h1>
     </div>
@@ -106,15 +102,6 @@
                     </div>
                   </div>
                 </mat-card-header>
-                <mat-card-content>
-                    <mat-icon aria-label="add" svgIcon="note"></mat-icon> 
-                  <div *ngIf="assignment.remark != ''; else elseBlockremark">
-                    <p class="remark-bloc">
-                        Remarque du prof: {{assignment.remark}}
-                    </p>
-                  </div>
-                  <ng-template #elseBlockremark class="remark-bloc">Aucune remarque laissée par le professeur</ng-template>
-                </mat-card-content>
               </mat-card>  
         </div>
     </div>
