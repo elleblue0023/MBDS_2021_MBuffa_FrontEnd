@@ -102,10 +102,7 @@
                         </h4>
                     </div>
                     <div class="col-md-2">
-                        <div *ngIf="assignment.isMarked; else elseBlockNote">
-                            <h4 style="margin-bottom: 0px;">Note: {{assignment.note}} /20</h4>
-                        </div>
-                        <ng-template #elseBlockNote>Votre devoir n'a pas encore été corrigé par le professeur.</ng-template>
+                        <button mat-button (click)="openDialogAssignDetails(assignment)">VOIR DETAILS</button>
                     </div>
                   </div>
                 </mat-card-header>

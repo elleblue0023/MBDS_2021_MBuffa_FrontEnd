@@ -60,6 +60,7 @@ import { StupubliandassignComponent } from './student/studashboard/stupubliandas
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DialogAssignmentMarkComponent } from './professor/dashboard/publication-professor/dialog-assignment-mark/dialog-assignment-mark.component';
+import { StudialogAssigndetailComponent } from './student/studashboard/stupubliandassign/studialog-assigndetail/studialog-assigndetail.component';
 
 
 
@@ -102,7 +103,8 @@ const routes:Routes = [
     StuaboutComponent,
     PublicationProfessorDetailComponent,
     StupubliandassignComponent,
-    DialogAssignmentMarkComponent
+    DialogAssignmentMarkComponent,
+    StudialogAssigndetailComponent
   ],
   imports: [
     BrowserModule,

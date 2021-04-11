@@ -1,0 +1,53 @@
+<div *ngIf="component=='assign-detail'">
+    <div *ngIf="action=='detail'" style="display: block;justify-content: center;text-align: center;">
+      <mat-dialog-content class="mat-typography">
+        <h1 mat-dialog-title>Détails du devoir de la promotion {{data.publication.promotionName}}</h1>
+        <div class="row">
+          <div class="col-md-12" style="display: flex;">
+            <div class="col-md-4" style="justify-content: center;align-items: center;">
+              <div class="row">
+                <h2>Professeur</h2>
+              </div>
+              <div class="row" style="justify-content: center;align-items: center;">
+                <img src="../../../../../../assets/images/shiba1.jpg" alt="" style="width: 250px;">
+              </div>
+              <div class="row">
+                <p>{{data.publication.professor.surname}} {{data.publication.professor.lastname}}</p>
+              </div>              
+            </div>
+            <div class="col-md-8">
+              <h2>Titre du devoir</h2>
+              <p>{{data.name}}</p>
+      
+              <h2>Matière</h2>
+              <p>{{data.publication.courseName}}</p>
+      
+              <h2>Date de création du devoir (date de rendu)</h2>
+              <p>{{data.doneDate | date: 'dd-MM-yyyy'}}</p>
+
+              <h2>Url de dépôt de votre devoir</h2>
+              <p>{{data.depositUrl}}</p>
+
+              <h2>Note</h2>
+              <div *ngIf="data.isMarked; else elseBlockNote">
+                <p>{{data.note}}/20</p>
+              </div>
+              <ng-template #elseBlockNote>Votre devoir n'a pas encore été corrigé par le professeur.</ng-template>
+
+              <h2>Remarque du prof</h2>
+              <div *ngIf="data.remark != ''; else elseBlockremark">
+                <p>
+                  {{data.remark}}
+                </p>
+              </div>
+              <ng-template #elseBlockremark>Aucune remarque laissée par le professeur</ng-template>
+
+            </div>
+          </div>
+        </div>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>OK</button>
+      </mat-dialog-actions>
+    </div>
+  </div>
