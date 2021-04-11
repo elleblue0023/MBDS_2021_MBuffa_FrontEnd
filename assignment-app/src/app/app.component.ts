@@ -90,6 +90,11 @@ export class AppComponent {
       'waiting',
       this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/waiting.svg")
     );
+
+    this.matIconRegistry.addSvgIcon(
+      'paper',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/paper.svg")
+    );
   }
 }
 

@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6 unmarked">
+    <div class="col-md-4 unmarked" *ngIf="unMarkedAssignment">
         <h2 class="text-center"><mat-icon svgIcon="waiting"></mat-icon>&nbsp; Non corrigé</h2>
         <div
             cdkDropList
@@ -15,14 +15,53 @@
                         <mat-card-subtitle>{{item.student.email}}</mat-card-subtitle>
                     </mat-card-header>
                     <mat-card-content>
-                        <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
-                        <a style="cursor: pointer" href={{item.depositUrl}}>{{item.depositUrl}}</a>
+                        <div>
+                            <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
+                            <a style="cursor: pointer" href={{item.depositUrl}}>{{item.depositUrl}}</a>
+                        </div>
+                        
+                        <div *ngIf="item.remark">
+                            <mat-icon aria-label="add" svgIcon="paper"></mat-icon> &nbsp;
+                            {{item.remark}}
+                        </div>
+                        <div *ngIf="item.note">
+                            <div class="col-md-2 markStyle">
+                                {{item.note}}
+                            </div>
+                        </div>
+                        
+                        
                     </mat-card-content>
+                    <mat-card-actions class="text-center">
+                        <button mat-stroked-button color="accent" (click)="onEditCurrentAssignment(item)"><mat-icon svgIcon="edit"></mat-icon></button>
+                    </mat-card-actions>
                 </mat-card>
             </div>
         </div>
     </div>
-    <div class="col-md-6 marked">
+
+
+    <div class="col-md-4 modification" *ngIf="currentAssignment">
+        <h2 class="text-center"><mat-icon svgIcon="note"></mat-icon>&nbsp; {{currentAssignment.student.lastname}} {{currentAssignment.student.surname}}</h2>
+        <div class="box">
+            <form ngForm #editFormAssignment class="form" (submit)="onEdit($event); editFormAssignment.reset();">
+                <mat-form-field class="input-full-width">
+                  <input matInput placeholder="Remarque" required [(ngModel)]="currentNoteAssignmenet" name="remark" value="currentAssignment.remark">
+                </mat-form-field>
+
+                <mat-form-field class="input-full-width">
+                    <input matInput type="number" placeholder="Note" maxlength="2" minlength="1" max="20" min="0" required [(ngModel)]="currentRemarkAssignment" name="note" value="currentAssignment.note">
+                </mat-form-field>
+
+                <button mat-stroked-button color="primary">
+                    <mat-icon svgIcon="marked"></mat-icon>&nbsp; Valider modification
+                </button>
+              </form>
+        </div>
+    </div>
+
+
+    <div class="col-md-4 marked" *ngIf="markedAssignment">
         <h2 class="text-center"><mat-icon svgIcon="marked"></mat-icon>&nbsp; Corrigé</h2>
         <div
             cdkDropList

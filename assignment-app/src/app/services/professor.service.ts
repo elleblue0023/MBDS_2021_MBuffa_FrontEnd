@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { IAssignment } from 'src/interfaces/assignment';
@@ -21,8 +20,7 @@ export class ProfessorService {
 
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService,
-    private router: Router
+    private errorService: ErrorService
   ) { }
 
 
