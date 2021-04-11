@@ -180,12 +180,18 @@ body { margin: 0;}
 /**----------------------
  *    Display date
  *------------------------**/
+
 .uni-entry-body {
     width: 100%;
     height: auto; 
-    padding-top: 30px;
-    padding-left: 100px;
+    padding-top: 0px;
+    padding-left: 0px;
+    display: flex;
+    justify-content: center;
 }
+
+
+
 .uni-entry-time {
     float: left;
     width: 80px;

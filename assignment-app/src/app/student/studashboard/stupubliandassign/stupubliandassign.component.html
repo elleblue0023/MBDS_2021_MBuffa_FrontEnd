@@ -1,108 +1,123 @@
 <div class="body-container">
-    <mat-progress-spinner mode="indeterminate" *ngIf="isWait" style="position: fixed;left: 50%;margin-left: -50px;top: 50%;margin-top: -50px;">
+    <mat-progress-spinner mode="indeterminate" *ngIf="isWait"
+        style="position: fixed;left: 50%;margin-left: -50px;top: 50%;margin-top: -50px;">
     </mat-progress-spinner>
     <div class="row">
         <h1>Publication des professeurs de votre promotion</h1>
     </div>
-    <div>
-            <div style="width: 50%;" *ngFor="let item of myPublications" [value]="item._id">
-                    <div class="card-professor-publication">
-                        <div class="row">
-                            <div class="col-md-3 occupation-professor-publication">
-                                <h2>{{item.promotionName}}</h2>
-                                <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
-                                <mat-divider></mat-divider>
-                                
-                                <button mat-raised-button color="primary" [disabled]='isWait' style="margin-top: 10px;" *ngIf="!item.assignmentStudentCreated; else elseDoneAssignment" (click)="openAddAssignmentForm(item)">Créer le devoir</button>
+    <div class="row">
+        <div class="col-md-7">
+            <div *ngFor="let item of myPublications" [value]="item._id">
+                <div class="card-professor-publication">
+                    <div class="row">
+                        <div class="col-md-3 occupation-professor-publication">
+                            <h2>{{item.promotionName}}</h2>
+                            <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
+                            <mat-divider></mat-divider>
+    
+                            <button mat-raised-button color="primary" [disabled]='isWait' style="margin-top: 10px;"
+                                *ngIf="!item.assignmentStudentCreated; else elseDoneAssignment"
+                                (click)="openAddAssignmentForm(item)">Créer le devoir</button>
+    
+                            <ng-template #elseDoneAssignment>
+                                <button mat-raised-button color="accent" style="margin-top: 10px;" disabled>Devoir déjà
+                                    rendu</button>
+                            </ng-template>
+                        </div>
 
-                                <ng-template #elseDoneAssignment>
-                                    <button mat-raised-button color="accent" style="margin-top: 10px;" disabled>Devoir déjà rendu</button>
-                                </ng-template>
 
-                            </div>
-                            <div class="col-md-6 content-professor-publication">
-                                Titre du devoir: {{item.name}} 
-                                <mat-divider></mat-divider>
-                                Description: {{item.message}} 
-                            </div>
-                            <div class="col-md-2 occupation-professor-publication">
-                                <mat-icon aria-label="add" svgIcon="alarm"></mat-icon> 
-                                <div class="uni-entry-body text-left">                                     
-                                    <div class="uni-entry-time">
-                                        <li class="year"> {{item.deadline | date: 'yyyy'}} </li>
-                                        <li class="day"> {{item.deadline | date: 'dd'}} </li>
-                                        <li class="month"> {{ item.deadline | date: 'MM' | convertmonthDate: 'short'}} </li>
-                                    </div>
+                        <div class="col-md-6 content-professor-publication">
+                            Titre du devoir: {{item.name}}
+                            <mat-divider></mat-divider>
+                            Description: {{item.message}}
+                        </div>
+                        <div class="col-md-2 occupation-professor-publication">
+
+                            <mat-icon aria-label="add" svgIcon="alarm"
+                                *ngIf="!item.assignmentStudentCreated; else elseDoneAssignmentIcon"></mat-icon>
+    
+                            <ng-template #elseDoneAssignmentIcon>
+                                <mat-icon aria-label="add" svgIcon="sended"></mat-icon>
+                            </ng-template>
+
+
+                            
+                            <div class="uni-entry-body text-left">
+                                <div class="uni-entry-time">
+                                    <li class="year"> {{item.deadline | date: 'yyyy'}} </li>
+                                    <li class="day"> {{item.deadline | date: 'dd'}} </li>
+                                    <li class="month"> {{ item.deadline | date: 'MM' | convertmonthDate: 'short'}} </li>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
-            <div style="width: 40%;" *ngIf="formulaireToShow">
-                <h1>Création du devoir "{{titleSelected}}"</h1>
-                <mat-card>
-                    <form [formGroup]="addAssignmentForm" (ngSubmit)="onAddAssignment()">
-                        <mat-form-field class="col-md-11 p-3">
-                            <mat-label>Url du dépôt du projet</mat-label>
-                            <input  
-                                matInput
-                                formControlName="depositUrl"
-                                type="text" 
-                                name="name"
-                            >
-                            <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('required')">
-                                Champ obligatoire !
-                            </mat-error>
-                            <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('pattern')">
-                                Veuillez bien écrire votre url svp (ex: http://github.com/nomprojet)
-                            </mat-error>
-                        </mat-form-field>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <button mat-flat-button class="uni-btn-primary" type="submit" style="padding: 2%;">
-                                    <mat-icon aria-label="add" svgIcon="send_document"></mat-icon>
-                                    Créer
-                                </button>
-                            </div>
-                            <div class="col-md-6">
-                                <button mat-flat-button class="uni-btn-danger" style="padding: 2%;" (click)="closeAddAssignmentForm()">
-                                    Annuler
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </mat-card>
-            </div>
-    </div>
-    <div class="row">
-        <h1>Liste des devoirs créés</h1>
-    </div>
-    <div class="row">
-        <div class="col-md-11" *ngFor="let assignment of myAssignments" [value]="assignment._id">
-            <mat-card class="example-card">
-                <mat-card-header>
-                  <div class="col-md-12" style="display: flex;">
-                    <div class="col-md-4" style="display: flex;">
-                        <div class="col-md-2"> <div mat-card-avatar class="example-header-image"><img src="../../../assets/images/shiba1.jpg" alt="" style="width: inherit;"></div></div>
-                        <div class="col-md-10">
-                            <div class="row"><mat-card-title>Prof: {{assignment.publication.professor.surname}} {{assignment.publication.professor.lastname}}</mat-card-title></div>
-                            <div class="row"><mat-card-subtitle>Matière: {{assignment.publication.courseName}}</mat-card-subtitle></div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <h2 style="margin-bottom: 0px;" class="mat-caption">{{assignment.name}} </h2>
-                        <h4 style="margin-bottom: 0px;">Date de création du devoir (date de rendu): {{assignment.doneDate | date: 'dd'}} {{assignment.doneDate | date: 'MM' | convertmonthDate: 'full' }} {{assignment.doneDate | date: 'yyyy'}} </h4>
-                        <h4 style="margin-bottom: 0px;">
-                            <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
-                            <a style="cursor: pointer" href={{assignment.depositUrl}}>{{assignment.depositUrl}}</a>
-                        </h4>
-                    </div>
-                    <div class="col-md-2">
-                        <button mat-button (click)="openDialogAssignDetails(assignment)">VOIR DETAILS</button>
-                    </div>
-                  </div>
-                </mat-card-header>
-              </mat-card>  
         </div>
+        
+        <div class="col-md-5" *ngFor="let assignment of myAssignments" [value]="assignment._id">
+            <mat-card>
+                <mat-card-contents>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="row">
+                                <mat-card-title>{{assignment.publication.professor.surname}} {{assignment.publication.professor.lastname}}</mat-card-title>
+                            </div>
+                            <div class="row">
+                                <mat-card-subtitle>Matière: {{assignment.publication.courseName}}
+                                </mat-card-subtitle>
+                            </div>
+                        </div>
+                        <div class="col-md-8 text-center">
+                            <h2 style="margin-bottom: 0px;" class="mat-caption">{{assignment.name}} </h2>
+                            <h4 style="margin-bottom: 0px;">Rendu le :
+                                {{assignment.doneDate | date: 'dd'}} {{assignment.doneDate | date: 'MM' |
+                                convertmonthDate: 'full' }} {{assignment.doneDate | date: 'yyyy'}} </h4>
+                            <h4 style="margin-bottom: 0px;">
+                                <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
+                                <a style="cursor: pointer" href={{assignment.depositUrl}}>{{assignment.depositUrl}}</a>
+                            </h4>
+                        </div>
+                    </div>
+                </mat-card-contents>
+                <mat-card-actions align="end">
+                    <button mat-mini-fab color="accent" (click)="openDialogAssignDetails(assignment)">
+                        <mat-icon>info</mat-icon>
+                      </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="formulaireToShow">
+        <h1>Création du devoir "{{titleSelected}}"</h1>
+        <mat-card>
+            <form [formGroup]="addAssignmentForm" (ngSubmit)="onAddAssignment()">
+                <mat-form-field class="col-md-11 p-3">
+                    <mat-label>Url du dépôt du projet</mat-label>
+                    <input matInput formControlName="depositUrl" type="text" name="name">
+                    <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('required')">
+                        Champ obligatoire !
+                    </mat-error>
+                    <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('pattern')">
+                        Veuillez bien écrire votre url svp (ex: http://github.com/nomprojet)
+                    </mat-error>
+                </mat-form-field>
+                <div class="row">
+                    <div class="col-md-6">
+                        <button mat-flat-button class="uni-btn-primary" type="submit" style="padding: 2%;">
+                            <mat-icon aria-label="add" svgIcon="send_document"></mat-icon>
+                            Créer
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <button mat-flat-button class="uni-btn-danger" style="padding: 2%;"
+                            (click)="closeAddAssignmentForm()">
+                            Annuler
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </mat-card>
     </div>
 </div>

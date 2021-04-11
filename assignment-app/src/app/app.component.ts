@@ -95,6 +95,11 @@ export class AppComponent {
       'paper',
       this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/paper.svg")
     );
+
+    this.matIconRegistry.addSvgIcon(
+      'sended',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/sended.svg")
+    );
   }
 }
 
