@@ -29,6 +29,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -127,6 +128,7 @@ const routes:Routes = [
     MatToolbarModule,
     MatDialogModule,
     MatTooltipModule,
+    MatProgressSpinnerModule,
 
     BrowserAnimationsModule,
     HttpClientModule,

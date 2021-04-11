@@ -1,5 +1,5 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,6 +27,7 @@ export class StupubliandassignComponent implements OnInit {
   formulaireToShow: Boolean = false;
   addAssignmentForm: FormGroup;
   titleSelected: String = "";
+  isWait: Boolean = false;
   reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
   ACTION = "detail";
@@ -79,6 +80,7 @@ export class StupubliandassignComponent implements OnInit {
   }*/
 
   listPromotionPublications(promo: String) {
+    this.isWait = true;
     this.studentService.getPromotionPublications(promo).subscribe(
       (publications) => {
         if (publications instanceof Array) {
@@ -92,8 +94,9 @@ export class StupubliandassignComponent implements OnInit {
           message: error.userMessage,
           action: "OK",
           status: "warning"
-        }
-        this.designUtilService.openSnackBar(snackBarData) 
+        };
+        this.designUtilService.openSnackBar(snackBarData);
+        this.isWait = false;
       }
     )
   }
@@ -113,6 +116,7 @@ export class StupubliandassignComponent implements OnInit {
             }
           }
         }
+        this.isWait = false;
       },
       (error: ErrorTracker) => {
         let snackBarData = {
@@ -120,8 +124,9 @@ export class StupubliandassignComponent implements OnInit {
           message: error.userMessage,
           action: "OK",
           status: "warning"
-        }
-        this.designUtilService.openSnackBar(snackBarData) 
+        };
+        this.designUtilService.openSnackBar(snackBarData);
+        this.isWait = false;
       }
     )
   }
@@ -139,6 +144,7 @@ export class StupubliandassignComponent implements OnInit {
 
   onAddAssignment() {
     if (this.addAssignmentForm.valid) {
+      this.isWait = true;
       let params = {
         publicationid : this.itemSelected._id,
         doneDate : new Date(),
@@ -160,6 +166,7 @@ export class StupubliandassignComponent implements OnInit {
             this.designUtilService.openSnackBar(snackBarData);
             this.listPromotionPublications(this.currentStudent.promotionName);
             this.formulaireToShow = false;
+            this.addAssignmentForm.reset();
           },
           (error: ErrorTracker) => {
             let snackBarData = {
@@ -169,6 +176,7 @@ export class StupubliandassignComponent implements OnInit {
               status: "warning"
             }
             this.designUtilService.openSnackBar(snackBarData);
+            this.isWait = false;
           }
         )
     }

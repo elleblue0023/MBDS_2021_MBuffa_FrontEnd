@@ -1,18 +1,18 @@
 <div class="body-container">
+    <mat-progress-spinner mode="indeterminate" *ngIf="isWait" style="position: fixed;left: 50%;margin-left: -50px;top: 50%;margin-top: -50px;">
+    </mat-progress-spinner>
     <div class="row">
         <h1>Publication des professeurs de votre promotion</h1>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-12 mb-3" *ngFor="let item of myPublications" [value]="item._id">
-                <div class="col" >
+    <div>
+            <div style="width: 40%;" *ngFor="let item of myPublications" [value]="item._id">
                     <div class="card-professor-publication">
                         <div class="row">
                             <div class="col-md-3 occupation-professor-publication">
                                 <h2>{{item.promotionName}}</h2>
                                 <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
                                 <mat-divider></mat-divider>
-                                <button mat-raised-button color="primary" style="margin-top: 10px;" *ngIf="!item.assignmentStudentCreated" (click)="openAddAssignmentForm(item)">Créer le devoir</button>
+                                <button mat-raised-button [disabled]='isWait' color="primary" style="margin-top: 10px;" *ngIf="!item.assignmentStudentCreated" (click)="openAddAssignmentForm(item)">Créer le devoir</button>
                             </div>
                             <div class="col-md-6 content-professor-publication">
                                 Titre du devoir: {{item.name}} 
@@ -31,46 +31,41 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
-        </div>
+            <div style="width: 40%;" *ngIf="!formulaireToShow">
+                <h1>Création du devoir "{{titleSelected}}"</h1>
+                <mat-card>
+                    <form [formGroup]="addAssignmentForm" (ngSubmit)="onAddAssignment()">
+                        <mat-form-field class="col-md-11 p-3">
+                            <mat-label>Url du dépôt du projet</mat-label>
+                            <input  
+                                matInput
+                                formControlName="depositUrl"
+                                type="text" 
+                                name="name"
+                            >
+                            <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('required')">
+                                Champ obligatoire !
+                            </mat-error>
+                            <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('pattern')">
+                                Veuillez bien écrire votre url svp (ex: http://github.com/nomprojet)
+                            </mat-error>
+                        </mat-form-field>
+                        <div class="col-md-11">
+                            <button mat-flat-button class="uni-btn-primary" type="submit"
+                                style="padding: 2%;">
+                                <mat-icon aria-label="add" svgIcon="communicate"></mat-icon>
+                                Créer
+                            </button>
+                            <button mat-flat-button class="uni-btn-danger"
+                                style="padding: 2%;" (click)="closeAddAssignmentForm()">
+                                Annuler
+                            </button>
+                        </div>
+                    </form>
+                </mat-card>
+            </div>
     </div>
-    <div class="row" *ngIf="formulaireToShow">
-        <h1>Création du devoir "{{titleSelected}}"</h1>
-        <div class="col-md-5 mb-5">
-            <mat-card>
-                <form [formGroup]="addAssignmentForm" (ngSubmit)="onAddAssignment()">
-                    <mat-form-field class="col-md-11 p-3">
-                        <mat-label>Url du dépôt du projet</mat-label>
-                        <input  
-                            matInput
-                            formControlName="depositUrl"
-                            type="text" 
-                            name="name"
-                        >
-                        <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('required')">
-                            Champ obligatoire !
-                        </mat-error>
-                        <mat-error *ngIf="addAssignmentForm.controls['depositUrl'].hasError('pattern')">
-                            Veuillez bien écrire votre url svp (ex: http://github.com/nomprojet)
-                        </mat-error>
-                    </mat-form-field>
-                    <div class="col-md-11">
-                        <button mat-flat-button class="uni-btn-primary" type="submit"
-                            style="padding: 2%;">
-                            <mat-icon aria-label="add" svgIcon="communicate"></mat-icon>
-                            Créer
-                        </button>
-                        <button mat-flat-button class="uni-btn-danger"
-                            style="padding: 2%;" (click)="closeAddAssignmentForm()">
-                            Annuler
-                        </button>
-                    </div>
-                </form>
-            </mat-card>
-        </div>
-    </div>
-    
     <div class="row">
         <h1>Liste des devoirs créés</h1>
     </div>
