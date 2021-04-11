@@ -28,12 +28,17 @@ export class PublicationProfessorDetailComponent implements OnInit {
   markedAssignmentList: IAssignment[] = [];
   unMarkedAssignmentList: IAssignment[] = [];
 
+  unMarkedAssignmentCount: any;
+  markedAssignmentCount: any;
+
 
   constructor() { }
 
   ngOnInit(): void {
     this.markedAssignmentList = this.markedAssignment;
     this.unMarkedAssignmentList = this.unMarkedAssignmentList;
+    this.unMarkedAssignmentCount = this.unMarkedAssignmentList.length;
+    this.markedAssignmentCount = this.markedAssignmentList.length;
   }
 
   drop(event: CdkDragDrop<IAssignment[]>) {

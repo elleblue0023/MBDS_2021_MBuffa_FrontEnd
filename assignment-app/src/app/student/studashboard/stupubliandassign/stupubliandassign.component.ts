@@ -33,7 +33,8 @@ export class StupubliandassignComponent implements OnInit {
   ACTION = "detail";
   COMPONENT = "assign-detail";
 
-  //@ViewChild("scroller") scroller: CdkVirtualScrollViewport;
+  @ViewChild("scroller")
+  scroller!: CdkVirtualScrollViewport;
 
   constructor(
     private router: Router,
@@ -61,7 +62,7 @@ export class StupubliandassignComponent implements OnInit {
     this.formulaireToShow = false;
   }
 
-  /*ngAfterViewInit() {
+  ngAfterViewInit() {
     this.scroller
       .elementScrolled()
       .pipe(
@@ -74,10 +75,10 @@ export class StupubliandassignComponent implements OnInit {
       )
       .subscribe((dist) => {
         this.ngZone.run(() => {
-            this.getAssignmentsForScrolling();
+            this.getPublicationForScrolling();
         });
       });
-  }*/
+  }
 
   listPromotionPublications(promo: String) {
     this.isWait = true;
@@ -183,13 +184,30 @@ export class StupubliandassignComponent implements OnInit {
         
   }
 
-  getAssignmentsForScrolling() {
-    this.studentService.getStudentAssignment()
-      .subscribe((data) => {
-
-        this.myAssignments = this.myAssignments.concat(data as IAssignment[]);
-
-        console.log("données reçues");
+  getPublicationForScrolling() {
+    this.studentService.getPromotionPublications(this.currentStudent.promotionName)
+      .subscribe((publications) => {
+        if (publications instanceof Array) {
+          if(this.myAssignments.length > 0){
+            for(let assignment of this.myAssignments){
+              let publicationassign = publications.find(x => x._id === assignment.publication._id);
+              if(publicationassign != null){
+                publicationassign.assignmentStudentCreated = true;
+              }
+            }
+          }
+          this.myPublications = this.myPublications.concat(publications);
+        }
+      },
+      (error: ErrorTracker) => {
+        let snackBarData = {
+          snackBar: this._snackBar,
+          message: error.userMessage,
+          action: "OK",
+          status: "warning"
+        };
+        this.designUtilService.openSnackBar(snackBarData);
+        this.isWait = false;
       });
   }
 
