@@ -32,16 +32,14 @@ export class PublicationProfessorDetailComponent implements OnInit {
     this.unMarkedAssignmentList = this.unMarkedAssignmentList;
   }
 
-  drop(event: CdkDragDrop<any[]>) {
+  drop(event: CdkDragDrop<IAssignment[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       
-      let assignment = event.container.data;
-      console.log(assignment[0]);
+      this.markAssignement(event);
       
       
-      console.log(assignment);
       
       transferArrayItem(event.previousContainer.data,
                         event.container.data,
@@ -49,5 +47,11 @@ export class PublicationProfessorDetailComponent implements OnInit {
                         event.currentIndex);
     }
   }
+
+  markAssignement(event) {
+    let assignment = event.previousContainer.data[event.previousIndex]
+    console.log(assignment._id);
+    
+  } 
 
 }
