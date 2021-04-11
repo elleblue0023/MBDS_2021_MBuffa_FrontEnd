@@ -11,6 +11,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { IAssignment } from 'src/interfaces/assignment';
 import { IPublication } from 'src/interfaces/publication';
+import { StudialogAssigndetailComponent } from './studialog-assigndetail/studialog-assigndetail.component';
 
 @Component({
   selector: 'app-stupubliandassign',
@@ -27,6 +28,9 @@ export class StupubliandassignComponent implements OnInit {
   addAssignmentForm: FormGroup;
   titleSelected: String = "";
   reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+
+  ACTION = "detail";
+  COMPONENT = "assign-detail";
 
   //@ViewChild("scroller") scroller: CdkVirtualScrollViewport;
 
@@ -179,6 +183,24 @@ export class StupubliandassignComponent implements OnInit {
 
         console.log("données reçues");
       });
+  }
+
+  openDialogAssignDetails(assignment: any){
+    let dialogData = {
+      _dialog: this._dialog,
+      action: this.ACTION,
+      component: this.COMPONENT,
+      data: assignment
+    }
+    this.openDialog(dialogData);
+  }
+
+  openDialog(inputDialogData: any) {
+    const dialogRef = inputDialogData._dialog.open(StudialogAssigndetailComponent, {
+      width: '100%',
+      padding: '5px',
+      data: inputDialogData
+    });
   }
 
 }

@@ -92,21 +92,10 @@
                         <h4 style="margin-bottom: 0px;">Url de dépôt de votre devoir: {{assignment.depositUrl}}</h4>
                     </div>
                     <div class="col-md-2">
-                        <div *ngIf="assignment.isMarked; else elseBlockNote">
-                            <h4 style="margin-bottom: 0px;">Note: {{assignment.note}} /20</h4>
-                        </div>
-                        <ng-template #elseBlockNote>Votre devoir n'a pas encore été corrigé par le professeur.</ng-template>
+                        <button mat-button (click)="openDialogAssignDetails(assignment)">VOIR DETAILS</button>
                     </div>
                   </div>
                 </mat-card-header>
-                <mat-card-content>
-                  <div *ngIf="assignment.remark != ''; else elseBlockremark">
-                    <p>
-                        Remarque du prof: {{assignment.remark}}
-                    </p>
-                  </div>
-                  <ng-template #elseBlockremark>Aucune remarque laissée par le professeur</ng-template>
-                </mat-card-content>
               </mat-card>  
         </div>
     </div>

@@ -57,6 +57,7 @@ import { StuaboutComponent } from './student/studashboard/stuabout/stuabout.comp
 import { PublicationProfessorDetailComponent } from './professor/dashboard/publication-professor/publication-professor-detail/publication-professor-detail.component';
 import { StupubliandassignComponent } from './student/studashboard/stupubliandassign/stupubliandassign.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { StudialogAssigndetailComponent } from './student/studashboard/stupubliandassign/studialog-assigndetail/studialog-assigndetail.component';
 
 
 
@@ -98,7 +99,8 @@ const routes:Routes = [
     StudialogLogoutComponent,
     StuaboutComponent,
     PublicationProfessorDetailComponent,
-    StupubliandassignComponent
+    StupubliandassignComponent,
+    StudialogAssigndetailComponent
   ],
   imports: [
     BrowserModule,
