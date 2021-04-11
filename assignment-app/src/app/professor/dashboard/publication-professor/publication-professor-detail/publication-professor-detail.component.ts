@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorTracker } from 'src/app/models/error-tracker';
-import { DesignUtilService } from 'src/app/services/design-util.service';
-import { ProfessorService } from 'src/app/services/professor.service';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { IAssignment } from 'src/interfaces/assignment';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AssignementService } from 'src/app/services/assignement.service';
+import { Assignment } from 'src/app/models/assignment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DesignUtilService } from 'src/app/services/design-util.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-publication-professor-detail',
@@ -17,19 +17,19 @@ export class PublicationProfessorDetailComponent implements OnInit {
   @Input() markedAssignment: IAssignment[] = [];
   @Input() unMarkedAssignment: IAssignment[] = [];
 
+  @Output() markAssignment = new EventEmitter<Assignment>();
+
 
   currentAssignment: any;
-  currentNoteAssignmenet: string = "";
-  currentRemarkAssignment: Number = 0;
+  currentNoteAssignment: Number = 0;
+  currentRemarkAssignment: string ="";
 
 
   markedAssignmentList: IAssignment[] = [];
   unMarkedAssignmentList: IAssignment[] = [];
 
 
-  constructor( 
-    private assignmentService: AssignementService
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.markedAssignmentList = this.markedAssignment;
@@ -51,12 +51,27 @@ export class PublicationProfessorDetailComponent implements OnInit {
   }
 
   markAssignement(event) {
-    let assignment = event.previousContainer.data[event.previousIndex]
-    console.log(assignment._id);
+    let assignment = event.previousContainer.data[event.previousIndex];
   } 
 
   onEditCurrentAssignment(assignment) {
     this.currentAssignment = assignment;
   }
 
+  onEdit(idAssignment) {
+    if (this.currentNoteAssignment!=0 && this.currentRemarkAssignment!="") {
+      let newAssignment: Assignment = {
+        id: idAssignment,
+        isMarked: true,
+        note: +this.currentNoteAssignment,
+        remark: this.currentRemarkAssignment
+      }
+      this.markAssignment.emit(newAssignment);
+      this.currentNoteAssignment = 0;
+      this.currentRemarkAssignment = "";
+    } 
+  }
 }
+
+
+

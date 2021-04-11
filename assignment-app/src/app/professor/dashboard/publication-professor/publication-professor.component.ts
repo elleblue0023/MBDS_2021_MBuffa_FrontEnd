@@ -12,6 +12,7 @@ import { DialogPublicationProfessorComponent } from './dialog-publication-profes
 import { ViewEncapsulation } from '@angular/core';
 import { IPublication } from 'src/interfaces/publication';
 import { IAssignment } from 'src/interfaces/assignment';
+import { AssignementService } from 'src/app/services/assignement.service';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class PublicationProfessorComponent implements OnInit {
     private router: Router,
     private designUtilService: DesignUtilService,
     private professorService: ProfessorService,
+    private assignmentService: AssignementService,
     private _snackBar: MatSnackBar,
     private utilsService: UtilsService,
     private _dialog: MatDialog
@@ -198,4 +200,20 @@ export class PublicationProfessorComponent implements OnInit {
     )
   }
   
+  onMarkAssignment(assignment) {
+    this.assignmentService.updateAssignement(assignment).subscribe(
+      (data) => {
+        this.onUpdateIdPublicationDetail(assignment.id);
+      }, 
+      (error: ErrorTracker) => {
+        let snackBarData = {
+          snackBar: this._snackBar,
+          message: error.userMessage,
+          action: "OK",
+          status: "warning"
+        }
+        this.designUtilService.openSnackBar(snackBarData)
+      }
+    )
+  }
 }

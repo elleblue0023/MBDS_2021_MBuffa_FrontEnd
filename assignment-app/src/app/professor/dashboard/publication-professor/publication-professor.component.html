@@ -161,7 +161,11 @@
         </div>
 
         <div class="row mt-4" *ngIf="unMarkedAssignment && markedAssignment">
-            <app-publication-professor-detail [markedAssignment] = "markedAssignment" [unMarkedAssignment] = "unMarkedAssignment"></app-publication-professor-detail>
+            <app-publication-professor-detail 
+                [markedAssignment] = "markedAssignment" 
+                [unMarkedAssignment] = "unMarkedAssignment"
+                (markAssignment) = "onMarkAssignment($event)"
+            ></app-publication-professor-detail>
         </div>
     </div>
 </div>

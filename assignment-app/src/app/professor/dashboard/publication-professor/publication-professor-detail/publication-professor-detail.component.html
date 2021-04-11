@@ -19,18 +19,6 @@
                             <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
                             <a style="cursor: pointer" href={{item.depositUrl}}>{{item.depositUrl}}</a>
                         </div>
-                        
-                        <div *ngIf="item.remark">
-                            <mat-icon aria-label="add" svgIcon="paper"></mat-icon> &nbsp;
-                            {{item.remark}}
-                        </div>
-                        <div *ngIf="item.note">
-                            <div class="col-md-2 markStyle">
-                                {{item.note}}
-                            </div>
-                        </div>
-                        
-                        
                     </mat-card-content>
                     <mat-card-actions class="text-center">
                         <button mat-stroked-button color="accent" (click)="onEditCurrentAssignment(item)"><mat-icon svgIcon="edit"></mat-icon></button>
@@ -44,13 +32,13 @@
     <div class="col-md-4 modification" *ngIf="currentAssignment">
         <h2 class="text-center"><mat-icon svgIcon="note"></mat-icon>&nbsp; {{currentAssignment.student.lastname}} {{currentAssignment.student.surname}}</h2>
         <div class="box">
-            <form ngForm #editFormAssignment class="form" (submit)="onEdit($event); editFormAssignment.reset();">
+            <form ngForm #editFormAssignment class="form" (submit)="onEdit(currentAssignment._id)">
                 <mat-form-field class="input-full-width">
-                  <input matInput placeholder="Remarque" required [(ngModel)]="currentNoteAssignmenet" name="remark" value="currentAssignment.remark">
+                  <input matInput placeholder="Remarque" required [(ngModel)]="currentRemarkAssignment" name="remark" value="currentAssignment.remark">
                 </mat-form-field>
 
                 <mat-form-field class="input-full-width">
-                    <input matInput type="number" placeholder="Note" maxlength="2" minlength="1" max="20" min="0" required [(ngModel)]="currentRemarkAssignment" name="note" value="currentAssignment.note">
+                    <input matInput placeholder="Note" max="20" min="0" required [(ngModel)]="currentNoteAssignment" name="note" value="currentAssignment.note">
                 </mat-form-field>
 
                 <button mat-stroked-button color="primary">
@@ -82,8 +70,15 @@
                                 <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
                                     <a style="cursor: pointer" href={{item.depositUrl}}>{{item.depositUrl}}</a>
                             </div>
-                            <div class="col-md-2 markStyle">
-                                12
+
+                            <div *ngIf="item.remark">
+                                <mat-icon aria-label="add" svgIcon="paper"></mat-icon> &nbsp;
+                                {{item.remark}}
+                            </div>
+                            <div *ngIf="item.note">
+                                <div class="col-md-2 markStyle">
+                                    {{item.note}}
+                                </div>
                             </div>
                         </div>
                     </mat-card-content>
