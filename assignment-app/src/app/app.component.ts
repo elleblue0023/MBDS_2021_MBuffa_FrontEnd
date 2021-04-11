@@ -60,6 +60,41 @@ export class AppComponent {
       'done',
       this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/done.svg")
     );
+
+    this.matIconRegistry.addSvgIcon(
+      'send_document',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/send_document.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'note',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/note.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'github',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/github.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'alarm',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/alarm.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'marked',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/marked.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'waiting',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/waiting.svg")
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      'paper',
+      this.domSatinizer.bypassSecurityTrustResourceUrl("../assets/svgIcon/paper.svg")
+    );
   }
 }
 

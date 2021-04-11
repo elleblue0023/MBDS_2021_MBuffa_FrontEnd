@@ -175,3 +175,58 @@ body { margin: 0;}
         border: solid 2px #FD6524 !important;
     }
 }
+
+
+/**----------------------
+ *    Display date
+ *------------------------**/
+.uni-entry-body {
+    width: 100%;
+    height: auto; 
+    padding-top: 30px;
+    padding-left: 100px;
+}
+.uni-entry-time {
+    float: left;
+    width: 80px;
+    height: 100px;
+    background-color: #ffffff;
+    -webkit-box-shadow: inset 0px 24px 0 0 #3f97da;
+    box-shadow: inset 0px 24px 0 0 #3f97da;
+    border: solid 1px #3f97da; 
+}
+.uni-entry-time li {
+    font-family: 'Poppins';
+    list-style: none;
+}
+.uni-entry-time li.year {
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.71;
+    letter-spacing: normal;
+    color: #ffffff; 
+    text-align: center;
+}
+.uni-entry-time li.day {
+    font-size: 36px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3f97da;
+    padding-top: 20px; 
+}
+.uni-entry-time li.month {
+    font-size: 14px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.71;
+    letter-spacing: normal;
+    text-align: center;
+    color: #3f97da;
+    text-transform: uppercase; 
+}

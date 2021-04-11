@@ -57,7 +57,10 @@ import { StudialogLogoutComponent } from './student/studashboard/studialog-logou
 import { StuaboutComponent } from './student/studashboard/stuabout/stuabout.component';
 import { PublicationProfessorDetailComponent } from './professor/dashboard/publication-professor/publication-professor-detail/publication-professor-detail.component';
 import { StupubliandassignComponent } from './student/studashboard/stupubliandassign/stupubliandassign.component';
+
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DialogAssignmentMarkComponent } from './professor/dashboard/publication-professor/dialog-assignment-mark/dialog-assignment-mark.component';
 import { StudialogAssigndetailComponent } from './student/studashboard/stupubliandassign/studialog-assigndetail/studialog-assigndetail.component';
 
 
@@ -101,6 +104,7 @@ const routes:Routes = [
     StuaboutComponent,
     PublicationProfessorDetailComponent,
     StupubliandassignComponent,
+    DialogAssignmentMarkComponent,
     StudialogAssigndetailComponent
   ],
   imports: [
@@ -133,6 +137,7 @@ const routes:Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     ScrollingModule,
+    DragDropModule,
 
     RouterModule.forRoot(routes)
 

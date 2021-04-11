@@ -5,14 +5,20 @@
         <h1>Publication des professeurs de votre promotion</h1>
     </div>
     <div>
-            <div style="width: 40%;" *ngFor="let item of myPublications" [value]="item._id">
+            <div style="width: 50%;" *ngFor="let item of myPublications" [value]="item._id">
                     <div class="card-professor-publication">
                         <div class="row">
                             <div class="col-md-3 occupation-professor-publication">
                                 <h2>{{item.promotionName}}</h2>
                                 <h3 class="subtitle-professor-publication">{{item.courseName}}</h3>
                                 <mat-divider></mat-divider>
-                                <button mat-raised-button [disabled]='isWait' color="primary" style="margin-top: 10px;" *ngIf="!item.assignmentStudentCreated" (click)="openAddAssignmentForm(item)">Créer le devoir</button>
+                                
+                                <button mat-raised-button color="primary" [disabled]='isWait' style="margin-top: 10px;" *ngIf="!item.assignmentStudentCreated; else elseDoneAssignment" (click)="openAddAssignmentForm(item)">Créer le devoir</button>
+
+                                <ng-template #elseDoneAssignment>
+                                    <button mat-raised-button color="accent" style="margin-top: 10px;" disabled>Devoir déjà rendu</button>
+                                </ng-template>
+
                             </div>
                             <div class="col-md-6 content-professor-publication">
                                 Titre du devoir: {{item.name}} 
@@ -20,19 +26,19 @@
                                 Description: {{item.message}} 
                             </div>
                             <div class="col-md-2 occupation-professor-publication">
-                                <h4 style="text-align: center; color: crimson;">Créer le devoir avant le:</h4>
+                                <mat-icon aria-label="add" svgIcon="alarm"></mat-icon> 
                                 <div class="uni-entry-body text-left">                                     
                                     <div class="uni-entry-time">
                                         <li class="year"> {{item.deadline | date: 'yyyy'}} </li>
                                         <li class="day"> {{item.deadline | date: 'dd'}} </li>
-                                        <li class="month"> {{ item.deadline | date: 'MM' | convertmonthDate}} </li>
+                                        <li class="month"> {{ item.deadline | date: 'MM' | convertmonthDate: 'short'}} </li>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
             </div>
-            <div style="width: 40%;" *ngIf="!formulaireToShow">
+            <div style="width: 40%;" *ngIf="formulaireToShow">
                 <h1>Création du devoir "{{titleSelected}}"</h1>
                 <mat-card>
                     <form [formGroup]="addAssignmentForm" (ngSubmit)="onAddAssignment()">
@@ -51,16 +57,18 @@
                                 Veuillez bien écrire votre url svp (ex: http://github.com/nomprojet)
                             </mat-error>
                         </mat-form-field>
-                        <div class="col-md-11">
-                            <button mat-flat-button class="uni-btn-primary" type="submit"
-                                style="padding: 2%;">
-                                <mat-icon aria-label="add" svgIcon="communicate"></mat-icon>
-                                Créer
-                            </button>
-                            <button mat-flat-button class="uni-btn-danger"
-                                style="padding: 2%;" (click)="closeAddAssignmentForm()">
-                                Annuler
-                            </button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button mat-flat-button class="uni-btn-primary" type="submit" style="padding: 2%;">
+                                    <mat-icon aria-label="add" svgIcon="send_document"></mat-icon>
+                                    Créer
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button mat-flat-button class="uni-btn-danger" style="padding: 2%;" (click)="closeAddAssignmentForm()">
+                                    Annuler
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </mat-card>
@@ -81,10 +89,13 @@
                             <div class="row"><mat-card-subtitle>Matière: {{assignment.publication.courseName}}</mat-card-subtitle></div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <h2 style="margin-bottom: 0px;">Nom du devoir: {{assignment.name}}</h2>
-                        <h4 style="margin-bottom: 0px;">Date de création du devoir (date de rendu): {{assignment.doneDate | date: 'dd-MM-yyyy'}}</h4>
-                        <h4 style="margin-bottom: 0px;">Url de dépôt de votre devoir: {{assignment.depositUrl}}</h4>
+                    <div class="col-md-4 text-center">
+                        <h2 style="margin-bottom: 0px;" class="mat-caption">{{assignment.name}} </h2>
+                        <h4 style="margin-bottom: 0px;">Date de création du devoir (date de rendu): {{assignment.doneDate | date: 'dd'}} {{assignment.doneDate | date: 'MM' | convertmonthDate: 'full' }} {{assignment.doneDate | date: 'yyyy'}} </h4>
+                        <h4 style="margin-bottom: 0px;">
+                            <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
+                            <a style="cursor: pointer" href={{assignment.depositUrl}}>{{assignment.depositUrl}}</a>
+                        </h4>
                     </div>
                     <div class="col-md-2">
                         <button mat-button (click)="openDialogAssignDetails(assignment)">VOIR DETAILS</button>
