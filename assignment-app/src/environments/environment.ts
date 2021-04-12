@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  isOnline: false,
+  isOnline: true,
   apiOnlineUrl : 'https://assignment-backend01.herokuapp.com/api',
   apiOfflineUrl: 'http://localhost:3001/api'
 };
