@@ -8,7 +8,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorTracker } from 'src/app/models/error-tracker';
 import { ProfessorService } from 'src/app/services/professor.service';
-
+import { Assignment } from 'src/app/models/assignment';
 
 @Component({
   selector: 'app-publication-professor-detail',
@@ -19,8 +19,8 @@ export class PublicationProfessorDetailComponent implements OnInit {
 
   publicationId: any;
   currentAssignment: any;
-  currentNoteAssignment: string = "";
-  currentRemarkAssignment: Number = 0;
+  currentNoteAssignment: Number = 0;
+  currentRemarkAssignment: string ="";
 
 
   markedAssignmentList: IAssignment[] = [];
