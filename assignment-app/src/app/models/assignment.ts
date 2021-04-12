@@ -1,8 +1,7 @@
 import { Publication } from "./publication";
 import { Student } from "./student";
 
-
-export class Assignment {
+export interface Assignment {
     id?: any;
     student?: Student; 
     publication?: Publication;

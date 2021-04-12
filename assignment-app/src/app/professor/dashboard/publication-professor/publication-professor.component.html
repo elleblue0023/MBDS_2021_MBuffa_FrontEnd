@@ -89,9 +89,18 @@
                                             <li class="month"> {{ item.deadline | date: 'MM' | convertmonthDate}} </li>
                                         </div>
                                     </div>
-                                    <button mat-icon-button aria-label="Example icon button with a home icon">
-                                        <mat-icon class="m-3" matBadge="15" svgIcon="assignments" (click)="onUpdateIdPublicationDetail(item._id)"></mat-icon>
-                                    </button>
+                                    
+                                    <a routerLink="/professor/mark-assignment/{{item._id}}"
+                                        mat-icon-button 
+                                        target="_blank">
+                                        <mat-icon 
+                                            class="m-3" 
+                                            matBadge="15" 
+                                            svgIcon="assignments" 
+                                        >
+                                        </mat-icon>
+                                    </a>
+                                    
                                     <button 
                                         mat-icon-button 
                                         aria-label="Example icon button with a home icon"
@@ -99,14 +108,21 @@
                                         matTooltip="Editer la publication de {{item.deadline | date: 'dd'}} {{ item.deadline | date: 'MM' | convertmonthDate}} {{item.deadline | date: 'yyyy'}}"
                                         matTooltipPosition="below"
                                     >
-                                        <mat-icon class="m-4" (click)="openDialogEditPublication(item._id)" svgIcon="edit"></mat-icon>
+
+                                    <a routerLink="/professor/mark-assignment/{{item._id}}">
+                                        <mat-icon 
+                                            class="m-4" 
+                                            svgIcon="edit"
+                                        ></mat-icon>
+                                    </a>
+
                                     </button>
                                 </div>
                                 <div class="col-md-9 content-professor-publication">
                                     <button mat-flat-button color="primary">{{item.name}} </button>
 
                                     <p class="p-3">
-                                        {{item.message}}------------{{item.isOutofDate}}
+                                        {{item.message}}
                                     </p>
                                     
                                 </div>
@@ -131,12 +147,19 @@
                                             <li class="month"> {{ item.deadline | date: 'MM' | convertmonthDate}} </li>
                                         </div>
                                     </div>
-                                    <button mat-icon-button aria-label="Example icon button with a home icon">
-                                        <mat-icon class="m-3" matBadge="15" svgIcon="assignments" (click)="onUpdateIdPublicationDetail(item._id)"></mat-icon>
-                                    </button>
+                                    <a routerLink="/professor/mark-assignment/{{item._id}}"
+                                        mat-icon-button 
+                                        target="_blank">
+                                        <mat-icon 
+                                            class="m-3" 
+                                            matBadge="15" 
+                                            svgIcon="assignments" 
+                                        >
+                                        </mat-icon>
+                                    </a>
                                     <button 
                                         mat-icon-button 
-                                        aria-label="Example icon button with a home icon"
+                                        aria-label="icon"
                                         #tooltip="matTooltip"
                                         matTooltip="Editer la publication de {{item.deadline | date: 'dd'}} {{ item.deadline | date: 'MM' | convertmonthDate}} {{item.deadline | date: 'yyyy'}}"
                                         matTooltipPosition="below"
@@ -144,9 +167,7 @@
                                     </button>
                                 </div>
                                 <div class="col-md-9 content-professor-publication">
-
                                     <button mat-flat-button color="warn">{{item.name}} </button>
-
                                     <p class="p-3">
                                         {{item.message}}
                                     </p>
@@ -158,14 +179,6 @@
                 </ng-template>
                 </div>
             </div>
-        </div>
-
-        <div class="row mt-4" *ngIf="unMarkedAssignment && markedAssignment">
-            <app-publication-professor-detail 
-                [markedAssignment] = "markedAssignment" 
-                [unMarkedAssignment] = "unMarkedAssignment"
-                (markAssignment) = "onMarkAssignment($event)"
-            ></app-publication-professor-detail>
         </div>
     </div>
 </div>

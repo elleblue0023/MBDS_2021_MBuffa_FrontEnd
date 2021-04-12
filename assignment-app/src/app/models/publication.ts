@@ -1,7 +1,7 @@
 import { Professor } from "./professor";
 
 export class Publication {
-    _id: any;
+    id?: any;
     professor?: Professor;
     name?: string;
     message?: string;
