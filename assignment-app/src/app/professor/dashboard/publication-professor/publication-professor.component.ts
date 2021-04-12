@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { ErrorTracker } from 'src/app/models/error-tracker';
 
 import { DesignUtilService } from 'src/app/services/design-util.service';
@@ -36,7 +35,6 @@ export class PublicationProfessorComponent implements OnInit {
 
 
   constructor(
-    private router: Router,
     private designUtilService: DesignUtilService,
     private professorService: ProfessorService,
     private _snackBar: MatSnackBar,
@@ -97,7 +95,7 @@ export class PublicationProfessorComponent implements OnInit {
       } 
 
       this.professorService.savePublication(params).subscribe(
-        (publicationData) => {
+        () => {
           let snackBarData = {
             snackBar: this._snackBar,
             message: "Publication d'un projet avec succès",
@@ -131,7 +129,7 @@ export class PublicationProfessorComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(formEditDialogData => {
       this.professorService.updatePublication(formEditDialogData).subscribe(
-        (data) => {
+        () => {
           let snackBarData = {
             snackBar: this._snackBar,
             message: "Modification avec succès de la publication",
@@ -197,5 +195,4 @@ export class PublicationProfessorComponent implements OnInit {
       }
     )
   }
-  
 }

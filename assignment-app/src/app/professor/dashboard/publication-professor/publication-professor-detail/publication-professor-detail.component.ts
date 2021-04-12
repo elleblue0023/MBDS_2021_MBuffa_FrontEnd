@@ -1,11 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ErrorTracker } from 'src/app/models/error-tracker';
-import { DesignUtilService } from 'src/app/services/design-util.service';
-import { ProfessorService } from 'src/app/services/professor.service';
+import { Component, OnInit } from '@angular/core';
 import { IAssignment } from 'src/interfaces/assignment';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AssignementService } from 'src/app/services/assignement.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DesignUtilService } from 'src/app/services/design-util.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorTracker } from 'src/app/models/error-tracker';
+import { ProfessorService } from 'src/app/services/professor.service';
+
 
 @Component({
   selector: 'app-publication-professor-detail',
@@ -14,12 +17,9 @@ import { AssignementService } from 'src/app/services/assignement.service';
 })
 export class PublicationProfessorDetailComponent implements OnInit {
 
-  @Input() markedAssignment: IAssignment[] = [];
-  @Input() unMarkedAssignment: IAssignment[] = [];
-
-
+  publicationId: any;
   currentAssignment: any;
-  currentNoteAssignmenet: string = "";
+  currentNoteAssignment: string = "";
   currentRemarkAssignment: Number = 0;
 
 
@@ -29,16 +29,54 @@ export class PublicationProfessorDetailComponent implements OnInit {
   unMarkedAssignmentCount: any;
   markedAssignmentCount: any;
 
+  currentProfessor: any;
 
-  constructor( 
-    private assignmentService: AssignementService
+  constructor(
+    private designUtilService: DesignUtilService,
+    private _snackBar: MatSnackBar,
+    private utilsService: UtilsService,
+    private professorService: ProfessorService,
+    private assignmentService: AssignementService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
+
+  publicationAssignmentList(publicationId) {
+    this.professorService.getAssignmentListPublication(publicationId).subscribe(
+      (list) => {
+        if (list instanceof Array) {
+          list.forEach(elt => {
+            if (elt.publication != null) {
+              (elt.isMarked) ? this.markedAssignmentList.push(elt) : this.unMarkedAssignmentList.push(elt)
+            }
+          });
+          this.unMarkedAssignmentCount = this.unMarkedAssignmentList.length;          
+          this.markedAssignmentCount = this.markedAssignmentList.length;
+        } 
+      }, 
+      (error: ErrorTracker) => {
+        let snackBarData = {
+          snackBar: this._snackBar,
+          message: error.userMessage,
+          action: "OK",
+          status: "warning"
+        }
+        this.designUtilService.openSnackBar(snackBarData)
+      }
+    )
+  }
+  
+
+
   ngOnInit(): void {
-    this.markedAssignmentList = this.markedAssignment;
-    this.unMarkedAssignmentList = this.unMarkedAssignmentList;
-    this.unMarkedAssignmentCount = this.unMarkedAssignmentList.length;
-    this.markedAssignmentCount = this.markedAssignmentList.length;
+    this.professorService.getCurrentProfessor().subscribe(
+      (current) => {   
+        this.currentProfessor = current;
+      }
+    )
+
+    this.publicationId = this.activatedRoute.snapshot.params.publicationId;
+    this.publicationAssignmentList(this.publicationId);
   }
 
   drop(event: CdkDragDrop<IAssignment[]>) {
@@ -56,12 +94,60 @@ export class PublicationProfessorDetailComponent implements OnInit {
   }
 
   markAssignement(event) {
-    let assignment = event.previousContainer.data[event.previousIndex]
-    console.log(assignment._id);
+    let assignment = event.previousContainer.data[event.previousIndex];
+
+    let newAssignment: Assignment = {
+      id: assignment._id,
+      isMarked: true
+    }
+
+    this.assignmentService.updateAssignement(newAssignment).subscribe(
+      (data) => {
+        this.utilsService.redirectTo(`/professor/mark-assignment/${this.publicationId}`);
+      },
+      (error: ErrorTracker) => {
+        let snackBarData = {
+          snackBar: this._snackBar,
+          message: error.userMessage,
+          action: "OK",
+          status: "warning"
+        }
+        this.designUtilService.openSnackBar(snackBarData);
+      }
+    )
+    
   } 
 
   onEditCurrentAssignment(assignment) {
     this.currentAssignment = assignment;
   }
 
+  
+
+  onEdit(idAssignment) {
+    if (this.currentNoteAssignment!=0 && this.currentRemarkAssignment!="") {
+      let newAssignment: Assignment = {
+        id: idAssignment,
+        isMarked: false,
+        note: +this.currentNoteAssignment,
+        remark: this.currentRemarkAssignment
+      }
+      this.assignmentService.updateAssignement(newAssignment).subscribe(
+        (data) => {
+          this.currentNoteAssignment = 0;
+          this.currentRemarkAssignment = "";
+          this.utilsService.redirectTo(`/professor/mark-assignment/${this.publicationId}`);
+        },
+        (error: ErrorTracker) => {
+          let snackBarData = {
+            snackBar: this._snackBar,
+            message: error.userMessage,
+            action: "OK",
+            status: "warning"
+          }
+          this.designUtilService.openSnackBar(snackBarData);
+        }
+      )
+    } 
+  }
 }

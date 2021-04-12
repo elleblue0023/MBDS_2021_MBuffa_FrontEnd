@@ -1,94 +1,107 @@
-<div class="row">
-    <div class="col-md-4 unmarked" *ngIf="unMarkedAssignment">
-        <h2 class="text-center"><mat-icon svgIcon="waiting"></mat-icon>&nbsp; Non corrigé ({{unMarkedAssignmentCount}})</h2>
-        <div
-            cdkDropList
-            #todoList="cdkDropList"
-            [cdkDropListData]="unMarkedAssignment"
-            [cdkDropListConnectedTo]="[doneList]"
-            class="list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="box" *ngFor="let item of unMarkedAssignment" cdkDrag>
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title> {{item.student.lastname}} {{item.student.surname}}</mat-card-title>
-                        <mat-card-subtitle>{{item.student.email}}</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div>
-                            <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
+<mat-toolbar class="theme-primary">
+    <img src="../../../../assets/images/shiba1.jpg" alt="" width="100" class="rounded-circle toolbar">
+    {{currentProfessor?.lastname}}
+   <span class="spacer"></span>
+  
+    <a mat-button routerLink="/professor/dashboard">
+        Retour
+    </a>
+</mat-toolbar>
+  
+
+
+<div class="body-container">
+    <div class="row text-center">
+        <h1 class="mat-display-1">Current publication</h1>
+    </div>
+    <div cdkDropListGroup class="row">
+        <div class="col-md-4 unmarked">
+            <h2 class="text-center"><mat-icon svgIcon="waiting"></mat-icon>&nbsp; Non corrigé ({{unMarkedAssignmentCount}})</h2>
+            <div
+                cdkDropList
+                [cdkDropListData]="unMarkedAssignmentList"
+                class="list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="box" *ngFor="let item of unMarkedAssignmentList" cdkDrag>
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title> {{item.student.lastname}} {{item.student.surname}}</mat-card-title>
+                            <mat-card-subtitle>{{item.student.email}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <mat-icon svgIcon="github"></mat-icon> &nbsp;
                             <a style="cursor: pointer" href={{item.depositUrl}}>{{item.depositUrl}}</a>
-                        </div>
-                        
-                        <div *ngIf="item.remark">
-                            <mat-icon aria-label="add" svgIcon="paper"></mat-icon> &nbsp;
-                            {{item.remark}}
-                        </div>
-                        <div *ngIf="item.note">
-                            <div class="col-md-2 markStyle">
-                                {{item.note}}
+
+                            <div class="row">
+                                <div *ngIf="item.remark" class="col-md-10">
+                                    <mat-icon aria-label="add" svgIcon="paper"></mat-icon> &nbsp;
+                                    {{item.remark}}
+                                </div>
+                                <div *ngIf="item.note" class="col-md-2 markStyle">
+                                    {{item.note}}
+                                </div>
                             </div>
-                        </div>
-                        
-                        
-                    </mat-card-content>
-                    <mat-card-actions class="text-center">
-                        <button mat-stroked-button color="accent" (click)="onEditCurrentAssignment(item)"><mat-icon svgIcon="edit"></mat-icon></button>
-                    </mat-card-actions>
-                </mat-card>
+                        </mat-card-content>
+                        <mat-card-actions class="text-center">
+                            <button mat-stroked-button color="accent" (click)="onEditCurrentAssignment(item)"><mat-icon svgIcon="edit"></mat-icon></button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
             </div>
         </div>
-    </div>
-
-
-    <div class="col-md-4 modification" *ngIf="currentAssignment">
-        <h2 class="text-center"><mat-icon svgIcon="note"></mat-icon>&nbsp; {{currentAssignment.student.lastname}} {{currentAssignment.student.surname}}</h2>
-        <div class="box">
-            <form ngForm #editFormAssignment class="form" (submit)="onEdit($event); editFormAssignment.reset();">
-                <mat-form-field class="input-full-width">
-                  <input matInput placeholder="Remarque" required [(ngModel)]="currentNoteAssignmenet" name="remark" value="currentAssignment.remark">
-                </mat-form-field>
-
-                <mat-form-field class="input-full-width">
-                    <input matInput type="number" placeholder="Note" maxlength="2" minlength="1" max="20" min="0" required [(ngModel)]="currentRemarkAssignment" name="note" value="currentAssignment.note">
-                </mat-form-field>
-
-                <button mat-stroked-button color="primary">
-                    <mat-icon svgIcon="marked"></mat-icon>&nbsp; Valider modification
-                </button>
-              </form>
+    
+    
+        <div class="col-md-4 modification" *ngIf="currentAssignment">
+            <h2 class="text-center"><mat-icon svgIcon="note"></mat-icon>&nbsp; {{currentAssignment.student.lastname}} {{currentAssignment.student.surname}}</h2>
+            <div class="box">
+                <form ngForm #editFormAssignment class="form" (submit)="onEdit(currentAssignment._id)">
+                    <mat-form-field class="input-full-width">
+                      <input matInput placeholder="Remarque" required [(ngModel)]="currentRemarkAssignment" name="remark" value={{currentAssignment?.remark}}>
+                    </mat-form-field>
+    
+                    <mat-form-field class="input-full-width">
+                        <input matInput placeholder="Note" max="20" min="0" required [(ngModel)]="currentNoteAssignment" name="note" value={{currentAssignment.note}}>
+                    </mat-form-field>
+    
+                    <button mat-stroked-button color="primary">
+                        <mat-icon svgIcon="marked"></mat-icon>&nbsp; Valider modification
+                    </button>
+                  </form>
+            </div>
         </div>
-    </div>
-
-
-    <div class="col-md-4 marked" *ngIf="markedAssignment">
-        <h2 class="text-center"><mat-icon svgIcon="marked"></mat-icon>&nbsp; Corrigé ({{markedAssignmentCount}})</h2>
-        <div
-            cdkDropList
-            #doneList="cdkDropList"
-            [cdkDropListData]="markedAssignment"
-            [cdkDropListConnectedTo]="[todoList]"
-            class="list"
-            (cdkDropListDropped)="drop($event)">
-            <div class="box" *ngFor="let item of markedAssignment" cdkDrag>
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title> {{item.student.lastname}} {{item.student.surname}}</mat-card-title>
-                        <mat-card-subtitle>{{item.student.email}}</mat-card-subtitle>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
-                                    <a style="cursor: pointer" href={{item.depositUrl}}>{{item.depositUrl}}</a>
+    
+    
+        <div class="col-md-4 marked">
+            <h2 class="text-center"><mat-icon svgIcon="marked"></mat-icon>&nbsp; Corrigé ({{markedAssignmentCount}})</h2>
+            <div
+                cdkDropList
+                [cdkDropListData]="markedAssignmentList"
+                class="list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="box" *ngFor="let item of markedAssignmentList" cdkDrag>
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title> {{item.student.lastname}} {{item.student.surname}}</mat-card-title>
+                            <mat-card-subtitle>{{item.student.email}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <mat-icon svgIcon="github"></mat-icon> &nbsp;
+                            <a style="cursor: pointer" href={{item.depositUrl}}>{{item.depositUrl}}</a>
+                            
+                            <div class="row">
+                                <div *ngIf="item.remark" class="col-md-10">
+                                    <mat-icon aria-label="add" svgIcon="paper"></mat-icon> &nbsp;
+                                    {{item.remark}}
+                                </div>
+                                <div *ngIf="item.note" class="col-md-2 markStyle">
+                                    {{item.note}}
+                                </div>
                             </div>
-                            <div class="col-md-2 markStyle">
-                                {{item.note}}
-                            </div>
-                        </div>
-                    </mat-card-content>
-                </mat-card>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
             </div>
         </div>
     </div>
 </div>
+

@@ -8,6 +8,7 @@ import { ErrorTracker } from '../models/error-tracker';
 import { ErrorService } from './error.service';
 import { formatDate } from "@angular/common";
 import { ConfigurationService } from './configuration.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class UtilsService {
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
-    private confiService: ConfigurationService
+    private confiService: ConfigurationService,
+    private router: Router,
   ) { }
 
   private readonly uri = this.confiService.getApiUrl();
@@ -64,5 +66,10 @@ export class UtilsService {
   isValidDeadline(date: Date) {
     return date.setHours(0,0,0,0) < new Date().setHours(0,0,0,0)
   };
+
+  redirectTo(uri:string){
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate([uri]));
+  }
 
 }
