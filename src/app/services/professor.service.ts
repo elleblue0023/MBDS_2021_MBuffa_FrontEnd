@@ -6,6 +6,7 @@ import { IAssignment } from 'src/interfaces/assignment';
 import { IProfessor } from 'src/interfaces/professor';
 import { IPublication } from 'src/interfaces/publication';
 import { DialogLogoutComponent } from '../professor/dashboard/dialog-logout/dialog-logout.component';
+import { ConfigurationService } from './configuration.service';
 import { ErrorService } from './error.service';
 
 @Injectable({
@@ -13,16 +14,18 @@ import { ErrorService } from './error.service';
 })
 export class ProfessorService {
 
-  private readonly uri = 'http://localhost:3001/api';
+  
   private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   public behaviourCurrentProfessor: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   public publicationCount = new Subject();
 
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private configService: ConfigurationService
   ) { }
 
+  private readonly uri = this.configService.getApiUrl();
 
   openLogOutDialog(inputDialogData: any) {
     const dialogRef = inputDialogData._dialog.open(DialogLogoutComponent, {

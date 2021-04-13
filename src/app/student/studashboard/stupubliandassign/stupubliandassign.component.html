@@ -3,11 +3,11 @@
         style="position: fixed;left: 50%;margin-left: -50px;top: 50%;margin-top: -50px;">
     </mat-progress-spinner>
     <div class="row">
-        <h1>Publication des professeurs de votre promotion</h1>
+        <h1 class="header-panel">Publication des professeurs de votre promotion</h1>
     </div>
     <div class="row">
         <div class="col-md-7">
-            <cdk-virtual-scroll-viewport #scroller itemSize="2" class="example-viewport" class="example-viewport">
+            <cdk-virtual-scroll-viewport #scroller itemSize="2" class="viewport" class="viewport">
                 <mat-list *ngFor="let item of myPublications">
                     <div class="card-professor-publication">
                         <div class="row">
@@ -47,7 +47,7 @@
             </cdk-virtual-scroll-viewport>
         </div>
         <div class="col-md-5" *ngIf="formulaireToShow">
-            <h1>Création du devoir "{{titleSelected}}"</h1>
+            <h1 class="occupation-professor-publication">Rendre le devoir "{{titleSelected}}"</h1>
             <mat-card>
                 <form [formGroup]="addAssignmentForm" (ngSubmit)="onAddAssignment()">
                     <mat-form-field class="col-md-11 p-3">
@@ -79,7 +79,7 @@
         </div>
     </div>
     <div class="row" style="margin-top: 20px;">
-        <h1>Liste des devoirs de l'étudiant</h1>
+        <h1 class="occupation-professor-publication">Vos devoirs</h1>
     </div>
     <div class="row"  *ngFor="let assignment of myAssignments" [value]="assignment._id">
         <mat-card>

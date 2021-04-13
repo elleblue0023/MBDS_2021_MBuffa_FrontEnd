@@ -30,10 +30,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
+/** Interceptor */
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddHeaderInterceptor } from '../interceptor/add-header.interceptor';
 
 
@@ -41,6 +43,15 @@ import { AddHeaderInterceptor } from '../interceptor/add-header.interceptor';
 import { ErrorService } from './services/error.service';
 
 
+/** Pipes */
+import { ConvertmonthDatePipe } from './pipes/convert-monthDate.pipe';
+import { CheckLateDatePipe } from './pipes/check-late-date.pipe';
+
+/** Guard */
+import { AuthGuard } from './services/auth.guard';
+import { AddStudentComponent } from './student/add-student/add-student.component';
+
+/** Component */
 import { AuthComponent } from './auth/auth.component';
 import { AddProfessorComponent } from './professor/add-professor/add-professor.component';
 import { PublicationProfessorComponent } from './professor/dashboard/publication-professor/publication-professor.component';
@@ -48,18 +59,11 @@ import { AboutDashboardComponent } from './professor/dashboard/about-dashboard/a
 import { DashboardProfessorComponent } from './professor/dashboard/dashboard-professor/dashboard-professor.component';
 import { DialogPublicationProfessorComponent } from './professor/dashboard/publication-professor/dialog-publication-professor/dialog-publication-professor.component';
 import { DialogLogoutComponent } from './professor/dashboard/dialog-logout/dialog-logout.component';
-import { AuthGuard } from './services/auth.guard';
-import { ConvertmonthDatePipe } from './pipes/convert-monthDate.pipe';
-import { CheckLateDatePipe } from './pipes/check-late-date.pipe';
-import { AddStudentComponent } from './student/add-student/add-student.component';
 import { StudashboardComponent } from './student/studashboard/studashboard.component';
 import { StudialogLogoutComponent } from './student/studashboard/studialog-logout/studialog-logout.component';
 import { StuaboutComponent } from './student/studashboard/stuabout/stuabout.component';
 import { PublicationProfessorDetailComponent } from './professor/dashboard/publication-professor/publication-professor-detail/publication-professor-detail.component';
 import { StupubliandassignComponent } from './student/studashboard/stupubliandassign/stupubliandassign.component';
-
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { StudialogAssigndetailComponent } from './student/studashboard/stupubliandassign/studialog-assigndetail/studialog-assigndetail.component';
 import { DiversProfessorComponent } from './professor/dashboard/divers-professor/divers-professor.component';
 

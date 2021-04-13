@@ -11,11 +11,11 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
-    private confiService: ConfigurationService
+    private configService: ConfigurationService
   ) { }
 
-  private readonly uri = this.confiService.getApiUrl();
-
+  private readonly uri = this.configService.getApiUrl();
+  
   loginProfessor(paramsLogin: any) {
     const headersContent = new HttpHeaders({'Content-Type':'application/json; charset=utf-8'});
     return this.http.post<any>(`${this.uri}/professor/login`, paramsLogin, {headers: headersContent})

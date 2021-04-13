@@ -19,11 +19,11 @@ export class UtilsService {
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
-    private confiService: ConfigurationService,
     private router: Router,
+    private configService: ConfigurationService
   ) { }
 
-  private readonly uri = this.confiService.getApiUrl();
+  private readonly uri = this.configService.getApiUrl();
 
   getAllCourse() {
     return this.http.get<ICourse[]>(`${this.uri}/courses`)
