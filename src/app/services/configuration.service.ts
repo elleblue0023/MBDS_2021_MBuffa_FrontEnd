@@ -9,10 +9,6 @@ export class ConfigurationService {
   constructor() { }
 
   getApiUrl() {
-    if (environment.production) {
-      return environment.apiOnlineUrl;
-    } else {
-      return environment.apiOfflineUrl
-    }
+    return 'https://assignment-backend01.herokuapp.com/api'
   }
 }
