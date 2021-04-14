@@ -1,11 +1,24 @@
 <div class="body-container">
     <div class="row">
-        <div class="col-md-4">
-            <button mat-flat-button class="uni-btn-primary" type="submit"
-                            style="padding: 2%;">
-                            <mat-icon aria-label="add" svgIcon="paper"></mat-icon>
-                            Liste des élèves
-                        </button>
+        <div class="col-md-6">
+            <h1 class="header-panel">Liste des élèves en MBDS</h1>
+
+            <mat-list role="list" *ngFor="let mbdsItem of mbdsList; let i = index">
+                <mat-list-item role="listitem" class="listitem"> 
+                    <div class="row">
+                        <div class="col-md-8">
+                           <b>{{i+1}}</b>  - {{mbdsItem.lastname}} {{mbdsItem.surname}}  
+                        </div>
+                        <div class="col-md-4">
+                            ({{mbdsItem.email}})
+                        </div>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+
+        </div>
+        <div class="col-md-6">
+            <h1 class="header-panel">Liste des élèves en Licence</h1>
         </div>
     </div>
 </div>

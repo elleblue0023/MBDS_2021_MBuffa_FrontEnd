@@ -107,4 +107,11 @@ export class StudentService {
   getCurrentStudent() {
     return this.behaviourCurrentStudent;
   }
+
+  getStudientListByPromotion(promotionName: string) {
+    return this.http.get<IStudent[]>(`${this.uri}/students/promotion/list/${promotionName}`)
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      )
+  }
 }
