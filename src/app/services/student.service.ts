@@ -1,28 +1,30 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { IAssignment } from 'src/interfaces/assignment';
 import { IPublication } from 'src/interfaces/publication';
 import { IStudent } from 'src/interfaces/student';
 import { StudialogLogoutComponent } from '../student/studashboard/studialog-logout/studialog-logout.component';
+import { ConfigurationService } from './configuration.service';
 import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
-
-  private readonly uri = 'http://localhost:3001/api';
   private readonly headerContent = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   public behaviourCurrentStudent: BehaviorSubject<any>= new BehaviorSubject<any>([]);
 
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
-    private router: Router
+    private router: Router,
+    private configService: ConfigurationService
   ) { }
+
+  private readonly uri = this.configService.getApiUrl();
 
   openLogOutDialog(inputDialogData: any) {
     const dialogRef = inputDialogData._dialog.open(StudialogLogoutComponent, {
@@ -33,6 +35,11 @@ export class StudentService {
 
     dialogRef.afterClosed().subscribe(logOutDialogData => {
       console.log(logOutDialogData);
+      localStorage.removeItem('token');
+      localStorage.removeItem('currentstatus');
+      this.behaviourCurrentStudent.next(null);
+      console.log('deconnecté');
+      this.router.navigate(['']);
     });
   }
 
@@ -74,6 +81,13 @@ export class StudentService {
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
       )
+  }
+
+  getPromotionPublicationsPagine(promo:any,page:number,limit:number):Observable<any>{
+    return this.http.get<IPublication[]>(`${this.uri}/professor/publications/assignment/listpaged/${promo}?page=${page}&limit=${limit}`)
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      );
   }
 
   saveAssignmentForCurrStu(paramsAssignment: any) {

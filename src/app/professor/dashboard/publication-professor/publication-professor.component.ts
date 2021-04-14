@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,6 +12,9 @@ import { ViewEncapsulation } from '@angular/core';
 import { IPublication } from 'src/interfaces/publication';
 import { IAssignment } from 'src/interfaces/assignment';
 import { AssignementService } from 'src/app/services/assignement.service';
+import { ActivatedRoute } from '@angular/router';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { filter, map, pairwise, throttleTime } from 'rxjs/operators';
 
 
 @Component({
@@ -28,19 +31,32 @@ export class PublicationProfessorComponent implements OnInit {
   //myPublications: any;
   addPublicationForm: FormGroup;
 
+  page: number = 1;
+  totalPages?: number;
+  hasNextPage: boolean = false;
+  hasPrevPage: boolean = false;
+  nextPage?: number;
+  prevPage?: number;
+  pageSizeOptions: number[] = [5, 10, 25];
+  limit: number = 3;
+
   ACTION = "edit";
   COMPONENT = "publication-professor";
 
   markedAssignment: IAssignment[] = [];
   unMarkedAssignment: IAssignment[] = [];
 
+  @ViewChild("scroller")
+  scroller!: CdkVirtualScrollViewport;
 
   constructor(
+    private route: ActivatedRoute,
     private designUtilService: DesignUtilService,
     private professorService: ProfessorService,
     private assignmentService: AssignementService,
     private _snackBar: MatSnackBar,
     private utilsService: UtilsService,
+    private ngZone: NgZone,
     private _dialog: MatDialog
   ) {
     /**Initialisation de la form Group */
@@ -52,6 +68,7 @@ export class PublicationProfessorComponent implements OnInit {
     })
   }
 
+  /*
   listPublications() {
     this.professorService.getProfessorPublication().subscribe(
       (publications) => {
@@ -73,6 +90,36 @@ export class PublicationProfessorComponent implements OnInit {
         this.designUtilService.openSnackBar(snackBarData) 
       }
     )
+  }*/
+
+  listPublications() {
+    this.professorService.getProfessorPublicationPagine(this.page, this.limit).subscribe(
+      (data) => {
+        this.limit = data.limit;
+        this.page = data.page;
+        this.totalPages = data.totalPages;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPrevPage = data.hasPrevPage;
+        this.nextPage = data.nextPage;
+        this.prevPage = data.prevPage;
+        if (data.docs instanceof Array) {
+          data.docs.forEach(elt => {
+            elt.isOutofDate = this.utilsService.isValidDeadline(new Date(elt.deadline));
+          });
+          this.myPublications = data.docs;
+          this.professorService.publicationCount.next(this.myPublications.length);
+        }
+      },
+      (error: ErrorTracker) => {
+        let snackBarData = {
+          snackBar: this._snackBar,
+          message: error.userMessage,
+          action: "OK",
+          status: "warning"
+        }
+        this.designUtilService.openSnackBar(snackBarData) 
+      }
+    )
   }
 
   ngOnInit(): void {
@@ -80,10 +127,67 @@ export class PublicationProfessorComponent implements OnInit {
       (current) => {   
         this.currentProfessor = current;
         this.myOccupation = this.currentProfessor.occupation;
+        this.route.queryParams.subscribe(queryparams => {
+          this.page = queryparams.page || 1;
+          console.log(this.page);
+          this.limit = queryparams.limit || 3;
+          this.listPublications();
+        })
       }
     )
+  }
 
-    this.listPublications();
+  ngAfterViewInit() {
+    this.scroller
+      .elementScrolled()
+      .pipe(
+        map((event) => {
+          return this.scroller.measureScrollOffset("bottom");
+        }),
+        pairwise(),
+        filter(([y1, y2]) => y2 < y1 && y2 < 50),
+        throttleTime(1000)
+      )
+      .subscribe((dist) => {
+        this.ngZone.run(() => {
+          if (this.hasNextPage) {
+            console.log(this.page);
+            this.page = this.nextPage || 1;
+            console.log(this.page);
+            this.listPublicationsScroll();
+          }
+        });
+      });
+  }
+
+  listPublicationsScroll() {
+    this.professorService.getProfessorPublicationPagine(this.page, this.limit).subscribe(
+      (data) => {
+        this.limit = data.limit;
+        this.page = data.page;
+        this.totalPages = data.totalPages;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPrevPage = data.hasPrevPage;
+        this.nextPage = data.nextPage;
+        this.prevPage = data.prevPage;
+        if (data.docs instanceof Array) {
+          data.docs.forEach(elt => {
+            elt.isOutofDate = this.utilsService.isValidDeadline(new Date(elt.deadline));
+          });
+          this.myPublications = this.myPublications.concat(data.docs);
+          this.professorService.publicationCount.next(this.myPublications.length);
+        }
+      },
+      (error: ErrorTracker) => {
+        let snackBarData = {
+          snackBar: this._snackBar,
+          message: error.userMessage,
+          action: "OK",
+          status: "warning"
+        }
+        this.designUtilService.openSnackBar(snackBarData) 
+      }
+    )
   }
 
   onAddPublication() {
