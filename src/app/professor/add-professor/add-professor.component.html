@@ -3,7 +3,7 @@
 
         <h1 class="mat-display-1 text-center">Nouveau professeur</h1>
         
-        <form [formGroup]="addProfessorForm" (ngSubmit)="onAddProfessor()">
+        <form [formGroup]="addProfessorForm">
         
             <!-- Lastname --->
             <mat-form-field class="input-half-width">
@@ -142,6 +142,7 @@
                     <button 
                         type="submit"
                         mat-flat-button 
+                        (click) = "onAddProfessor()"
                         class="uni-btn-primary"
                     >
                         S'inscrire
