@@ -1,13 +1,13 @@
 <div class="body-container">
     <mat-progress-spinner mode="indeterminate" *ngIf="isWait"
-        style="position: fixed;left: 50%;margin-left: -50px;top: 50%;margin-top: -50px;">
+        style="position: fixed;left: 50%;margin-left: -50px;top: 50%;margin-top: -50px;z-index: 99;">
     </mat-progress-spinner>
     <div class="row">
         <h1 class="header-panel">Publication des professeurs de votre promotion</h1>
     </div>
     <div class="row">
         <div class="col-md-7">
-            <cdk-virtual-scroll-viewport #scroller itemSize="2" class="viewport" class="viewport">
+            <cdk-virtual-scroll-viewport #scroller itemSize="3" class="viewport" class="viewport">
                 <mat-list *ngFor="let item of myPublications">
                     <div class="card-professor-publication">
                         <div class="row">
@@ -103,6 +103,11 @@
                             <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
                             <a style="cursor: pointer" href={{assignment.depositUrl}}>{{assignment.depositUrl}}</a>
                         </h4>
+                        <div *ngIf="assignment.isMarked">
+                            <h2 style="color:forestgreen;">
+                              Noté
+                            </h2>
+                        </div>
                     </div>
                 </div>
             </mat-card-contents>

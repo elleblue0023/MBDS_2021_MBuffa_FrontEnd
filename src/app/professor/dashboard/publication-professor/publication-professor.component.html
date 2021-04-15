@@ -69,7 +69,7 @@
             </mat-card>
         </div>
 
-        <div class="col-md-7 publication-list">
+        <cdk-virtual-scroll-viewport #scroller itemSize="3" class="publication-list">
             <div class="col-md-12">
                 <div class="col-md-12 mb-3" *ngFor="let item of myPublications" [value]="item._id">
 
@@ -179,6 +179,6 @@
                 </ng-template>
                 </div>
             </div>
-        </div>
+        </cdk-virtual-scroll-viewport>
     </div>
 </div>

@@ -3,7 +3,7 @@ import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter, map, pairwise, throttleTime } from 'rxjs/operators';
 import { ErrorTracker } from 'src/app/models/error-tracker';
 import { DesignUtilService } from 'src/app/services/design-util.service';
@@ -30,6 +30,15 @@ export class StupubliandassignComponent implements OnInit {
   isWait: Boolean = false;
   reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
+  page: number = 1;
+  totalPages?: number;
+  hasNextPage: boolean = false;
+  hasPrevPage: boolean = false;
+  nextPage?: number;
+  prevPage?: number;
+  pageSizeOptions: number[] = [5, 10, 25];
+  limit: number = 3;
+
   ACTION = "detail";
   COMPONENT = "assign-detail";
 
@@ -37,6 +46,7 @@ export class StupubliandassignComponent implements OnInit {
   scroller!: CdkVirtualScrollViewport;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private designUtilService: DesignUtilService,
     private studentService: StudentService,
@@ -54,8 +64,12 @@ export class StupubliandassignComponent implements OnInit {
     this.studentService.getCurrentStudent().subscribe(
       (current) => {   
         this.currentStudent = current;
-        console.log(this.currentStudent);
-        this.listPromotionPublications(this.currentStudent.promotionName);
+        this.route.queryParams.subscribe(queryparams => {
+          this.page = queryparams.page || 1;
+          this.limit = queryparams.limit || 3;
+          console.log(this.currentStudent);
+          this.listPromotionPublications(this.currentStudent.promotionName);
+        })
       }
     )
     this.itemSelected = null;
@@ -70,17 +84,52 @@ export class StupubliandassignComponent implements OnInit {
           return this.scroller.measureScrollOffset("bottom");
         }),
         pairwise(),
-        filter(([y1, y2]) => y2 < y1 && y2 < 200),
-        throttleTime(200)
+        filter(([y1, y2]) => y2 < y1 && y2 < 50),
+        throttleTime(1000)
       )
       .subscribe((dist) => {
         this.ngZone.run(() => {
-            this.getPublicationForScrolling();
+          if (this.hasNextPage) {
+            this.page = this.nextPage || 1;
+          }else{
+            this.page=1;
+          }
+          this.getPublicationForScrolling();
         });
       });
   }
 
   listPromotionPublications(promo: String) {
+    this.isWait = true;
+    this.studentService.getPromotionPublicationsPagine(promo, this.page, this.limit).subscribe(
+      (data) => {
+        console.log(data);
+        this.limit = data.limit;
+        this.page = data.page;
+        this.totalPages = data.totalPages;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPrevPage = data.hasPrevPage;
+        this.nextPage = data.nextPage;
+        this.prevPage = data.prevPage;
+        if (data.docs instanceof Array) {
+          this.myPublications = data.docs;
+        }
+        this.listAssignments();
+      },
+      (error: ErrorTracker) => {
+        let snackBarData = {
+          snackBar: this._snackBar,
+          message: error.userMessage,
+          action: "OK",
+          status: "warning"
+        };
+        this.designUtilService.openSnackBar(snackBarData);
+        this.isWait = false;
+      }
+    )
+  }
+
+  /*listPromotionPublications(promo: String) {
     this.isWait = true;
     this.studentService.getPromotionPublications(promo).subscribe(
       (publications) => {
@@ -100,7 +149,7 @@ export class StupubliandassignComponent implements OnInit {
         this.isWait = false;
       }
     )
-  }
+  }*/
 
   listAssignments() {
     this.studentService.getStudentAssignment().subscribe(
@@ -185,18 +234,25 @@ export class StupubliandassignComponent implements OnInit {
   }
 
   getPublicationForScrolling() {
-    this.studentService.getPromotionPublications(this.currentStudent.promotionName)
-      .subscribe((publications) => {
-        if (publications instanceof Array) {
+    this.studentService.getPromotionPublicationsPagine(this.currentStudent.promotionName, this.page, this.limit)
+      .subscribe((data) => {
+        this.limit = data.limit;
+        this.page = data.page;
+        this.totalPages = data.totalPages;
+        this.hasNextPage = data.hasNextPage;
+        this.hasPrevPage = data.hasPrevPage;
+        this.nextPage = data.nextPage;
+        this.prevPage = data.prevPage;
+        if (data.docs instanceof Array) {
           if(this.myAssignments.length > 0){
             for(let assignment of this.myAssignments){
-              let publicationassign = publications.find(x => x._id === assignment.publication._id);
+              let publicationassign = data.docs.find(x => x._id === assignment.publication._id);
               if(publicationassign != null){
                 publicationassign.assignmentStudentCreated = true;
               }
             }
           }
-          this.myPublications = this.myPublications.concat(publications);
+          this.myPublications = this.myPublications.concat(data.docs);
         }
       },
       (error: ErrorTracker) => {

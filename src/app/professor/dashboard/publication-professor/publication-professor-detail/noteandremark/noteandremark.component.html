@@ -1,0 +1,37 @@
+<div>
+
+        <h2 mat-dialog-title>Noter le devoir</h2>
+  
+        <mat-dialog-content class="mat-typography">
+          <div class="row">
+  
+            <mat-form-field class="col-md-12 p-3">
+                <mat-label>Note</mat-label>
+                <input  
+                    matInput
+                    type="number" 
+                    name="note"
+                    [(ngModel)]="note"
+                >
+            </mat-form-field>
+  
+  
+            <mat-form-field class="col-md-12 p-3">
+              <mat-label>
+                <mat-icon aria-hidden="false">mode_comment</mat-icon>
+                Remarque
+              </mat-label>
+              <textarea class="input-full-width" matInput placeholder="..." cols="10" rows="5"
+              [(ngModel)]="remark"></textarea>
+            </mat-form-field>
+
+          </div>
+        </mat-dialog-content>
+
+        <mat-dialog-actions align="end">
+        <button mat-flat-button class="uni-btn-primary" (click)="onEditAssignmentProfessor()">
+            Noter
+        </button>
+        </mat-dialog-actions>
+
+</div>

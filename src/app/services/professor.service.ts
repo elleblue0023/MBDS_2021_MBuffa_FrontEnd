@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { IAssignment } from 'src/interfaces/assignment';
 import { IProfessor } from 'src/interfaces/professor';
@@ -22,6 +23,7 @@ export class ProfessorService {
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
+    private router: Router,
     private configService: ConfigurationService
   ) { }
 
@@ -36,6 +38,10 @@ export class ProfessorService {
 
     dialogRef.afterClosed().subscribe(logOutDialogData => {
       console.log(logOutDialogData);
+      localStorage.removeItem('token');
+      localStorage.removeItem('currentstatus');
+      this.behaviourCurrentProfessor.next(null);
+      this.router.navigate(['']);
     });
   }
 
@@ -64,6 +70,13 @@ export class ProfessorService {
       .pipe(
         catchError(err => this.errorService.handleHttpError(err))
       )
+  }
+
+  getProfessorPublicationPagine(page:number,limit:number):Observable<any>{
+    return this.http.get<IPublication[]>(`${this.uri}/professor/publications/professors/listpaged?page=${page}&limit=${limit}`)
+      .pipe(
+        catchError(err => this.errorService.handleHttpError(err))
+      );
   }
 
   currentProfessor() {

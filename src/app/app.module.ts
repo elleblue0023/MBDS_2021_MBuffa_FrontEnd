@@ -66,6 +66,7 @@ import { PublicationProfessorDetailComponent } from './professor/dashboard/publi
 import { StupubliandassignComponent } from './student/studashboard/stupubliandassign/stupubliandassign.component';
 import { StudialogAssigndetailComponent } from './student/studashboard/stupubliandassign/studialog-assigndetail/studialog-assigndetail.component';
 import { DiversProfessorComponent } from './professor/dashboard/divers-professor/divers-professor.component';
+import { NoteandremarkComponent } from './professor/dashboard/publication-professor/publication-professor-detail/noteandremark/noteandremark.component';
 
 
 
@@ -112,7 +113,8 @@ const routes:Routes = [
     PublicationProfessorDetailComponent,
     StupubliandassignComponent,
     StudialogAssigndetailComponent,
-    DiversProfessorComponent
+    DiversProfessorComponent,
+    NoteandremarkComponent
   ],
   imports: [
     BrowserModule,
