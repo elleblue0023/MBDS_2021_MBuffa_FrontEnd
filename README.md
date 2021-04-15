@@ -20,7 +20,7 @@
 
 ## Installation
 
-Assignment App a besoin de [Node.js](https://nodejs.org/) v10+ to run.
+Assignment App a besoin de [Node.js](https://nodejs.org/) v10+.
 Assignment App a été conçu par [Angular](https://angular.io/guide/setup-local/) v11.
 
 Installation des dépendances et faire marcher le serveur
@@ -91,8 +91,17 @@ Pour les SCSS et Design, quelques portions ont été copiées d'un free template
 En cas de bugs, [Stackoverflow](https://stackoverflow.com/)  était notre meilleure option. 
 Le long du projet, on a utilisés 
 - Interface
+- Pipe 
+  • [Angular Tutorial: Working with Angular Pipes](https://www.intertech.com/angular-tutorial-working-with-angular-pipes/) 
+  • [Creating Custom Pipes in Angular](https://nishugoel.medium.com/creating-custom-pipes-in-angular-2b082a5dc74b)
 - Service
 - Class
+- Interceptor
+  • [HttpInterceptor](https://angular.io/api/common/http/HttpInterceptor)
+  • Vidéo tutoriel dans pluralsight
+- Guard
+   • [CanActivate](https://angular.io/api/router/CanActivate)
+_Le lont du projet, quelques explications de nos collègues, quelques experts dans le domaine nous ont fortement aidés._ 
 
 ## Accès
 L'application est disponible en ligne également. Elle est déployée sur [Heroku - Assignment App](https://assignment-frontend01.herokuapp.com/)
