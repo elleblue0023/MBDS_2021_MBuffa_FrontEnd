@@ -1,27 +1,99 @@
-# AssignmentApp
+# Assignment App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
+## Fonctionnalités pris en charge
+> PROFESSEUR
+- S'inscrire / Se connecter / Se déconnecter
+- Consulter ses informations (une page à propos dans laquelle le professeur veut visualiser les informations lui concernant)
+- Créer / modifier une publication sur les projets 
+- Consulter la liste des publications sur les projets **(Implémentation de Infinite scroll d'Angular)**
+- Consulter les étudiants qui ont déjà fini son devoir **(Implémentation de Drag and Drop)**
+- Noter et commenter les devoirs des étudiants 
+- Consulter la liste des étudiants dans les 2 promotions (MBDS et Licence)
 
-## Development server
+> ETUDIANT
+- S'inscrire / Se connecter / Se déconnecter
+- Consulter ses informations (une page à propos dans laquelle l'étudiant veut visualiser les informations lui concernant)
+- Consulter la liste des projets mis en lignes par les professeurs (qui les correspond)(de leur classe)
+- Visualiser le détail de son devoir qui a été rendu (les remarques, les notes, les urls des projets)
+- Consulter la liste des devoirs déjà rendu 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Assignment App a besoin de [Node.js](https://nodejs.org/) v10+ to run.
+Assignment App a été conçu par [Angular](https://angular.io/guide/setup-local/) v11.
 
-## Build
+Installation des dépendances et faire marcher le serveur
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```sh
+cd assignment-app
+npm i
+ng serve -o
+```
 
-## Running unit tests
+## Modules d'Angular utilisés
+- Reactive Forms Module, 
+- FormsModule,
+- MatFormFieldModule, 
+- MatInputModule,
+- MatCardModule,
+- MatButtonModule,
+- MatIconModule,
+- MatCheckboxModule,
+- MatRadioModule,
+- MatSnackBarModule,
+- MatSelectModule,
+- MatDividerModule,
+- MatListModule,
+- MatButtonToggleModule,
+- MatTabsModule,
+- MatDatepickerModule,
+- MatNativeDateModule,
+- MatBadgeModule,
+- MatExpansionModule,
+- MatToolbarModule,
+- MatDialogModule,
+- MatTooltipModule,
+- MatProgressSpinnerModule,
+- BrowserAnimationsModule,
+- HttpClientModule,
+- ScrollingModule,
+- DragDropModule,
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Autres outils d'Angular utilisés
+- Pipes (pour gérer les dates, affichage des dates)
+- Guard (pour gérer les autorisations après les authentifications)
+- Interceptor (pour gérer les résultats venant de l'API, y mettre les token)
 
-## Running end-to-end tests
+## La liste de quelques professeurs pour le test
+1) kruben0@freewebs.com / 12345678
+2) jmoens1@linkedin.com /  12345678
+3) sstrut2@tmall.com /  12345678
+4) gjarrel3@qq.com /  12345678
+5) clodewick4@angelfire.com /  12345678
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## La liste de quelques étudiants pour le test 
+1) ctingly0@toplist.cz / 12345678
+2) npottle1@senate.gov / 12345678
+3) tclout2@freewebs.com / 12345678
+4) mpaulin3@163.com / 12345678
+5) jharbach4@1688.com / 12345678
+6) skull5@wisc.edu / 12345678
+7) mrosencrantz6@addthis.com / 12345678
+8) sfandrey7@fotki.com / 12345678
+9) mtokell8@jugem.jp / 12345678
+10) hzanotti9@salon.com / 12345678
 
-## Further help
+## Informations
+La pluparts de nos codes sont tirés du site web officiels d'angular pour les fonctionnements des modules
+Pour les SCSS et Design, quelques portions ont été copiées d'un free template d'un hôpital "Medicare" (Medicare Plus Medical Health HTML Template) et les autres de nos propres immaginations. 
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+En cas de bugs, [Stackoverflow](https://stackoverflow.com/)  était notre meilleure option. 
+Le long du projet, on a utilisés 
+- Interface
+- Service
+- Class
+
+## Accès
+L'application est disponible en ligne également. Elle est déployée sur [Heroku - Assignment App](https://assignment-frontend01.herokuapp.com/)
+
