@@ -103,6 +103,11 @@
                             <mat-icon aria-label="add" svgIcon="github"></mat-icon> &nbsp;
                             <a style="cursor: pointer" href={{assignment.depositUrl}}>{{assignment.depositUrl}}</a>
                         </h4>
+                        <div *ngIf="assignment.isMarked">
+                            <h2 style="color:forestgreen;">
+                              Noté
+                            </h2>
+                        </div>
                     </div>
                 </div>
             </mat-card-contents>

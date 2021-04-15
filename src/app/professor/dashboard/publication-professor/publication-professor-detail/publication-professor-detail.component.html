@@ -21,7 +21,7 @@
                 cdkDropList
                 [cdkDropListData]="unMarkedAssignmentList"
                 class="list"
-                (cdkDropListDropped)="drop($event)">
+                >
                 <div class="box" *ngFor="let item of unMarkedAssignmentList" cdkDrag>
                     <mat-card>
                         <mat-card-header>
@@ -42,31 +42,9 @@
                                 </div>
                             </div>
                         </mat-card-content>
-                        <mat-card-actions class="text-center">
-                            <button mat-stroked-button color="accent" (click)="onEditCurrentAssignment(item)"><mat-icon svgIcon="edit"></mat-icon></button>
-                        </mat-card-actions>
+
                     </mat-card>
                 </div>
-            </div>
-        </div>
-    
-    
-        <div class="col-md-4 modification" *ngIf="currentAssignment">
-            <h2 class="text-center"><mat-icon svgIcon="note"></mat-icon>&nbsp; {{currentAssignment.student.lastname}} {{currentAssignment.student.surname}}</h2>
-            <div class="box">
-                <form ngForm #editFormAssignment class="form" (submit)="onEdit(currentAssignment._id)">
-                    <mat-form-field class="input-full-width">
-                      <input matInput placeholder="Remarque" required [(ngModel)]="currentRemarkAssignment" name="remark" value={{currentAssignment?.remark}}>
-                    </mat-form-field>
-    
-                    <mat-form-field class="input-full-width">
-                        <input matInput placeholder="Note" max="20" min="0" required [(ngModel)]="currentNoteAssignment" name="note" value={{currentAssignment.note}}>
-                    </mat-form-field>
-    
-                    <button mat-stroked-button color="primary">
-                        <mat-icon svgIcon="marked"></mat-icon>&nbsp; Valider modification
-                    </button>
-                  </form>
             </div>
         </div>
     
@@ -77,8 +55,8 @@
                 cdkDropList
                 [cdkDropListData]="markedAssignmentList"
                 class="list"
-                (cdkDropListDropped)="drop($event)">
-                <div class="box" *ngFor="let item of markedAssignmentList" cdkDrag>
+                (cdkDropListDropped)="toMark($event)">
+                <div class="box" *ngFor="let item of markedAssignmentList" [cdkDragDisabled]="true" cdkDrag>
                     <mat-card>
                         <mat-card-header>
                             <mat-card-title> {{item.student.lastname}} {{item.student.surname}}</mat-card-title>

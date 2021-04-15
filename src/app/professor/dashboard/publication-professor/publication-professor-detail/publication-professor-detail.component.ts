@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorTracker } from 'src/app/models/error-tracker';
 import { ProfessorService } from 'src/app/services/professor.service';
 import { Assignment } from 'src/app/models/assignment';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { NoteandremarkComponent } from './noteandremark/noteandremark.component';
 
 @Component({
   selector: 'app-publication-professor-detail',
@@ -37,6 +39,7 @@ export class PublicationProfessorDetailComponent implements OnInit {
     private utilsService: UtilsService,
     private professorService: ProfessorService,
     private assignmentService: AssignementService,
+    public dialog: MatDialog,
     private activatedRoute: ActivatedRoute
   ) { }
 
@@ -79,7 +82,7 @@ export class PublicationProfessorDetailComponent implements OnInit {
     this.publicationAssignmentList(this.publicationId);
   }
 
-  drop(event: CdkDragDrop<IAssignment[]>) {
+  /*drop(event: CdkDragDrop<IAssignment[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -91,9 +94,53 @@ export class PublicationProfessorDetailComponent implements OnInit {
                         event.previousIndex,
                         event.currentIndex);
     }
+  }*/
+
+  toMark(event: CdkDragDrop<string[]>) {
+    console.log(" TORENDU");
+
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log(" pass");
+    } else {
+      const id = event.previousContainer.data[event.previousIndex]['_id'];
+      let assignment: Assignment = {
+        id: id,
+      };
+      console.log(assignment);
+      //this.assignmentsService.updateAssignment(assignment);
+      this.markAssignment(assignment);
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
   }
 
-  markAssignement(event) {
+  markAssignment(assignment: Assignment) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.data = {};
+    const dialogRef = this.dialog.open(NoteandremarkComponent, dialogConfig);
+    console.log("ici");
+    dialogRef.afterClosed().subscribe(
+      data => {
+        console.log("Dialog output:", data);
+        if (data != null) {
+          assignment.note = data.note;
+          assignment.remark = data.remark;
+          assignment.isMarked = true;
+          this.assignmentService.updateAssignement(assignment)
+            .subscribe(m => {
+              console.log(m);
+              this.utilsService.redirectTo(`/professor/mark-assignment/${this.publicationId}`);
+            })
+        }
+      }
+    );
+  }
+
+  /*markAssignement(event) {
     let assignment = event.previousContainer.data[event.previousIndex];
 
     let newAssignment: Assignment = {
@@ -116,7 +163,7 @@ export class PublicationProfessorDetailComponent implements OnInit {
       }
     )
     
-  } 
+  } */
 
   onEditCurrentAssignment(assignment) {
     this.currentAssignment = assignment;
