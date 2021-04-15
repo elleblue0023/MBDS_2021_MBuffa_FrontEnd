@@ -1,29 +1,28 @@
 # Assignment App
 
-## Fonctionnalités pris en charge
+## Fonctionnalités prises en charge
 > PROFESSEUR
 - S'inscrire / Se connecter / Se déconnecter
-- Consulter ses informations (une page à propos dans laquelle le professeur veut visualiser les informations lui concernant)
+- Consulter ses informations (une page à propos dans laquelle le professeur peut visualiser et modifier ses infos personnelles)
 - Créer / modifier une publication sur les projets 
-- Consulter la liste des publications sur les projets **(Implémentation de Infinite scroll d'Angular)**
-- Consulter les étudiants qui ont déjà fini son devoir **(Implémentation de Drag and Drop)**
+- Consulter la liste des publications sur les projets **(Implémentation de scroll paginate d'Angular)**
+- Consulter les étudiants qui ont déjà fini leurs devoirs **(Implémentation de Drag and Drop)**
 - Noter et commenter les devoirs des étudiants 
 - Consulter la liste des étudiants dans les 2 promotions (MBDS et Licence)
 
 > ETUDIANT
 - S'inscrire / Se connecter / Se déconnecter
-- Consulter ses informations (une page à propos dans laquelle l'étudiant veut visualiser les informations lui concernant)
-- Consulter la liste des projets mis en lignes par les professeurs (qui les correspond)(de leur classe)
-- Visualiser le détail de son devoir qui a été rendu (les remarques, les notes, les urls des projets)
-- Consulter la liste des devoirs déjà rendu 
-
+- Consulter ses informations (une page à propos dans laquelle l'étudiant peut visualiser et modifier ses infos personnelles)
+- Consulter la liste des publications mises en ligne par les professeurs de sa promotion **(Implémentation de Infinite Scroll d'Angular)**
+- Consulter la liste des devoirs déjà rendus 
+- Visualisation du détail d'un devoir qui a été rendu (les remarques, les notes, les urls des projets)
 
 ## Installation
 
 Assignment App a besoin de [Node.js](https://nodejs.org/) v10+.
-Assignment App a été conçu par [Angular](https://angular.io/guide/setup-local/) v11.
+Assignment App a été conçu avec [Angular](https://angular.io/guide/setup-local/) v11.
 
-Installation des dépendances et faire marcher le serveur
+Installation des dépendances et lancer le serveur
 
 ```sh
 cd assignment-app
@@ -63,7 +62,7 @@ ng serve -o
 ## Autres outils d'Angular utilisés
 - Pipes (pour gérer les dates, affichage des dates)
 - Guard (pour gérer les autorisations après les authentifications)
-- Interceptor (pour gérer les résultats venant de l'API, y mettre les token)
+- Interceptor (pour gérer les résultats venant de l'API, y mettre les tokens)
 
 ## La liste de quelques professeurs pour le test
 1) kruben0@freewebs.com / 12345678
@@ -86,10 +85,10 @@ ng serve -o
 
 ## Informations
 La pluparts de nos codes sont tirés du site web officiels d'angular pour les fonctionnements des modules
-Pour les SCSS et Design, quelques portions ont été copiées d'un free template d'un hôpital "Medicare" (Medicare Plus Medical Health HTML Template) et les autres de nos propres immaginations. 
+Pour les SCSS et Design, une partie a été copiée d'un free template d'un hôpital "Medicare" (Medicare Plus Medical Health HTML Template) et l'autre a été réalisée de nos propres mains. 
 
 En cas de bugs, [Stackoverflow](https://stackoverflow.com/)  était notre meilleure option. 
-Le long du projet, on a utilisés 
+Le long du projet, on a utilisé
 1) Interface
 2) Pipe 
   • [Angular Tutorial: Working with Angular Pipes](https://www.intertech.com/angular-tutorial-working-with-angular-pipes/) 
