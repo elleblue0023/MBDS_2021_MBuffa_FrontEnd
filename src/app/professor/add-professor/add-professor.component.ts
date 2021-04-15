@@ -100,7 +100,6 @@ export class AddProfessorComponent implements OnInit {
         promotion: promotionValue
       }
       this.occupationList.push(newOccupation);
-      console.log(this.occupationList);
     }
   }
 
@@ -147,6 +146,4 @@ export class AddProfessorComponent implements OnInit {
       this.designUtilService.openSnackBarFillForms(this._snackBar);
     }
   }
-
-  
 }

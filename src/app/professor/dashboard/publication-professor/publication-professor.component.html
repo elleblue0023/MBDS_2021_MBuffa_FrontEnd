@@ -103,18 +103,17 @@
                                     
                                     <button 
                                         mat-icon-button 
+                                        class="p-4"
                                         aria-label="Example icon button with a home icon"
                                         #tooltip="matTooltip"
                                         matTooltip="Editer la publication de {{item.deadline | date: 'dd'}} {{ item.deadline | date: 'MM' | convertmonthDate}} {{item.deadline | date: 'yyyy'}}"
                                         matTooltipPosition="below"
                                     >
 
-                                    <a routerLink="/professor/mark-assignment/{{item._id}}">
-                                        <mat-icon 
-                                            class="m-4" 
-                                            svgIcon="edit"
-                                        ></mat-icon>
-                                    </a>
+
+                                    <button mat-icon-button (click) = "openDialogEditPublication(item._id)">
+                                        <mat-icon svgIcon="edit"></mat-icon>
+                                      </button>
 
                                     </button>
                                 </div>
@@ -152,7 +151,6 @@
                                         target="_blank">
                                         <mat-icon 
                                             class="m-3" 
-                                            matBadge="15" 
                                             svgIcon="assignments" 
                                         >
                                         </mat-icon>

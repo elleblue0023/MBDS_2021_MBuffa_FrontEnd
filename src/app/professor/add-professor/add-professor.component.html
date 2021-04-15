@@ -3,8 +3,65 @@
 
         <h1 class="mat-display-1 text-center">Nouveau professeur</h1>
         
-        <form [formGroup]="addProfessorForm">
+        <form [formGroup]="addProfessorForm" (ngSubmit)="onAddProfessor()">
         
+
+            <div class="flex-container">
+                <!-- Occupation --->
+                <mat-form-field class="input-half">
+                    <mat-label>
+                        <mat-icon aria-hidden="false">cases</mat-icon>
+                        Cours
+                    </mat-label>
+                    <mat-select formControlName="course"  name="cours">
+                    <mat-option *ngFor="let item of coursesList" [value]="item.name">
+                        {{item.name}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="input-half">
+                    <mat-label>
+                        <mat-icon aria-hidden="false">class</mat-icon>
+                        Promotions
+                    </mat-label>
+                    <mat-select formControlName="promotion"  name="promotion">
+                    <mat-option *ngFor="let item of promotionsList" [value]="item.name">
+                        {{item.name}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <button 
+                    mat-fab 
+                    aria-label="add icon"
+                    (click)="onAddOccupation()"
+                >
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 m-3" *ngFor="let occupation of occupationList; let i = index">
+                    <mat-card class="list-occupation">
+                        <mat-card-content>
+                            Cours : {{occupation.course}} <br>
+                            Promotion : <b>{{occupation.promotion}}</b>
+                        </mat-card-content>
+                        <mat-card-actions class="text-center">
+                            <button 
+                                mat-mini-fab 
+                                color="primary" 
+                                aria-label="delete icon"
+                                (click) = "onDeleteOccupation(i)"
+                            >
+                                <mat-icon>delete</mat-icon>
+                                </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+
+            
             <!-- Lastname --->
             <mat-form-field class="input-half-width">
                 <mat-label> 
@@ -73,61 +130,6 @@
                     </mat-error>
             </mat-form-field>
 
-            <div class="flex-container">
-                <!-- Occupation --->
-                <mat-form-field class="input-half">
-                    <mat-label>
-                        <mat-icon aria-hidden="false">cases</mat-icon>
-                        Cours
-                    </mat-label>
-                    <mat-select formControlName="course"  name="cours">
-                    <mat-option *ngFor="let item of coursesList" [value]="item.name">
-                        {{item.name}}
-                    </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="input-half">
-                    <mat-label>
-                        <mat-icon aria-hidden="false">class</mat-icon>
-                        Promotions
-                    </mat-label>
-                    <mat-select formControlName="promotion"  name="promotion">
-                    <mat-option *ngFor="let item of promotionsList" [value]="item.name">
-                        {{item.name}}
-                    </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-                <button 
-                    mat-fab 
-                    aria-label="add icon"
-                    (click)="onAddOccupation()"
-                >
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3 m-3" *ngFor="let occupation of occupationList; let i = index">
-                    <mat-card class="list-occupation">
-                        <mat-card-content>
-                            Cours : {{occupation.course}} <br>
-                            Promotion : <b>{{occupation.promotion}}</b>
-                        </mat-card-content>
-                        <mat-card-actions class="text-center">
-                            <button 
-                                mat-mini-fab 
-                                color="primary" 
-                                aria-label="delete icon"
-                                (click) = "onDeleteOccupation(i)"
-                            >
-                                <mat-icon>delete</mat-icon>
-                                </button>
-                        </mat-card-actions>
-                    </mat-card>
-                </div>
-            </div>
-
             <div class="row m-4">
                 <div class="col-md-6">
                 </div>
@@ -142,7 +144,6 @@
                     <button 
                         type="submit"
                         mat-flat-button 
-                        (click) = "onAddProfessor()"
                         class="uni-btn-primary"
                     >
                         S'inscrire
