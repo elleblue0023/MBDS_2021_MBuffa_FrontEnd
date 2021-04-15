@@ -102,7 +102,7 @@ Le long du projet, on a utilisé
    • [CanActivate](https://angular.io/api/router/CanActivate)
 
 
-_Le long du projet, quelques explications de nos collègues, quelques experts dans le domaine nous ont fortement aidés._ 
+_Le long du projet, quelques explications de nos collègues nous ont fortement aidé._ 
 
 ## Accès
 L'application est disponible en ligne également. Elle est déployée sur [Heroku - Assignment App](https://assignment-frontend01.herokuapp.com/)
